@@ -35,6 +35,12 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!supabase) {
+            setError("Supabase is not initialized. Please ensure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set in your .env file and restart the dev server.");
+            return;
+        }
+
         setLoading(true);
         setError(null);
 
@@ -56,6 +62,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     };
 
     const handleGoogleLogin = async () => {
+        if (!supabase) {
+            setError("Supabase is not initialized. Please check your .env configuration.");
+            return;
+        }
+
         await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
