@@ -174,7 +174,11 @@ function App() {
 
             ) : isAnyProcessing && !activeTask?.processedUrl ? (
               <motion.div key="processing" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.05 }}>
-                <ProcessingView progress={tasks.reduce((acc, t) => acc + t.progress, 0) / (tasks.length || 1)} />
+                <ProcessingView
+                  progress={tasks.reduce((acc, t) => acc + t.progress, 0) / (tasks.length || 1)}
+                  current={tasks.filter(t => t.status === 'completed').length + 1}
+                  total={tasks.length}
+                />
               </motion.div>
             ) : activeTask && activeTask.processedUrl ? (
               <motion.div key="result" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>

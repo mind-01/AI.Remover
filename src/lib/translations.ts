@@ -73,7 +73,11 @@ export const translations: Record<string, any> = {
             privacy: 'Privacy Policy',
             terms: 'Terms of Service',
             help: 'Help Center',
-            reviews: '4.4/5 BASED ON 150 REVIEWS'
+            reviews: '4.4/5 BASED ON 150 REVIEWS',
+            downloadAll: 'Download All',
+            clearAll: 'Clear All',
+            addingMore: 'Adding...',
+            items: 'items'
         },
         editor: {
             downloadMenuTitle: 'Select Download Quality',
@@ -224,7 +228,11 @@ export const translations: Record<string, any> = {
             privacy: 'गोपनीयता नीति',
             terms: 'सेवा की शर्तें',
             help: 'सहायता केंद्र',
-            reviews: '150 समीक्षाओं पर आधारित 4.4/5'
+            reviews: '150 समीक्षाओं पर आधारित 4.4/5',
+            downloadAll: 'सभी डाउनलोड करें',
+            clearAll: 'सभी साफ़ करें',
+            addingMore: 'जोड़ा जा रहा है...',
+            items: 'आइटम'
         },
         editor: {
             downloadMenuTitle: 'डाउनलोड गुणवत्ता चुनें',
