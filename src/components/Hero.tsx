@@ -52,7 +52,7 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
                         className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-xs font-black uppercase tracking-widest border border-blue-100 shadow-sm"
                     >
                         <Sparkles className="w-3.5 h-3.5" />
-                        Leading AI Background Remover
+                        {t.leadingAi}
                     </motion.div>
 
                     <div className="space-y-6">
@@ -104,7 +104,7 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
 
                             <div className="flex flex-col items-center gap-2 text-[10px] font-bold text-slate-400 mt-4 uppercase tracking-wider">
                                 <span className="flex items-center gap-1.5 bg-slate-50 px-3 py-1 rounded-lg border border-slate-100">
-                                    <ImageIcon className="w-3 h-3 text-slate-400" /> JPG, PNG, WEBP (Max 15MB)
+                                    <ImageIcon className="w-3 h-3 text-slate-400" /> {t.formats}
                                 </span>
                             </div>
                         </div>

@@ -45,7 +45,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
     originalUrl, processedUrl, onReset, taskList, activeTaskId, onSelectTask
 }) => {
     const { language } = useLanguage();
-    const t = translations[language]?.common || translations.en.common;
+    const t = translations[language] || translations.en;
 
     const [activeTab, setActiveTab] = useState<EditorTab>('cutout');
     const [bgSubTab, setBgSubTab] = useState<'photo' | 'color'>('photo');
@@ -603,18 +603,18 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
     };
 
     const toolbarItems = [
-        { id: 'cutout', label: t.cutout, icon: <Eraser className="w-4 h-4" /> },
-        { id: 'background', label: t.background, icon: <ImageIcon className="w-4 h-4" /> },
-        { id: 'effects', label: t.effects, icon: <Sparkles className="w-4 h-4" /> },
-        { id: 'adjust', label: t.adjust, icon: <Sliders className="w-4 h-4" /> },
-        { id: 'resize', label: t.resize, icon: <Maximize className="w-4 h-4" /> },
+        { id: 'cutout', label: t.common.cutout, icon: <Eraser className="w-4 h-4" /> },
+        { id: 'background', label: t.common.background, icon: <ImageIcon className="w-4 h-4" /> },
+        { id: 'effects', label: t.common.effects, icon: <Sparkles className="w-4 h-4" /> },
+        { id: 'adjust', label: t.common.adjust, icon: <Sliders className="w-4 h-4" /> },
+        { id: 'resize', label: t.common.resize, icon: <Maximize className="w-4 h-4" /> },
     ];
 
     const socialRatios = [
-        { label: 'Original', value: 'aspect-[4/3]' },
-        { label: 'Square (1:1)', value: 'aspect-square' },
-        { label: 'Story (9:16)', value: 'aspect-[9/16]' },
-        { label: 'YouTube (16:9)', value: 'aspect-video' },
+        { label: t.editor.original, value: 'aspect-[4/3]' },
+        { label: t.editor.square, value: 'aspect-square' },
+        { label: t.editor.story, value: 'aspect-[9/16]' },
+        { label: t.editor.video, value: 'aspect-video' },
     ];
 
     const photoPresets = [
@@ -743,10 +743,10 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                 {isDownloadMenuOpen && (
                                     <div className="absolute top-full right-0 mt-4 bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-200 overflow-hidden z-[100] min-w-[240px] animate-in fade-in slide-in-from-top-4 duration-300">
                                         <div className="p-4 border-b border-slate-100 bg-slate-50/80 backdrop-blur-sm">
-                                            <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Select Download Quality</p>
+                                            <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{t.editor.downloadMenuTitle}</p>
                                         </div>
                                         <div className="p-2 bg-white">
-                                            {[{ id: 'high', label: 'High Definition', sub: 'Best for printing', scale: 1 }, { id: 'medium', label: 'Regular Quality', sub: 'Standard web use', scale: 0.7 }, { id: 'low', scale: 0.4, label: 'Small File', sub: 'Social sharing' }].map((opt) => (
+                                            {[{ id: 'high', label: t.editor.qualityHigh, sub: t.editor.qualityHighSub, scale: 1 }, { id: 'medium', label: t.editor.qualityMedium, sub: t.editor.qualityMediumSub, scale: 0.7 }, { id: 'low', scale: 0.4, label: t.editor.qualityLow, sub: t.editor.qualityLowSub }].map((opt) => (
                                                 <button
                                                     key={opt.id}
                                                     onClick={() => {
@@ -884,7 +884,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                         <input type="range" min="0" max="100" value={sliderValue} onChange={(e) => setSliderValue(parseInt(e.target.value))} className="absolute inset-x-[-20px] top-0 bottom-0 opacity-0 cursor-col-resize z-50 pointer-events-auto" />
                                     </div>
                                     <div className="absolute inset-x-0 bottom-4 text-center lg:hidden">
-                                        <p className="text-[9px] text-slate-500/40 leading-tight">Canva integration available in Background tab</p>
+                                        <p className="text-[9px] text-slate-500/40 leading-tight">{t.editor.canvaNote}</p>
                                     </div>
                                 </>
                             )}
@@ -920,11 +920,11 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                 {activeTab === 'adjust' && (
                                     <div className="flex flex-col justify-center gap-4 px-6 w-full h-full">
                                         <div className="flex items-center gap-4">
-                                            <span className="w-16 text-[10px] font-black text-slate-400 uppercase tracking-tighter">Bright</span>
+                                            <span className="w-16 text-[10px] font-black text-slate-400 uppercase tracking-tighter">{t.editor.brightness}</span>
                                             <input type="range" value={brightness} min="50" max="150" onChange={(e) => setBrightness(parseInt(e.target.value))} className="flex-grow h-2 accent-blue-600" />
                                         </div>
                                         <div className="flex items-center gap-4">
-                                            <span className="w-16 text-[10px] font-black text-slate-400 uppercase tracking-tighter">Contrast</span>
+                                            <span className="w-16 text-[10px] font-black text-slate-400 uppercase tracking-tighter">{t.editor.contrast}</span>
                                             <input type="range" value={contrast} min="50" max="150" onChange={(e) => setContrast(parseInt(e.target.value))} className="flex-grow h-2 accent-blue-600" />
                                         </div>
                                     </div>
@@ -935,7 +935,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                             <div className="flex-grow flex gap-1 p-0.5 bg-slate-100 rounded-lg">
                                                 {['photo', 'color'].map((tab) => (
                                                     <button key={tab} onClick={() => setBgSubTab(tab as any)} className={cn("flex-grow py-1.5 rounded-md text-[10px] font-black uppercase transition-all", bgSubTab === tab ? "bg-white text-slate-900 shadow-sm" : "text-slate-400")}>
-                                                        {tab}
+                                                        {tab === 'photo' ? t.editor.photoTab : t.editor.colorTab}
                                                     </button>
                                                 ))}
                                             </div>
@@ -951,7 +951,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                             {bgSubTab === 'photo' ? (
                                                 <div className="grid grid-cols-4 gap-2 pb-1">
                                                     <button onClick={() => setBgImage(null)} className={cn("aspect-square rounded-lg border-2 flex items-center justify-center bg-slate-50", !bgImage ? "border-blue-600 shadow-sm" : "border-slate-100")}>
-                                                        <div className="text-[8px] font-black text-slate-400 uppercase">None</div>
+                                                        <div className="text-[8px] font-black text-slate-400 uppercase">{t.editor.noneOption}</div>
                                                     </button>
                                                     {photoPresets.map((url, i) => (
                                                         <button key={i} onClick={() => setBgImage(url)} className={cn("aspect-square rounded-lg border-2 overflow-hidden transition-all", bgImage === url ? "border-blue-600 shadow-md scale-95" : "border-slate-100")}>
@@ -997,7 +997,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                         </div>
                                         <div className="flex justify-center">
                                             <button onClick={() => setIsReflectionEnabled(!isReflectionEnabled)} className={cn("px-6 py-2 rounded-xl border-2 text-[10px] font-black uppercase tracking-widest transition-all", isReflectionEnabled ? "bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-200" : "bg-slate-50 border-slate-100 text-slate-400")}>
-                                                Reflection Effect
+                                                {t.editor.reflectionLabel}
                                             </button>
                                         </div>
                                     </div>
@@ -1009,22 +1009,22 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                     {/* Main Navigation Tabs */}
                     <div className="flex justify-around items-center h-20 bg-white">
                         <button onClick={() => setActiveTab('background')} className={cn("flex flex-col items-center gap-1.5 transition-all active:scale-95", activeTab === 'background' ? "text-blue-600" : "text-slate-400")}>
-                            <ImageIcon className="w-6 h-6" /><span className="text-[10px] font-bold">Background</span>
+                            <ImageIcon className="w-6 h-6" /><span className="text-[10px] font-bold">{t.common.background}</span>
                         </button>
                         <button onClick={() => setActiveTab('cutout')} className={cn("flex flex-col items-center gap-1.5 transition-all active:scale-95", activeTab === 'cutout' ? "text-blue-600" : "text-slate-400")}>
-                            <Scissors className="w-6 h-6" /><span className="text-[10px] font-bold">Cutout</span>
+                            <Scissors className="w-6 h-6" /><span className="text-[10px] font-bold">{t.common.cutout}</span>
                         </button>
                         <button onClick={() => handleDownload()} className="flex flex-col items-center gap-1.5 -translate-y-2">
                             <div className="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center text-white shadow-xl shadow-blue-200 active:scale-90 transition-all">
                                 <Download className="w-6 h-6" />
                             </div>
-                            <span className="text-[10px] font-bold text-blue-600">Download</span>
+                            <span className="text-[10px] font-bold text-blue-600">{t.common.download}</span>
                         </button>
                         <button onClick={() => setActiveTab('adjust')} className={cn("flex flex-col items-center gap-1.5 transition-all active:scale-95", activeTab === 'adjust' ? "text-blue-600" : "text-slate-400")}>
-                            <Sliders className="w-6 h-6" /><span className="text-[10px] font-bold">Adjust</span>
+                            <Sliders className="w-6 h-6" /><span className="text-[10px] font-bold">{t.common.adjust}</span>
                         </button>
                         <button onClick={() => setActiveTab('effects')} className={cn("flex flex-col items-center gap-1.5 transition-all active:scale-95", activeTab === 'effects' ? "text-blue-600" : "text-slate-400")}>
-                            <Wand2 className="w-6 h-6" /><span className="text-[10px] font-bold">Effects</span>
+                            <Wand2 className="w-6 h-6" /><span className="text-[10px] font-bold">{t.common.effects}</span>
                         </button>
                     </div>
                 </div>
@@ -1046,9 +1046,9 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                             <Wand2 className="w-6 h-6" />
                                         </div>
                                         <div>
-                                            <p className="text-[11px] font-black uppercase tracking-tight text-slate-800">Smart Restore Mode</p>
+                                            <p className="text-[11px] font-black uppercase tracking-tight text-slate-800">{t.editor.smartRestoreTitle}</p>
                                             <p className="text-[10px] font-bold leading-tight text-blue-600">
-                                                {isProcessing ? "Processing..." : "Fix object automatically"}
+                                                {isProcessing ? t.common.processing : t.editor.smartRestoreDesc}
                                             </p>
                                         </div>
                                     </button>
@@ -1056,17 +1056,17 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                     <div className="grid grid-cols-2 gap-3 pb-2">
                                         <button onClick={() => setEditMode('erase')} className={cn("flex flex-col items-center gap-2 p-5 rounded-3xl border-2 transition-all", editMode === 'erase' ? "border-blue-600 bg-blue-50/50 text-blue-600 shadow-lg" : "border-slate-100 bg-white text-slate-400")}>
                                             <div className="w-10 h-10 rounded-full border-2 border-current flex items-center justify-center font-black">-</div>
-                                            <span className="text-[11px] font-black uppercase tracking-tight">Erase</span>
+                                            <span className="text-[11px] font-black uppercase tracking-tight">{t.editor.erase}</span>
                                         </button>
                                         <button onClick={() => setEditMode('restore')} className={cn("flex flex-col items-center gap-2 p-5 rounded-3xl border-2 transition-all", editMode === 'restore' ? "border-blue-600 bg-blue-50/50 text-blue-600 shadow-lg" : "border-slate-100 bg-white text-slate-400")}>
                                             <div className="w-10 h-10 rounded-full border-2 border-current flex items-center justify-center font-black">+</div>
-                                            <span className="text-[11px] font-black uppercase tracking-tight">Restore</span>
+                                            <span className="text-[11px] font-black uppercase tracking-tight">{t.editor.restore}</span>
                                         </button>
                                     </div>
 
                                     <div className="space-y-4">
                                         <div className="flex justify-between items-center px-1">
-                                            <label className="text-[11px] font-black text-slate-800 uppercase tracking-tighter">Selection Brush Size</label>
+                                            <label className="text-[11px] font-black text-slate-800 uppercase tracking-tighter">{t.editor.brushSizeLabel}</label>
                                             <span className="text-[11px] font-black text-blue-600">{brushSize}px</span>
                                         </div>
                                         <input type="range" min="10" max="250" value={brushSize} onChange={(e) => setBrushSize(parseInt(e.target.value))} className="w-full h-1 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600" />
@@ -1079,7 +1079,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                     <div className="flex p-1 bg-slate-100 rounded-2xl w-full">
                                         {(['photo', 'color'] as const).map(tab => (
                                             <button key={tab} onClick={() => setBgSubTab(tab)} className={cn("flex-grow py-2.5 rounded-xl text-[11px] font-black uppercase transition-all", bgSubTab === tab ? "bg-white text-slate-900 shadow-sm" : "text-slate-400")}>
-                                                {tab}
+                                                {tab === 'photo' ? t.editor.photoTab : t.editor.colorTab}
                                             </button>
                                         ))}
                                     </div>
@@ -1087,7 +1087,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                     {bgSubTab === 'photo' && (
                                         <div className="grid grid-cols-2 gap-3 animate-in fade-in slide-in-from-bottom-2">
                                             <button onClick={() => setBgImage(null)} className={cn("h-24 rounded-2xl border-2 flex items-center justify-center bg-slate-50", !bgImage ? "border-blue-600" : "border-slate-100")}>
-                                                <div className="text-[10px] font-black text-slate-400 uppercase">None</div>
+                                                <div className="text-[10px] font-black text-slate-400 uppercase">{t.editor.noneOption}</div>
                                             </button>
                                             {photoPresets.map((url, i) => (
                                                 <button key={i} onClick={() => setBgImage(url)} className={cn("h-24 rounded-2xl border-2 overflow-hidden transition-all group relative", bgImage === url ? "border-blue-600 scale-102 shadow-lg" : "border-slate-100")}>
@@ -1131,7 +1131,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                             <div className={cn("w-10 h-5 rounded-full transition-all relative cursor-pointer", isBlurEnabled ? "bg-blue-600" : "bg-slate-300")} onClick={() => setIsBlurEnabled(!isBlurEnabled)}>
                                                 <div className={cn("absolute top-1 w-3 h-3 bg-white rounded-full transition-all shadow-sm", isBlurEnabled ? "right-1" : "left-1")} />
                                             </div>
-                                            <span className="text-[11px] font-black text-slate-800 uppercase tracking-tighter">Blur background</span>
+                                            <span className="text-[11px] font-black text-slate-800 uppercase tracking-tighter">{t.editor.blurBackground}</span>
                                         </div>
                                         <input type="range" min="0" max="40" step="1" value={bgBlur} onChange={(e) => setBgBlur(parseInt(e.target.value))} className="w-full h-1 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600" />
                                     </div>
@@ -1140,12 +1140,12 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                             <div className={cn("w-10 h-5 rounded-full transition-all relative cursor-pointer", isShadowEnabled ? "bg-blue-600" : "bg-slate-300")} onClick={() => setIsShadowEnabled(!isShadowEnabled)}>
                                                 <div className={cn("absolute top-1 w-3 h-3 bg-white rounded-full transition-all shadow-sm", isShadowEnabled ? "right-1" : "left-1")} />
                                             </div>
-                                            <span>Product Shadow</span>
+                                            <span>{t.editor.productShadow}</span>
                                         </div>
                                         <input type="range" min="0" max="100" value={shadowOpacity} onChange={(e) => setShadowOpacity(parseInt(e.target.value))} className="w-full h-1 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600" />
                                     </div>
                                     <div className="flex items-center justify-between p-4 bg-blue-50/50 rounded-3xl border border-blue-100">
-                                        <span className="text-[11px] font-black text-blue-900 uppercase tracking-tighter">Mirror Reflection</span>
+                                        <span className="text-[11px] font-black text-blue-900 uppercase tracking-tighter">{t.editor.reflectionLabel}</span>
                                         <button onClick={() => setIsReflectionEnabled(!isReflectionEnabled)} className={cn("w-10 h-5 rounded-full transition-all relative", isReflectionEnabled ? "bg-blue-600" : "bg-slate-300")}>
                                             <div className={cn("absolute top-1 w-3 h-3 bg-white rounded-full transition-all shadow-sm", isReflectionEnabled ? "right-1" : "left-1")} />
                                         </button>
@@ -1157,11 +1157,11 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                 <section className="space-y-6 animate-in fade-in slide-in-from-right-4">
                                     <div className="space-y-4 p-5 bg-slate-50 rounded-3xl">
                                         <div className="space-y-2">
-                                            <div className="flex justify-between text-[10px] font-black text-slate-600 uppercase"><span>Brightness</span><span>{brightness}%</span></div>
+                                            <div className="flex justify-between text-[10px] font-black text-slate-600 uppercase"><span>{t.editor.brightness}</span><span>{brightness}%</span></div>
                                             <input type="range" min="50" max="150" value={brightness} onChange={(e) => setBrightness(parseInt(e.target.value))} className="w-full h-1 bg-white rounded-lg appearance-none cursor-pointer accent-blue-600" />
                                         </div>
                                         <div className="space-y-2">
-                                            <div className="flex justify-between text-[10px] font-black text-slate-600 uppercase"><span>Contrast</span><span>{contrast}%</span></div>
+                                            <div className="flex justify-between text-[10px] font-black text-slate-600 uppercase"><span>{t.editor.contrast}</span><span>{contrast}%</span></div>
                                             <input type="range" min="50" max="150" value={contrast} onChange={(e) => setContrast(parseInt(e.target.value))} className="w-full h-1 bg-white rounded-lg appearance-none cursor-pointer accent-blue-600" />
                                         </div>
                                     </div>
@@ -1172,7 +1172,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                     <div className="space-y-4">
                                         <div className="flex items-center gap-2 px-1">
                                             <Maximize className="w-4 h-4 text-blue-600" />
-                                            <label className="text-[11px] font-black text-slate-800 uppercase tracking-tighter">Social Resizing</label>
+                                            <label className="text-[11px] font-black text-slate-800 uppercase tracking-tighter">{t.editor.socialResizing}</label>
                                         </div>
                                         <div className="grid grid-cols-2 gap-3">
                                             {socialRatios.map(r => (
@@ -1182,7 +1182,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                     </div>
                                     <div className="space-y-4 p-6 bg-slate-50 rounded-[2rem] border border-slate-100">
                                         <div className="flex justify-between items-center mb-2">
-                                            <div className="flex items-center gap-2"><ZoomIn className="w-4 h-4 text-blue-600" /><span className="text-[11px] font-black text-slate-800 uppercase tracking-tighter">Fit Padding</span></div>
+                                            <div className="flex items-center gap-2"><ZoomIn className="w-4 h-4 text-blue-600" /><span className="text-[11px] font-black text-slate-800 uppercase tracking-tighter">{t.editor.fitPadding}</span></div>
                                             <span className="text-[10px] font-black text-blue-600 bg-blue-50 px-2 py-1 rounded-lg">{objectPadding}%</span>
                                         </div>
                                         <input type="range" min="0" max="40" value={objectPadding} onChange={(e) => setObjectPadding(parseInt(e.target.value))} className="w-full h-1.5 bg-white rounded-lg appearance-none cursor-pointer accent-blue-600" />

@@ -26,7 +26,7 @@ export const Footer: React.FC<FooterProps> = () => {
                             </span>
                         </div>
                         <p className="text-sm text-slate-500 leading-relaxed font-medium">
-                            Professional-grade background removal using state-of-the-art AI technology. 100% automatic and high-precision outputs for creators.
+                            {t.footerDesc}
                         </p>
                         <div className="flex items-center space-x-4">
                             {/* ✅ FIXED: Added aria-label and proper href */}
@@ -65,8 +65,8 @@ export const Footer: React.FC<FooterProps> = () => {
                         <ul className="space-y-4">
                             {[
                                 { name: t.bgRemover, available: true },
-                                { name: 'Transparent PNG Maker', available: false },
-                                { name: 'Object Eraser', available: false }
+                                { name: t.pngMaker, available: false },
+                                { name: t.objectEraser, available: false }
                             ].map((item) => (
                                 <li key={item.name}>
                                     <a
@@ -94,9 +94,9 @@ export const Footer: React.FC<FooterProps> = () => {
                         <ul className="space-y-4">
                             {[
                                 { name: t.howItWorks, available: true },
-                                { name: 'API Documentation', available: false },
-                                { name: 'Developer Tools', available: false },
-                                { name: 'Blog', available: false }
+                                { name: t.apiDoc, available: false },
+                                { name: t.devTools, available: false },
+                                { name: t.blog, available: false }
                             ].map((item) => (
                                 <li key={item.name}>
                                     <a
@@ -118,9 +118,9 @@ export const Footer: React.FC<FooterProps> = () => {
                         <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest mb-6">{t.legal}</h4>
                         <ul className="space-y-4">
                             {[
-                                { name: 'Privacy Policy', icon: Shield, available: false },
-                                { name: 'Terms of Service', icon: Lock, available: false },
-                                { name: 'Help Center', icon: Globe, available: false }
+                                { name: t.privacy, icon: Shield, available: false },
+                                { name: t.terms, icon: Lock, available: false },
+                                { name: t.help, icon: Globe, available: false }
                             ].map((item) => (
                                 <li key={item.name}>
                                     <a
@@ -140,7 +140,7 @@ export const Footer: React.FC<FooterProps> = () => {
 
                 <div className="pt-10 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-6">
                     <p className="text-[13px] text-slate-400 font-bold tracking-tight">
-                        © {new Date().getFullYear()} AI Remover PRO. All rights reserved.
+                        © {new Date().getFullYear()} {t.allRightsReserved}
                     </p>
 
                     <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">

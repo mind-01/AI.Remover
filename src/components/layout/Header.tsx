@@ -27,7 +27,7 @@ export const Header: React.FC = () => {
                         <a href="#" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider">{t.pricing}</a>
                         <a href="#" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider">{t.api}</a>
                         <button className="px-6 py-2.5 bg-slate-900 text-white text-sm font-black rounded-xl hover:bg-slate-800 transition-all shadow-lg shadow-slate-200 hover:scale-105 active:scale-95 uppercase tracking-wide">
-                            Get Pro
+                            {t.getPro}
                         </button>
                     </div>
                 </div>
