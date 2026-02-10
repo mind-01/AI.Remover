@@ -71,9 +71,7 @@ export const translations: Record<string, any> = {
             shadow: 'Shadow',
             reflection: 'Reflection',
             blur: 'Blur',
-            padding: 'Padding',
-            madeWith: 'Made with',
-            forCreators: 'for creators'
+            padding: 'Padding'
         }
     },
 };
