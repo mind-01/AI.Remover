@@ -28,7 +28,13 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@supabase/supabase-js": [
+        "./node_modules/@supabase/supabase-js"
+      ]
+    }
   },
   "include": [
     "src"

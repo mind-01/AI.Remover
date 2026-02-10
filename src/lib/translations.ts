@@ -84,6 +84,30 @@ export const translations: Record<string, any> = {
             logout: 'Logout',
             dashboard: 'Dashboard'
         },
+        dashboard: {
+            title: 'My History',
+            loading: 'Loading History...',
+            emptyTitle: 'No history yet',
+            emptyDesc: 'Upload your first image to start building your professional collection.',
+            startEditing: 'Start Editing',
+            viewFull: 'View Full',
+            cutouts: 'Professional Cutouts'
+        },
+        auth: {
+            welcome: 'Welcome Back',
+            createAccount: 'Create Account',
+            loginDesc: 'Login to see your history',
+            signupDesc: 'Join thousands of creators',
+            emailLabel: 'Email Address',
+            passwordLabel: 'Password',
+            signInBtn: 'Sign In',
+            signUpBtn: 'Create Account',
+            googleBtn: 'Google',
+            continueWith: 'Or continue with',
+            noAccount: "Don't have an account? Sign Up",
+            haveAccount: "Already have an account? Sign In",
+            verificationSent: 'Verification link sent! Please check your email.'
+        },
         editor: {
             downloadMenuTitle: 'Select Download Quality',
             qualityHigh: 'High Definition',
@@ -241,6 +265,30 @@ export const translations: Record<string, any> = {
             login: 'लॉगिन',
             logout: 'लॉगआउट',
             dashboard: 'डैशबोर्ड'
+        },
+        dashboard: {
+            title: 'मेरा इतिहास',
+            loading: 'इतिहास लोड हो रहा है...',
+            emptyTitle: 'अभी तक कोई इतिहास नहीं है',
+            emptyDesc: 'अपना पहला इमेज अपलोड करें और अपना प्रोफेशनल कलेक्शन बनाना शुरू करें।',
+            startEditing: 'एडिटिंग शुरू करें',
+            viewFull: 'पूरा देखें',
+            cutouts: 'प्रोफेशनल कटआउट्स'
+        },
+        auth: {
+            welcome: 'वापसी पर स्वागत है',
+            createAccount: 'अकाउंट बनाएं',
+            loginDesc: 'अपना इतिहास देखने के लिए लॉगिन करें',
+            signupDesc: 'हजारों रचनाकारों के साथ जुड़ें',
+            emailLabel: 'ईमेल पता',
+            passwordLabel: 'पासवर्ड',
+            signInBtn: 'साइन इन करें',
+            signUpBtn: 'अकाउंट बनाएं',
+            googleBtn: 'गूगल',
+            continueWith: 'या इसके साथ जारी रखें',
+            noAccount: "अकाउंट नहीं है? साइन अप करें",
+            haveAccount: "पहले से अकाउंट है? साइन इन करें",
+            verificationSent: 'सत्यापन लिंक भेज दिया गया है! कृपया अपना ईमेल देखें।'
         },
         editor: {
             downloadMenuTitle: 'डाउनलोड गुणवत्ता चुनें',

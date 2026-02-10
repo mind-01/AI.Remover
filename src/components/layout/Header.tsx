@@ -36,7 +36,7 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = (
                                     onClick={() => setShowDashboard(true)}
                                     className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider"
                                 >
-                                    {t.common.dashboard || 'Dashboard'}
+                                    {t.dashboard || 'Dashboard'}
                                 </button>
                                 <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-sm shadow-lg shadow-blue-100 uppercase">
                                     {user.email?.[0] || 'U'}
@@ -45,7 +45,7 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = (
                                     onClick={signOut}
                                     className="text-[10px] font-black text-slate-400 hover:text-red-500 uppercase tracking-widest transition-colors"
                                 >
-                                    {t.common.logout || 'Logout'}
+                                    {t.logout || 'Logout'}
                                 </button>
                             </div>
                         ) : (
@@ -53,7 +53,7 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = (
                                 onClick={() => setIsAuthModalOpen(true)}
                                 className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider"
                             >
-                                {t.common.login || 'Login'}
+                                {t.login || 'Login'}
                             </button>
                         )}
 
