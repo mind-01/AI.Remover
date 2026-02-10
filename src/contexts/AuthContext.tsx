@@ -30,6 +30,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [history, setHistory] = useState<HistoryItem[]>([]);
 
     useEffect(() => {
+        if (!supabase) {
+            setLoading(false);
+            return;
+        }
+
         // Get initial session
         supabase.auth.getSession().then(({ data: { session } }: { data: { session: Session | null } }) => {
             setSession(session);
@@ -54,6 +59,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }, []);
 
     const fetchHistory = async (userId: string) => {
+        if (!supabase) return;
         const { data, error } = await supabase
             .from('user_history')
             .select('*')
@@ -66,6 +72,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     const signOut = async () => {
+        if (!supabase) return;
         await supabase.auth.signOut();
     };
 
@@ -74,7 +81,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     const addToHistory = async (item: any) => {
-        if (!user) return;
+        if (!user || !supabase) return;
 
         const { error } = await supabase.from('user_history').insert([
             { ...item, user_id: user.id }
@@ -89,7 +96,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     const uploadImage = async (blob: Blob, path: string): Promise<string | null> => {
-        if (!user) return null;
+        if (!user || !supabase) return null;
 
         const fileName = `${user.id}/${Date.now()}-${path}`;
         const { data, error } = await supabase.storage
