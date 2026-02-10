@@ -95,13 +95,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const fetchHistory = async (userId: string) => {
         if (!supabase) return;
+        console.log(`AuthContext: Fetching history for user: ${userId}`);
         const { data, error } = await supabase
             .from('user_history')
             .select('*')
             .eq('user_id', userId)
             .order('created_at', { ascending: false });
 
-        if (!error && data) {
+        if (error) {
+            console.error('AuthContext: Fetch History Error:', error);
+            return;
+        }
+
+        console.log(`AuthContext: Successfully fetched ${data?.length || 0} history items`);
+        if (data) {
             setHistory(data);
         }
     };
@@ -116,24 +123,34 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     const addToHistory = async (item: any) => {
-        if (!user || !supabase) return;
+        if (!user || !supabase) {
+            console.warn('AuthContext: addToHistory skipped - No user or supabase');
+            return;
+        }
 
+        console.log('AuthContext: Inserting into user_history...', item);
         const { error } = await supabase.from('user_history').insert([
             { ...item, user_id: user.id }
         ]);
 
         if (error) {
-            console.error('Error adding to history:', error);
+            console.error('AuthContext: Database Insert Error:', error);
             throw error;
         }
 
+        console.log('AuthContext: Refreshing history cache...');
         await fetchHistory(user.id);
     };
 
     const uploadImage = async (blob: Blob, path: string): Promise<string | null> => {
-        if (!user || !supabase) return null;
+        if (!user || !supabase) {
+            console.warn('AuthContext: uploadImage skipped - No user or supabase');
+            return null;
+        }
 
         const fileName = `${user.id}/${Date.now()}-${path}`;
+        console.log(`AuthContext: Uploading to ${STORAGE_BUCKET}/${fileName}...`);
+
         const { data, error } = await supabase.storage
             .from(STORAGE_BUCKET)
             .upload(fileName, blob, {
@@ -142,10 +159,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             });
 
         if (error) {
-            console.error('Upload error:', error);
+            console.error('AuthContext: Storage Upload Error Details:', {
+                message: error.message,
+                name: error.name,
+                status: (error as any).status
+            });
             return null;
         }
 
+        console.log('AuthContext: Upload success, getting public URL...');
         const { data: { publicUrl } } = supabase.storage
             .from(STORAGE_BUCKET)
             .getPublicUrl(data.path);
