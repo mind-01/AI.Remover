@@ -28,8 +28,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [session, setSession] = useState<Session | null>(null);
     const [loading, setLoading] = useState(true);
     const [history, setHistory] = useState<HistoryItem[]>([]);
+    const initializing = React.useRef(false);
 
     useEffect(() => {
+        if (initializing.current) return;
+        initializing.current = true;
+
         console.log('AuthContext: Initializing...');
         const searchParams = new URLSearchParams(window.location.search);
         const searchKeys = Array.from(searchParams.keys());
@@ -84,7 +88,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             setLoading(false);
         });
 
-        return () => subscription.unsubscribe();
+        return () => {
+            subscription.unsubscribe();
+        };
     }, []);
 
     const fetchHistory = async (userId: string) => {
