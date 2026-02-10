@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState } from 'react';
 type LanguageCode =
     | 'id' | 'de' | 'en' | 'es' | 'fr' | 'it' | 'pt' | 'ru' | 'ko' | 'ja'
     | 'zh-Hans' | 'zh-Hant' | 'pl' | 'hu' | 'th' | 'da' | 'el' | 'uk' | 'ms'
-    | 'vi' | 'sv' | 'tr' | 'cs' | 'ro' | 'lv' | 'fi' | 'bg' | 'sr' | 'sl' | 'lt';
+    | 'vi' | 'sv' | 'tr' | 'cs' | 'ro' | 'lv' | 'fi' | 'bg' | 'sr' | 'sl' | 'lt' | 'hi';
 
 interface LanguageContextType {
     language: LanguageCode;
