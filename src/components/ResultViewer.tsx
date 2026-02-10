@@ -1407,6 +1407,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                         <div className="p-6 border-t border-slate-50 bg-white">
                             <button onClick={onReset} className="w-full py-4 text-red-500 font-black hover:bg-red-50 rounded-2xl transition-all flex items-center justify-center gap-2 text-[10px] uppercase border border-red-50">
                                 <Trash2 className="w-3.5 h-3.5" /> Clear Workspace
+                            </button>
                         </div>
                     </div>
                 </div>
