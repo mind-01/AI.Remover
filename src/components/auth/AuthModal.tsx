@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Mail, Lock, Loader2, ArrowRight } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
@@ -16,8 +17,21 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [mounted, setMounted] = useState(false);
     const { language } = useLanguage();
     const t = translations[language]?.auth || translations.en.auth;
+
+    useEffect(() => {
+        setMounted(true);
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -31,9 +45,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             } else {
                 const { error } = await supabase.auth.signUp({ email, password });
                 if (error) throw error;
-                alert(t.verificationSent);
+                setError(t.verificationSent || 'Check your email for the confirmation link!');
             }
-            onClose();
+            if (!error) onClose();
         } catch (err: any) {
             setError(err.message);
         } finally {
@@ -44,20 +58,25 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     const handleGoogleLogin = async () => {
         await supabase.auth.signInWithOAuth({
             provider: 'google',
+            options: {
+                redirectTo: window.location.origin
+            }
         });
     };
 
-    return (
+    if (!mounted) return null;
+
+    return createPortal(
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-[100] overflow-y-auto outline-none focus:outline-none">
+                <div className="fixed inset-0 z-[9999] overflow-y-auto outline-none focus:outline-none">
                     <div className="flex min-h-full items-start justify-center p-4 py-12 sm:items-center sm:py-20">
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={onClose}
-                            className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"
+                            className="fixed inset-0 bg-slate-900/60 backdrop-blur-md transition-opacity"
                         />
 
                         <motion.div
@@ -162,6 +181,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                     </div>
                 </div>
             )}
-        </AnimatePresence>
+        </AnimatePresence>,
+        document.body
     );
 };
