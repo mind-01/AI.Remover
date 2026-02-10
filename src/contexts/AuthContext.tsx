@@ -30,29 +30,34 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [history, setHistory] = useState<HistoryItem[]>([]);
 
     useEffect(() => {
+        console.log('AuthContext: Initializing...');
+        console.log('AuthContext: URL Hash:', window.location.hash ? 'Present' : 'None');
+        console.log('AuthContext: URL Search:', window.location.search ? 'Present' : 'None');
+
         if (!supabase) {
             console.warn('AuthContext: Supabase client not initialized');
             setLoading(false);
             return;
         }
 
-        console.log('AuthContext: Initializing...');
-
         // Get initial session
         supabase.auth.getSession().then(({ data: { session } }: { data: { session: Session | null } }) => {
-            console.log('AuthContext: Session retrieved:', session?.user?.email || 'No session');
+            console.log('AuthContext: getSession result:', session ? `User: ${session.user.email}` : 'No session');
             setSession(session);
             setUser(session?.user ?? null);
             if (session?.user) {
-                console.log('AuthContext: Fetching history for:', session.user.id);
+                console.log('AuthContext: Initial high-priority history fetch');
                 fetchHistory(session.user.id);
             }
+            setLoading(false);
+        }).catch((err: any) => {
+            console.error('AuthContext: getSession crash:', err);
             setLoading(false);
         });
 
         // Listen for auth changes
         const { data: { subscription } } = supabase.auth.onAuthStateChange((event: any, session: Session | null) => {
-            console.log('AuthContext: Auth event change:', event, session?.user?.email || 'No user');
+            console.log(`AuthContext: Auth Event [${event}]`, session ? `User: ${session.user.email}` : 'No user');
             setSession(session);
             setUser(session?.user ?? null);
 
