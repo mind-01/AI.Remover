@@ -61,10 +61,9 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = (
                             {t.getPro}
                         </button>
                     </div>
-
-                    <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
                 </div>
             </div>
+            <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
         </nav>
     );
 };
