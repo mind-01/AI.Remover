@@ -31,22 +31,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     useEffect(() => {
         if (!supabase) {
+            console.warn('AuthContext: Supabase client not initialized');
             setLoading(false);
             return;
         }
 
+        console.log('AuthContext: Initializing...');
+
         // Get initial session
-        supabase.auth.getSession().then(({ data: { session } }: { data: { session: Session | null } }) => {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            console.log('AuthContext: Session retrieved:', session?.user?.email || 'No session');
             setSession(session);
             setUser(session?.user ?? null);
-            if (session?.user) fetchHistory(session.user.id);
+            if (session?.user) {
+                console.log('AuthContext: Fetching history for:', session.user.id);
+                fetchHistory(session.user.id);
+            }
             setLoading(false);
         });
 
         // Listen for auth changes
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: any, session: Session | null) => {
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+            console.log('AuthContext: Auth event change:', event, session?.user?.email || 'No user');
             setSession(session);
             setUser(session?.user ?? null);
+
             if (session?.user) {
                 fetchHistory(session.user.id);
             } else {

@@ -17,6 +17,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [message, setMessage] = useState<string | null>(null);
     const [mounted, setMounted] = useState(false);
     const { language } = useLanguage();
     const t = translations[language]?.auth || translations.en.auth;
@@ -43,17 +44,18 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
 
         setLoading(true);
         setError(null);
+        setMessage(null);
 
         try {
             if (isLogin) {
                 const { error } = await supabase.auth.signInWithPassword({ email, password });
                 if (error) throw error;
+                onClose();
             } else {
                 const { error } = await supabase.auth.signUp({ email, password });
                 if (error) throw error;
-                setError(t.verificationSent || 'Check your email for the confirmation link!');
+                setMessage(t.verificationSent || 'Check your email for the confirmation link!');
             }
-            if (!error) onClose();
         } catch (err: any) {
             setError(err.message);
         } finally {
@@ -66,6 +68,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
             setError("Supabase is not initialized. Please check your .env configuration.");
             return;
         }
+
+        setError(null);
+        setMessage(null);
 
         await supabase.auth.signInWithOAuth({
             provider: 'google',
@@ -145,8 +150,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                                     </div>
 
                                     {error && (
-                                        <div className="p-4 bg-red-50 text-red-600 text-xs font-bold rounded-2xl border border-red-100">
+                                        <div className="p-4 bg-red-50 text-red-600 text-xs font-bold rounded-2xl border border-red-100 italic">
                                             {error}
+                                        </div>
+                                    )}
+
+                                    {message && (
+                                        <div className="p-4 bg-blue-50 text-blue-600 text-xs font-bold rounded-2xl border border-blue-100">
+                                            {message}
                                         </div>
                                     )}
 
