@@ -11,6 +11,8 @@ import { FeaturesSection } from './components/FeaturesSection';
 import { Footer } from './components/layout/Footer';
 import { useLanguage } from './contexts/LanguageContext';
 import { translations } from './lib/translations';
+import { useAuth } from './contexts/AuthContext';
+import { Dashboard } from './components/Dashboard';
 
 interface ProcessingTask {
   id: string;
@@ -26,7 +28,9 @@ function App() {
   const [tasks, setTasks] = useState<ProcessingTask[]>([]);
   const [activeTaskId, setActiveTaskId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showDashboard, setShowDashboard] = useState(false);
   const addMoreInputRef = useRef<HTMLInputElement>(null);
+  const { user, addToHistory, uploadImage } = useAuth();
 
   const refineImage = useCallback((blob: Blob): Promise<Blob> => {
     return new Promise((resolve) => {
@@ -103,6 +107,27 @@ function App() {
 
       setTasks(prev => prev.map(t => t.id === task.id ? { ...t, processedUrl: resultUrl, status: 'completed', progress: 100 } : t));
       setActiveTaskId(prev => prev || task.id);
+
+      // Save to Supabase history if user is logged in
+      if (user) {
+        try {
+          // Upload both original and processed images to Supabase Storage
+          const [origUrl, procUrl] = await Promise.all([
+            uploadImage(task.file, 'original.png'),
+            uploadImage(refinedBlob, 'processed.png')
+          ]);
+
+          if (origUrl && procUrl) {
+            await addToHistory({
+              original_url: origUrl,
+              processed_url: procUrl,
+              task_config: {},
+            });
+          }
+        } catch (authErr) {
+          console.error('Failed to save to Supabase history:', authErr);
+        }
+      }
     } catch (err) {
       console.error(err);
       setTasks(prev => prev.map(t => t.id === task.id ? { ...t, status: 'error' } : t));
@@ -166,39 +191,45 @@ function App() {
 
   return (
     <div className="min-h-screen text-slate-900 overflow-x-hidden font-sans bg-[#fcfcfd]">
-      <Header />
+      <Header setShowDashboard={setShowDashboard} />
 
       <main className="pt-20">
         <AnimatePresence mode="wait">
-          <>
-            {tasks.length === 0 ? (
-              <motion.div key="hero" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }}>
-                <Hero onFilesSelect={handleFilesSelect} />
-                <FeaturesSection />
-              </motion.div>
+          {showDashboard ? (
+            <motion.div key="dashboard" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
+              <Dashboard onClose={() => setShowDashboard(false)} />
+            </motion.div>
+          ) : (
+            <>
+              {tasks.length === 0 ? (
+                <motion.div key="hero" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }}>
+                  <Hero onFilesSelect={handleFilesSelect} />
+                  <FeaturesSection />
+                </motion.div>
 
-            ) : isAnyProcessing && !activeTask?.processedUrl ? (
-              <motion.div key="processing" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.05 }}>
-                <ProcessingView
-                  progress={tasks.reduce((acc, t) => acc + t.progress, 0) / (tasks.length || 1)}
-                  current={tasks.filter(t => t.status === 'completed').length + 1}
-                  total={tasks.length}
-                />
-              </motion.div>
-            ) : activeTask && activeTask.processedUrl ? (
-              <motion.div key="result" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                <ResultViewer
-                  originalUrl={activeTask.originalUrl}
-                  processedUrl={activeTask.processedUrl}
-                  onReset={handleReset}
-                  onAddMore={handleAddMore}
-                  taskList={tasks}
-                  activeTaskId={activeTaskId || ""}
-                  onSelectTask={setActiveTaskId}
-                />
-              </motion.div>
-            ) : null}
-          </>
+              ) : isAnyProcessing && !activeTask?.processedUrl ? (
+                <motion.div key="processing" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.05 }}>
+                  <ProcessingView
+                    progress={tasks.reduce((acc, t) => acc + t.progress, 0) / (tasks.length || 1)}
+                    current={tasks.filter(t => t.status === 'completed').length + 1}
+                    total={tasks.length}
+                  />
+                </motion.div>
+              ) : activeTask && activeTask.processedUrl ? (
+                <motion.div key="result" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                  <ResultViewer
+                    originalUrl={activeTask.originalUrl}
+                    processedUrl={activeTask.processedUrl}
+                    onReset={handleReset}
+                    onAddMore={handleAddMore}
+                    taskList={tasks}
+                    activeTaskId={activeTaskId || ""}
+                    onSelectTask={setActiveTaskId}
+                  />
+                </motion.div>
+              ) : null}
+            </>
+          )}
         </AnimatePresence>
 
         <input

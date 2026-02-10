@@ -2,9 +2,13 @@ import React from 'react';
 import { Layers } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../lib/translations';
+import { useAuth } from '../../contexts/AuthContext';
+import { AuthModal } from '../auth/AuthModal';
 
-export const Header: React.FC = () => {
+export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = ({ setShowDashboard }) => {
     const { language } = useLanguage();
+    const { user, signOut } = useAuth();
+    const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
     const t = translations[language]?.common || translations.en.common;
 
     return (
@@ -25,11 +29,40 @@ export const Header: React.FC = () => {
                     <div className="hidden md:flex items-center space-x-10">
                         <a href="#" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider">{t.tools}</a>
                         <a href="#" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider">{t.pricing}</a>
-                        <a href="#" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider">{t.api}</a>
+
+                        {user ? (
+                            <div className="flex items-center gap-4">
+                                <button
+                                    onClick={() => setShowDashboard(true)}
+                                    className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider"
+                                >
+                                    {t.common.dashboard || 'Dashboard'}
+                                </button>
+                                <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-sm shadow-lg shadow-blue-100 uppercase">
+                                    {user.email?.[0] || 'U'}
+                                </div>
+                                <button
+                                    onClick={signOut}
+                                    className="text-[10px] font-black text-slate-400 hover:text-red-500 uppercase tracking-widest transition-colors"
+                                >
+                                    {t.common.logout || 'Logout'}
+                                </button>
+                            </div>
+                        ) : (
+                            <button
+                                onClick={() => setIsAuthModalOpen(true)}
+                                className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider"
+                            >
+                                {t.common.login || 'Login'}
+                            </button>
+                        )}
+
                         <button className="px-6 py-2.5 bg-slate-900 text-white text-sm font-black rounded-xl hover:bg-slate-800 transition-all shadow-lg shadow-slate-200 hover:scale-105 active:scale-95 uppercase tracking-wide">
                             {t.getPro}
                         </button>
                     </div>
+
+                    <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
                 </div>
             </div>
         </nav>

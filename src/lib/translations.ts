@@ -79,7 +79,10 @@ export const translations: Record<string, any> = {
             addingMore: 'Adding...',
             items: 'items',
             applyToAll: 'Apply to All',
-            singleEdit: 'Edit Single'
+            singleEdit: 'Edit Single',
+            login: 'Login',
+            logout: 'Logout',
+            dashboard: 'Dashboard'
         },
         editor: {
             downloadMenuTitle: 'Select Download Quality',
@@ -234,7 +237,10 @@ export const translations: Record<string, any> = {
             downloadAll: 'सभी डाउनलोड करें',
             clearAll: 'सभी साफ़ करें',
             addingMore: 'जोड़ा जा रहा है...',
-            items: 'आइटम'
+            items: 'आइटम',
+            login: 'लॉगिन',
+            logout: 'लॉगआउट',
+            dashboard: 'डैशबोर्ड'
         },
         editor: {
             downloadMenuTitle: 'डाउनलोड गुणवत्ता चुनें',
