@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { removeBackground } from '@imgly/background-removal';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Analytics } from '@vercel/analytics/react';
@@ -26,6 +26,7 @@ function App() {
   const [tasks, setTasks] = useState<ProcessingTask[]>([]);
   const [activeTaskId, setActiveTaskId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const addMoreInputRef = useRef<HTMLInputElement>(null);
 
   const refineImage = useCallback((blob: Blob): Promise<Blob> => {
     return new Promise((resolve) => {
@@ -139,6 +140,10 @@ function App() {
     setError(null);
   };
 
+  const handleAddMore = () => {
+    addMoreInputRef.current?.click();
+  };
+
 
   const [activeTask, setActiveTask] = useState<ProcessingTask | undefined>(undefined);
   const isAnyProcessing = tasks.some(t => t.status === 'processing' || t.status === 'pending');
@@ -186,6 +191,7 @@ function App() {
                   originalUrl={activeTask.originalUrl}
                   processedUrl={activeTask.processedUrl}
                   onReset={handleReset}
+                  onAddMore={handleAddMore}
                   taskList={tasks}
                   activeTaskId={activeTaskId || ""}
                   onSelectTask={setActiveTaskId}
@@ -194,6 +200,22 @@ function App() {
             ) : null}
           </>
         </AnimatePresence>
+
+        <input
+          type="file"
+          ref={addMoreInputRef}
+          onChange={(e) => {
+            if (e.target.files) {
+              const files = Array.from(e.target.files).filter(file => file.type.startsWith('image/'));
+              if (files.length > 0) handleFilesSelect(files);
+            }
+            // Reset input so same file can be selected again
+            e.target.value = '';
+          }}
+          className="hidden"
+          accept="image/*"
+          multiple
+        />
 
         {error && (
           <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-2xl shadow-2xl font-bold flex items-center gap-3 z-[100]">

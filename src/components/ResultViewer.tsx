@@ -19,6 +19,7 @@ interface ResultViewerProps {
     originalUrl: string;
     processedUrl: string;
     onReset: () => void;
+    onAddMore: () => void;
     taskList: ProcessingTask[];
     activeTaskId: string;
     onSelectTask: (id: string) => void;
@@ -43,7 +44,7 @@ interface EditorState {
 type EditorTab = 'cutout' | 'background' | 'effects' | 'adjust' | 'resize';
 
 export const ResultViewer: React.FC<ResultViewerProps> = ({
-    originalUrl, processedUrl, onReset, taskList, activeTaskId, onSelectTask
+    originalUrl, processedUrl, onReset, onAddMore, taskList, activeTaskId, onSelectTask
 }) => {
     const { language } = useLanguage();
     const t = translations[language] || translations.en;
@@ -702,7 +703,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
             {/* Mobile Task Strip (Top) */}
             <div className="lg:hidden flex-none flex items-center gap-3 px-4 py-2 overflow-x-auto no-scrollbar bg-white shadow-sm border-b border-slate-50">
                 <button
-                    onClick={onReset}
+                    onClick={onAddMore}
                     className="w-14 h-14 flex-shrink-0 bg-blue-50 rounded-xl flex items-center justify-center border-2 border-blue-100 text-blue-600 active:scale-90 transition-all"
                 >
                     <div className="text-xl font-black">+</div>
@@ -863,7 +864,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                     ))}
 
                     <button
-                        onClick={onReset}
+                        onClick={onAddMore}
                         className="w-full h-32 rounded-[2rem] border-2 border-dashed border-slate-200 flex flex-col items-center justify-center gap-2 text-slate-400 hover:border-blue-400 hover:text-blue-500 hover:bg-blue-50/30 transition-all flex-shrink-0 group mt-2"
                     >
                         <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
