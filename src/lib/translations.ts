@@ -55,7 +55,25 @@ export const translations: Record<string, any> = {
             dropImage: 'Drop any image here',
             tools: 'Tools',
             pricing: 'Pricing',
-            api: 'API'
+            api: 'API',
+            reset: 'Reset',
+            download: 'Download',
+            processingError: 'Failed to process one or more images.',
+            processing: 'Processing...',
+            selectImage: 'Select another image',
+            cutout: 'Cutout',
+            background: 'Background',
+            effects: 'Effects',
+            adjust: 'Adjust',
+            resize: 'Resize',
+            brightness: 'Brightness',
+            contrast: 'Contrast',
+            shadow: 'Shadow',
+            reflection: 'Reflection',
+            blur: 'Blur',
+            padding: 'Padding',
+            madeWith: 'Made with',
+            forCreators: 'for creators'
         }
     },
 };

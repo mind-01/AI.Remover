@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ChevronRight, Sparkles, Image as ImageIcon, Eraser, Trash2, Wand2, Sliders, Undo2, Redo2, Loader2, Palette, Maximize, ZoomIn, Download, Scissors, Layers as LayersIcon } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { cn } from '../lib/utils';
+import { useLanguage } from '../contexts/LanguageContext';
+import { translations } from '../lib/translations';
 
 interface ProcessingTask {
     id: string;
@@ -42,6 +44,9 @@ type EditorTab = 'cutout' | 'background' | 'effects' | 'adjust' | 'resize';
 export const ResultViewer: React.FC<ResultViewerProps> = ({
     originalUrl, processedUrl, onReset, taskList, activeTaskId, onSelectTask
 }) => {
+    const { language } = useLanguage();
+    const t = translations[language]?.common || translations.en.common;
+
     const [activeTab, setActiveTab] = useState<EditorTab>('cutout');
     const [bgSubTab, setBgSubTab] = useState<'photo' | 'color'>('photo');
     const [sliderValue, setSliderValue] = useState(50);
@@ -598,11 +603,11 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
     };
 
     const toolbarItems = [
-        { id: 'cutout', label: 'Cutout', icon: <Eraser className="w-4 h-4" /> },
-        { id: 'background', label: 'Background', icon: <ImageIcon className="w-4 h-4" /> },
-        { id: 'effects', label: 'Effects', icon: <Sparkles className="w-4 h-4" /> },
-        { id: 'adjust', label: 'Adjust', icon: <Sliders className="w-4 h-4" /> },
-        { id: 'resize', label: 'Resize', icon: <Maximize className="w-4 h-4" /> },
+        { id: 'cutout', label: t.cutout, icon: <Eraser className="w-4 h-4" /> },
+        { id: 'background', label: t.background, icon: <ImageIcon className="w-4 h-4" /> },
+        { id: 'effects', label: t.effects, icon: <Sparkles className="w-4 h-4" /> },
+        { id: 'adjust', label: t.adjust, icon: <Sliders className="w-4 h-4" /> },
+        { id: 'resize', label: t.resize, icon: <Maximize className="w-4 h-4" /> },
     ];
 
     const socialRatios = [
@@ -732,7 +737,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                     onClick={() => setIsDownloadMenuOpen(!isDownloadMenuOpen)}
                                     className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full text-xs font-black uppercase tracking-widest shadow-lg shadow-blue-100 flex items-center gap-2 transition-all active:scale-95"
                                 >
-                                    Download <ChevronRight className={cn("w-3 h-3 transition-transform", isDownloadMenuOpen && "rotate-90")} />
+                                    {t.download} <ChevronRight className={cn("w-3 h-3 transition-transform", isDownloadMenuOpen && "rotate-90")} />
                                 </button>
 
                                 {isDownloadMenuOpen && (
