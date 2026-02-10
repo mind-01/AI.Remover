@@ -14,4 +14,4 @@ export const supabase = (supabaseUrl && supabaseAnonKey)
     ? createClient(supabaseUrl, supabaseAnonKey)
     : null as any;
 
-export const STORAGE_BUCKET = 'images';
+export const STORAGE_BUCKET = 'user-images';
