@@ -52,9 +52,15 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 if (error) throw error;
                 onClose();
             } else {
-                const { error } = await supabase.auth.signUp({ email, password });
+                const { data, error } = await supabase.auth.signUp({ email, password });
                 if (error) throw error;
-                setMessage(t.verificationSent || 'Check your email for the confirmation link!');
+
+                // If session is present, it means email confirmation is disabled in Supabase
+                if (data.session) {
+                    onClose();
+                } else {
+                    setMessage(t.verificationSent || 'Check your email for the confirmation link!');
+                }
             }
         } catch (err: any) {
             setError(err.message);
