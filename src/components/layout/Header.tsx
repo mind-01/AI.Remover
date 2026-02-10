@@ -11,6 +11,8 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = (
     const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
     const t = translations[language]?.common || translations.en.common;
 
+    console.log('Header: Rendered. User:', user ? user.email : 'NULL');
+
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 border-b border-black/5 bg-white/70 backdrop-blur-xl">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -31,8 +31,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     useEffect(() => {
         console.log('AuthContext: Initializing...');
-        console.log('AuthContext: URL Hash:', window.location.hash ? 'Present' : 'None');
-        console.log('AuthContext: URL Search:', window.location.search ? 'Present' : 'None');
+        const searchKeys = Array.from(new URLSearchParams(window.location.search).keys());
+        const hashParams = new URL(window.location.href.replace('#', '?')).searchParams;
+        const hashKeys = Array.from(hashParams.keys());
+
+        console.log('AuthContext: Search Keys:', searchKeys);
+        console.log('AuthContext: Hash Keys:', hashKeys);
 
         if (!supabase) {
             console.warn('AuthContext: Supabase client not initialized');
