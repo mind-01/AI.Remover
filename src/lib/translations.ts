@@ -91,7 +91,9 @@ export const translations: Record<string, any> = {
             emptyDesc: 'Upload your first image to start building your professional collection.',
             startEditing: 'Start Editing',
             viewFull: 'View Full',
-            cutouts: 'Professional Cutouts'
+            cutouts: 'Professional Cutouts',
+            clearAll: 'All Clear',
+            clearConfirm: 'Are you sure you want to clear all history?'
         },
         auth: {
             welcome: 'Welcome Back',
@@ -273,7 +275,9 @@ export const translations: Record<string, any> = {
             emptyDesc: 'अपना पहला इमेज अपलोड करें और अपना प्रोफेशनल कलेक्शन बनाना शुरू करें।',
             startEditing: 'एडिटिंग शुरू करें',
             viewFull: 'पूरा देखें',
-            cutouts: 'प्रोफेशनल कटआउट्स'
+            cutouts: 'प्रोफेशनल कटआउट्स',
+            clearAll: 'सब साफ़ करें',
+            clearConfirm: 'क्या आप वाकई सारा इतिहास मिटाना चाहते हैं?'
         },
         auth: {
             welcome: 'वापसी पर स्वागत है',

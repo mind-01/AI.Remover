@@ -18,6 +18,8 @@ interface AuthContextType {
     signOut: () => Promise<void>;
     refreshHistory: () => Promise<void>;
     addToHistory: (item: Omit<HistoryItem, 'id' | 'created_at' | 'user_id'>) => Promise<void>;
+    deleteHistoryItem: (id: string) => Promise<void>;
+    deleteAllHistory: () => Promise<void>;
     uploadImage: (blob: Blob, path: string) => Promise<string | null>;
 }
 
@@ -34,38 +36,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (initializing.current) return;
         initializing.current = true;
 
-        console.log('AuthContext: Initializing...');
-        const searchParams = new URLSearchParams(window.location.search);
-        const searchKeys = Array.from(searchParams.keys());
-
-        // Parsing hash as if it were search params for logging
-        const hashStr = window.location.hash.substring(1);
-        const hashParams = new URLSearchParams(hashStr);
-        const hashKeys = Array.from(hashParams.keys());
-
-        console.log('AuthContext: Search Keys found:', searchKeys);
-        console.log('AuthContext: Hash Keys found:', hashKeys);
-
-        if (searchKeys.includes('error')) {
-            console.error('AuthContext: Error in URL Search:', searchParams.get('error_description'));
-        }
-        if (hashKeys.includes('error')) {
-            console.error('AuthContext: Error in URL Hash:', hashParams.get('error_description'));
-        }
-
         if (!supabase) {
-            console.warn('AuthContext: Supabase client not initialized');
             setLoading(false);
             return;
         }
 
         // Get initial session
         supabase.auth.getSession().then(({ data: { session } }: { data: { session: Session | null } }) => {
-            console.log('AuthContext: getSession result:', session ? `User: ${session.user.email}` : 'No session');
             setSession(session);
             setUser(session?.user ?? null);
             if (session?.user) {
-                console.log('AuthContext: Initial high-priority history fetch');
                 fetchHistory(session.user.id);
             }
             setLoading(false);
@@ -75,8 +55,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         });
 
         // Listen for auth changes
-        const { data: { subscription } } = supabase.auth.onAuthStateChange((event: any, session: Session | null) => {
-            console.log(`AuthContext: Auth Event [${event}]`, session ? `User: ${session.user.email}` : 'No user');
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: any, session: Session | null) => {
             setSession(session);
             setUser(session?.user ?? null);
 
@@ -95,20 +74,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const fetchHistory = async (userId: string) => {
         if (!supabase) return;
-        console.log(`AuthContext: Fetching history for user: ${userId}`);
         const { data, error } = await supabase
             .from('user_history')
             .select('*')
             .eq('user_id', userId)
             .order('created_at', { ascending: false });
 
-        if (error) {
-            console.error('AuthContext: Fetch History Error:', error);
-            return;
-        }
-
-        console.log(`AuthContext: Successfully fetched ${data?.length || 0} history items`);
-        if (data) {
+        if (!error && data) {
             setHistory(data);
         }
     };
@@ -123,23 +95,51 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     const addToHistory = async (item: any) => {
-        if (!user || !supabase) {
-            console.warn('AuthContext: addToHistory skipped - No user or supabase');
-            return;
-        }
+        if (!user || !supabase) return;
 
-        console.log('AuthContext: Inserting into user_history...', item);
         const { error } = await supabase.from('user_history').insert([
             { ...item, user_id: user.id }
         ]);
 
         if (error) {
-            console.error('AuthContext: Database Insert Error:', error);
+            console.error('Error adding to history:', error);
             throw error;
         }
 
-        console.log('AuthContext: Refreshing history cache...');
         await fetchHistory(user.id);
+    };
+
+    const deleteHistoryItem = async (id: string) => {
+        if (!user || !supabase) return;
+
+        const { error } = await supabase
+            .from('user_history')
+            .delete()
+            .eq('id', id)
+            .eq('user_id', user.id);
+
+        if (error) {
+            console.error('Error deleting history item:', error);
+            throw error;
+        }
+
+        await fetchHistory(user.id);
+    };
+
+    const deleteAllHistory = async () => {
+        if (!user || !supabase) return;
+
+        const { error } = await supabase
+            .from('user_history')
+            .delete()
+            .eq('user_id', user.id);
+
+        if (error) {
+            console.error('Error clearing history:', error);
+            throw error;
+        }
+
+        setHistory([]);
     };
 
     const uploadImage = async (blob: Blob, path: string): Promise<string | null> => {
@@ -149,8 +149,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
 
         const fileName = `${user.id}/${Date.now()}-${path}`;
-        console.log(`AuthContext: Uploading to ${STORAGE_BUCKET}/${fileName}...`);
-
         const { data, error } = await supabase.storage
             .from(STORAGE_BUCKET)
             .upload(fileName, blob, {
@@ -159,15 +157,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             });
 
         if (error) {
-            console.error('AuthContext: Storage Upload Error Details:', {
-                message: error.message,
-                name: error.name,
-                status: (error as any).status
-            });
+            console.error('Upload error:', error);
             return null;
         }
 
-        console.log('AuthContext: Upload success, getting public URL...');
         const { data: { publicUrl } } = supabase.storage
             .from(STORAGE_BUCKET)
             .getPublicUrl(data.path);
@@ -176,7 +169,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     return (
-        <AuthContext.Provider value={{ user, session, loading, history, signOut, refreshHistory, addToHistory, uploadImage }}>
+        <AuthContext.Provider value={{
+            user,
+            session,
+            loading,
+            history,
+            signOut,
+            refreshHistory,
+            addToHistory,
+            deleteHistoryItem,
+            deleteAllHistory,
+            uploadImage
+        }}>
             {children}
         </AuthContext.Provider>
     );

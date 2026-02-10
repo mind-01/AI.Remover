@@ -10,7 +10,7 @@ interface DashboardProps {
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({ onClose }) => {
-    const { history, loading } = useAuth();
+    const { history, loading, deleteHistoryItem, deleteAllHistory } = useAuth();
     const { language } = useLanguage();
     const t = translations[language]?.dashboard || translations.en.dashboard;
 
@@ -23,6 +23,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ onClose }) => {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+    };
+
+    const handleClearAll = async () => {
+        if (window.confirm(t.clearConfirm || 'Are you sure you want to clear all history?')) {
+            await deleteAllHistory();
+        }
     };
 
     return (
@@ -42,6 +48,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ onClose }) => {
                         </p>
                     </div>
                 </div>
+
+                {history.length > 0 && (
+                    <button
+                        onClick={handleClearAll}
+                        className="flex items-center gap-2 px-6 py-3 bg-red-50 text-red-600 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-red-100 transition-all active:scale-95 border border-red-100"
+                    >
+                        <Trash2 className="w-4 h-4" />
+                        {t.clearAll || 'All Clear'}
+                    </button>
+                )}
             </div>
 
             {loading ? (
@@ -94,7 +110,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ onClose }) => {
                                     <div className="text-[9px] font-black text-slate-400 uppercase tracking-widest bg-slate-50 px-3 py-1 rounded-full">
                                         {new Date(item.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                                     </div>
-                                    <button className="text-slate-300 hover:text-red-500 transition-colors">
+                                    <button
+                                        onClick={() => deleteHistoryItem(item.id)}
+                                        className="text-slate-300 hover:text-red-500 transition-all active:scale-90"
+                                    >
                                         <Trash2 className="w-4 h-4" />
                                     </button>
                                 </div>
