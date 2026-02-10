@@ -134,7 +134,7 @@ function App() {
       const t = translations[language]?.common || translations.en.common;
       setError(t.processingError);
     }
-  }, [refineImage, language]);
+  }, [refineImage, language, user, uploadImage, addToHistory]);
 
   const handleFilesSelect = async (selectedFiles: File[]) => {
     const newTasks: ProcessingTask[] = selectedFiles.map(file => ({
