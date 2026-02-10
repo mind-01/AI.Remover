@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers } from 'lucide-react';
+import { Layers, Loader2 } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../lib/translations';
 import { useAuth } from '../../contexts/AuthContext';
@@ -7,7 +7,7 @@ import { AuthModal } from '../auth/AuthModal';
 
 export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = ({ setShowDashboard }) => {
     const { language } = useLanguage();
-    const { user, signOut } = useAuth();
+    const { user, signOut, loading } = useAuth();
     const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
     const t = translations[language]?.common || translations.en.common;
 
@@ -32,7 +32,12 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = (
                         <a href="#" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider">{t.tools}</a>
                         <a href="#" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider">{t.pricing}</a>
 
-                        {user ? (
+                        {loading ? (
+                            <div className="flex items-center gap-2 text-slate-400">
+                                <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+                                <span className="text-[10px] font-black uppercase tracking-widest">Checking...</span>
+                            </div>
+                        ) : user ? (
                             <div className="flex items-center gap-4">
                                 <button
                                     onClick={() => setShowDashboard(true)}
