@@ -28,7 +28,8 @@ export const languages = [
     { name: 'Български', code: 'bg' },
     { name: 'Srpski', code: 'sr' },
     { name: 'Slovenščina', code: 'sl' },
-    { name: 'Lietuvių', code: 'lt' }
+    { name: 'Lietuvių', code: 'lt' },
+    { name: 'हिन्दी', code: 'hi' }
 ] as const;
 
 export type LanguageCode = typeof languages[number]['code'];
@@ -74,11 +75,91 @@ export const translations: Record<string, any> = {
             padding: 'Padding'
         }
     },
+    hi: {
+        common: {
+            chooseLanguage: 'अपनी भाषा चुनें',
+            onlineTools: 'ऑनलाइन उपकरण',
+            bgRemover: 'बैकग्राउंड रिमूवर',
+            new: 'नया',
+            howItWorks: 'यह कैसे काम करता है',
+            resources: 'संसाधन',
+            legal: 'कानूनी और सहायता',
+            madeWith: 'निर्मित',
+            forCreators: 'रचनाकारों के लिए',
+            operational: 'सिस्टम स्थिति: चालू है',
+            original: 'मूल',
+            newBackground: 'नया बैकग्राउंड',
+            heroTitle: 'मुफ्त में छवियों से बैकग्राउंड हटाएँ।',
+            heroSubtitle: 'अत्याधुनिक AI तकनीक का उपयोग करके पेशेवर-ग्रेड बैकग्राउंड हटाना। रचनाकारों के लिए 100% स्वचालित और उच्च-सटीक आउटपुट।',
+            uploadButton: 'छवि अपलोड करें',
+            noRegistration: 'कोई पंजीकरण आवश्यक नहीं। 100% मुफ्त।',
+            dropImage: 'छवि यहाँ छोड़ें',
+            tools: 'उपकरण',
+            pricing: 'मूल्य निर्धारण',
+            api: 'API',
+            reset: 'रीसेट करें',
+            download: 'डाउनलोड करें',
+            processingError: 'एक या अधिक छवियों को संसाधित करने में विफल।',
+            processing: 'प्रोसेसिंग...',
+            selectImage: 'दूसरी छवि चुनें',
+            cutout: 'कटआउट',
+            background: 'बैकग्राउंड',
+            effects: 'प्रभाव',
+            adjust: 'समायोजित करें',
+            resize: 'आकार बदलें',
+            brightness: 'चमक',
+            contrast: 'कंट्रास्ट',
+            shadow: 'छाया',
+            reflection: 'प्रतिबिंब',
+            blur: 'धुंधला',
+            padding: 'पैडिंग'
+        }
+    },
+    es: {
+        common: {
+            chooseLanguage: 'Elige tu idioma',
+            onlineTools: 'Herramientas en línea',
+            bgRemover: 'Eliminador de fondo',
+            new: 'Nuevo',
+            howItWorks: 'Cómo funciona',
+            resources: 'Recursos',
+            legal: 'Legal y Soporte',
+            madeWith: 'Hecho con',
+            forCreators: 'para creadores',
+            operational: 'Estado del sistema: Operativo',
+            original: 'Original',
+            newBackground: 'Nuevo fondo',
+            heroTitle: 'Elimina el fondo de las imágenes gratis.',
+            heroSubtitle: 'Eliminación de fondo de nivel profesional utilizando tecnología de IA de vanguardia. Salidas 100 % automáticas y de alta precisión para creadores.',
+            uploadButton: 'Subir imagen',
+            noRegistration: 'No es necesario registrarse. 100% gratis.',
+            dropImage: 'Arrastra la imagen aquí',
+            tools: 'Herramientas',
+            pricing: 'Precios',
+            api: 'API',
+            reset: 'Reiniciar',
+            download: 'Descargar',
+            processingError: 'Error al procesar una o más imágenes.',
+            processing: 'Procesando...',
+            selectImage: 'Seleccionar otra imagen',
+            cutout: 'Recorte',
+            background: 'Fondo',
+            effects: 'Efectos',
+            adjust: 'Ajustar',
+            resize: 'Redimensionar',
+            brightness: 'Brillo',
+            contrast: 'Contraste',
+            shadow: 'Sombra',
+            reflection: 'Reflejo',
+            blur: 'Desenfoque',
+            padding: 'Padding'
+        }
+    }
 };
 
 // Fill others with English as fallback for now to avoid types errors
 languages.forEach(lang => {
-    if (lang.code !== 'en') {
+    if (lang.code !== 'en' && !translations[lang.code]) {
         (translations as any)[lang.code] = translations.en;
     }
 });
