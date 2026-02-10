@@ -31,12 +31,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     useEffect(() => {
         console.log('AuthContext: Initializing...');
-        const searchKeys = Array.from(new URLSearchParams(window.location.search).keys());
-        const hashParams = new URL(window.location.href.replace('#', '?')).searchParams;
+        const searchParams = new URLSearchParams(window.location.search);
+        const searchKeys = Array.from(searchParams.keys());
+
+        // Parsing hash as if it were search params for logging
+        const hashStr = window.location.hash.substring(1);
+        const hashParams = new URLSearchParams(hashStr);
         const hashKeys = Array.from(hashParams.keys());
 
-        console.log('AuthContext: Search Keys:', searchKeys);
-        console.log('AuthContext: Hash Keys:', hashKeys);
+        console.log('AuthContext: Search Keys found:', searchKeys);
+        console.log('AuthContext: Hash Keys found:', hashKeys);
+
+        if (searchKeys.includes('error')) {
+            console.error('AuthContext: Error in URL Search:', searchParams.get('error_description'));
+        }
+        if (hashKeys.includes('error')) {
+            console.error('AuthContext: Error in URL Hash:', hashParams.get('error_description'));
+        }
 
         if (!supabase) {
             console.warn('AuthContext: Supabase client not initialized');
