@@ -9,6 +9,8 @@ import { ProcessingView } from './components/ProcessingView';
 import { ResultViewer } from './components/ResultViewer';
 import { FeaturesSection } from './components/FeaturesSection';
 import { Footer } from './components/layout/Footer';
+import { LanguageProvider } from './contexts/LanguageContext';
+
 interface ProcessingTask {
   id: string;
   file: File;
@@ -155,48 +157,50 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen text-slate-900 overflow-x-hidden font-sans bg-[#fcfcfd]">
-      <Header />
+    <LanguageProvider>
+      <div className="min-h-screen text-slate-900 overflow-x-hidden font-sans bg-[#fcfcfd]">
+        <Header />
 
-      <main className="pt-20">
-        <AnimatePresence mode="wait">
-          <>
-            {tasks.length === 0 ? (
-              <motion.div key="hero" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }}>
-                <Hero onFilesSelect={handleFilesSelect} />
-                <FeaturesSection />
-              </motion.div>
+        <main className="pt-20">
+          <AnimatePresence mode="wait">
+            <>
+              {tasks.length === 0 ? (
+                <motion.div key="hero" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }}>
+                  <Hero onFilesSelect={handleFilesSelect} />
+                  <FeaturesSection />
+                </motion.div>
 
-            ) : isAnyProcessing && !activeTask?.processedUrl ? (
-              <motion.div key="processing" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.05 }}>
-                <ProcessingView progress={tasks.reduce((acc, t) => acc + t.progress, 0) / (tasks.length || 1)} />
-              </motion.div>
-            ) : activeTask && activeTask.processedUrl ? (
-              <motion.div key="result" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                <ResultViewer
-                  originalUrl={activeTask.originalUrl}
-                  processedUrl={activeTask.processedUrl}
-                  onReset={handleReset}
-                  taskList={tasks}
-                  activeTaskId={activeTaskId || ""}
-                  onSelectTask={setActiveTaskId}
-                />
-              </motion.div>
-            ) : null}
-          </>
-        </AnimatePresence>
+              ) : isAnyProcessing && !activeTask?.processedUrl ? (
+                <motion.div key="processing" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.05 }}>
+                  <ProcessingView progress={tasks.reduce((acc, t) => acc + t.progress, 0) / (tasks.length || 1)} />
+                </motion.div>
+              ) : activeTask && activeTask.processedUrl ? (
+                <motion.div key="result" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                  <ResultViewer
+                    originalUrl={activeTask.originalUrl}
+                    processedUrl={activeTask.processedUrl}
+                    onReset={handleReset}
+                    taskList={tasks}
+                    activeTaskId={activeTaskId || ""}
+                    onSelectTask={setActiveTaskId}
+                  />
+                </motion.div>
+              ) : null}
+            </>
+          </AnimatePresence>
 
-        {error && (
-          <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-2xl shadow-2xl font-bold flex items-center gap-3 z-[100]">
-            <span>⚠️</span> {error}
-          </div>
-        )}
-      </main>
+          {error && (
+            <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-2xl shadow-2xl font-bold flex items-center gap-3 z-[100]">
+              <span>⚠️</span> {error}
+            </div>
+          )}
+        </main>
 
-      <Footer />
-      <Analytics />
-      <SpeedInsights />
-    </div>
+        <Footer />
+        <Analytics />
+        <SpeedInsights />
+      </div>
+    </LanguageProvider>
   );
 }
 

@@ -1,10 +1,12 @@
 import React from 'react';
-import { Layers, Github } from 'lucide-react';
+import { Layers } from 'lucide-react';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { translations } from '../../lib/translations';
 
-interface HeaderProps {
-}
+export const Header: React.FC = () => {
+    const { language } = useLanguage();
+    const t = translations[language]?.common || translations.en.common;
 
-export const Header: React.FC<HeaderProps> = () => {
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 border-b border-black/5 bg-white/70 backdrop-blur-xl">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -20,13 +22,13 @@ export const Header: React.FC<HeaderProps> = () => {
                         </span>
                     </div>
 
-                    <div className="flex items-center space-x-4 md:space-x-8">
-
-                        <div className="hidden lg:flex items-center space-x-6 text-sm font-bold tracking-tight">
-                            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-50 rounded-xl text-slate-400 hover:text-slate-900 transition-all border border-slate-100">
-                                <Github className="w-5 h-5" />
-                            </a>
-                        </div>
+                    <div className="hidden md:flex items-center space-x-10">
+                        <a href="#" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider">{t.tools}</a>
+                        <a href="#" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider">{t.pricing}</a>
+                        <a href="#" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider">{t.api}</a>
+                        <button className="px-6 py-2.5 bg-slate-900 text-white text-sm font-black rounded-xl hover:bg-slate-800 transition-all shadow-lg shadow-slate-200 hover:scale-105 active:scale-95 uppercase tracking-wide">
+                            Get Pro
+                        </button>
                     </div>
                 </div>
             </div>
