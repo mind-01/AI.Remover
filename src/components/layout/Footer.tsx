@@ -1,7 +1,10 @@
 import React from 'react';
 import { Layers, Github, Twitter, Mail, Shield, Lock, Globe, Sparkles } from 'lucide-react';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+}
+
+export const Footer: React.FC<FooterProps> = () => {
     return (
         <footer className="bg-slate-50 border-t border-slate-200 pt-20 pb-10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -10,7 +13,7 @@ export const Footer: React.FC = () => {
                     <div className="space-y-6">
                         <div className="flex items-center space-x-2.5">
                             <div className="p-2 bg-blue-600 rounded-lg shadow-lg shadow-blue-200">
-                                <Layers className="w-4 h-4 text-white" />
+                                <Layers className="w-4 h-4 text-white" aria-label="AI Remover PRO logo" />
                             </div>
                             <span className="text-lg font-black text-slate-800 tracking-tight">
                                 AI Remover <span className="text-blue-600">PRO</span>
@@ -20,13 +23,31 @@ export const Footer: React.FC = () => {
                             Professional-grade background removal using state-of-the-art AI technology. 100% automatic and high-precision outputs for creators.
                         </p>
                         <div className="flex items-center space-x-4">
-                            <a href="#" className="p-2 bg-white rounded-lg text-slate-400 hover:text-blue-600 transition-all border border-slate-200 hover:border-blue-200 shadow-sm">
+                            {/* ✅ FIXED: Added aria-label and proper href */}
+                            <a
+                                href="https://twitter.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Follow us on Twitter"
+                                className="p-2 bg-white rounded-lg text-slate-400 hover:text-blue-600 transition-all border border-slate-200 hover:border-blue-200 shadow-sm"
+                            >
                                 <Twitter className="w-4 h-4" />
                             </a>
-                            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-lg text-slate-400 hover:text-slate-900 transition-all border border-slate-200 hover:border-slate-300 shadow-sm">
+                            {/* ✅ FIXED: Changed to # or your actual repo */}
+                            <a
+                                href="#"
+                                onClick={(e) => { e.preventDefault(); alert('GitHub repository coming soon!') }}
+                                aria-label="View our GitHub"
+                                className="p-2 bg-white rounded-lg text-slate-400 hover:text-slate-900 transition-all border border-slate-200 hover:border-slate-300 shadow-sm"
+                            >
                                 <Github className="w-4 h-4" />
                             </a>
-                            <a href="mailto:support@airemover.pro" className="p-2 bg-white rounded-lg text-slate-400 hover:text-red-500 transition-all border border-slate-200 hover:border-red-200 shadow-sm">
+                            {/* ✅ FIXED: Added aria-label */}
+                            <a
+                                href="mailto:support@airemover.pro"
+                                aria-label="Email us at support@airemover.pro"
+                                className="p-2 bg-white rounded-lg text-slate-400 hover:text-red-500 transition-all border border-slate-200 hover:border-red-200 shadow-sm"
+                            >
                                 <Mail className="w-4 h-4" />
                             </a>
                         </div>
@@ -36,11 +57,25 @@ export const Footer: React.FC = () => {
                     <div>
                         <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest mb-6">Online Tools</h4>
                         <ul className="space-y-4">
-                            {['Background Remover', 'Image Quality Booster', 'Transparent PNG Maker', 'Object Eraser'].map((item) => (
-                                <li key={item}>
-                                    <a href="#" className="text-sm text-slate-500 hover:text-blue-600 font-bold transition-colors flex items-center gap-2 group">
+                            {[
+                                { name: 'Background Remover', available: true },
+                                { name: 'Transparent PNG Maker', available: false },
+                                { name: 'Object Eraser', available: false }
+                            ].map((item) => (
+                                <li key={item.name}>
+                                    <a
+                                        href={item.available ? "#" : "#"}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            if (!item.available) {
+                                                alert(`${item.name} - Coming soon!`);
+                                            }
+                                        }}
+                                        aria-label={item.name}
+                                        className="text-sm text-slate-500 hover:text-blue-600 font-bold transition-colors flex items-center gap-2 group cursor-pointer"
+                                    >
                                         <div className="w-1 h-1 bg-slate-300 rounded-full group-hover:bg-blue-600 transition-colors" />
-                                        {item}
+                                        {item.name}
                                     </a>
                                 </li>
                             ))}
@@ -51,11 +86,21 @@ export const Footer: React.FC = () => {
                     <div>
                         <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest mb-6">Resources</h4>
                         <ul className="space-y-4">
-                            {['How it Works', 'API Documentation', 'Developer Tools', 'Blog'].map((item) => (
-                                <li key={item}>
-                                    <a href="#" className="text-sm text-slate-500 hover:text-blue-600 font-bold transition-colors flex items-center gap-2 group">
+                            {[
+                                { name: 'How it Works', available: true },
+                                { name: 'API Documentation', available: false },
+                                { name: 'Developer Tools', available: false },
+                                { name: 'Blog', available: false }
+                            ].map((item) => (
+                                <li key={item.name}>
+                                    <a
+                                        href={item.available ? "#how-it-works" : "#"}
+                                        onClick={!item.available ? (e) => { e.preventDefault(); alert(`${item.name} - Coming soon!`) } : undefined}
+                                        aria-label={item.name}
+                                        className="text-sm text-slate-500 hover:text-blue-600 font-bold transition-colors flex items-center gap-2 group"
+                                    >
                                         <div className="w-1 h-1 bg-slate-300 rounded-full group-hover:bg-blue-600 transition-colors" />
-                                        {item}
+                                        {item.name}
                                     </a>
                                 </li>
                             ))}
@@ -67,13 +112,18 @@ export const Footer: React.FC = () => {
                         <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest mb-6">Legal & Support</h4>
                         <ul className="space-y-4">
                             {[
-                                { name: 'Privacy Policy', icon: Shield },
-                                { name: 'Terms of Service', icon: Lock },
-                                { name: 'Help Center', icon: Globe }
+                                { name: 'Privacy Policy', icon: Shield, available: false },
+                                { name: 'Terms of Service', icon: Lock, available: false },
+                                { name: 'Help Center', icon: Globe, available: false }
                             ].map((item) => (
                                 <li key={item.name}>
-                                    <a href="#" className="text-sm text-slate-500 hover:text-blue-600 font-bold transition-colors flex items-center gap-2 group">
-                                        <item.icon className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600 transition-colors" />
+                                    <a
+                                        href="#"
+                                        onClick={(e) => { e.preventDefault(); alert(`${item.name} - Coming soon!`) }}
+                                        aria-label={item.name}
+                                        className="text-sm text-slate-500 hover:text-blue-600 font-bold transition-colors flex items-center gap-2 group"
+                                    >
+                                        <item.icon className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600 transition-colors" aria-hidden="true" />
                                         {item.name}
                                     </a>
                                 </li>
@@ -92,7 +142,7 @@ export const Footer: React.FC = () => {
                             System Status: Operational
                         </span>
                         <div className="flex items-center gap-2 text-[13px] text-slate-400 font-bold">
-                            Made with <Sparkles className="w-3.5 h-3.5 text-amber-400" /> for creators
+                            Made with <Sparkles className="w-3.5 h-3.5 text-amber-400" aria-label="sparkles" /> for creators
                         </div>
                     </div>
                 </div>

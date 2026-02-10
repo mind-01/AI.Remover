@@ -1,10 +1,25 @@
-import React from 'react';
-import { Zap, Shield, Image as ImageIcon, Download, CheckCircle2, Wand2, MousePointer2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { Zap, Shield, Image as ImageIcon, Download, CheckCircle2, Wand2, MousePointer2, Loader2 } from 'lucide-react';
 
 export const FeaturesSection: React.FC = () => {
+    // ✅ ADDED: Live Demo State
+    const [demoStep, setDemoStep] = useState<'idle' | 'processing' | 'complete'>('idle');
+
+    // ✅ ADDED: Live Demo Function
+    const runLiveDemo = () => {
+        setDemoStep('processing');
+        setTimeout(() => {
+            setDemoStep('complete');
+        }, 2000);
+    };
+
+    const resetDemo = () => {
+        setDemoStep('idle');
+    };
+
     return (
         <section className="py-24 space-y-32">
-            {/* How it Works */}
+            {/* How it Works - वैसा ही है */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center space-y-4 mb-16">
                     <h2 className="text-sm font-black text-blue-600 uppercase tracking-widest">Process</h2>
@@ -25,7 +40,7 @@ export const FeaturesSection: React.FC = () => {
                                 Step {item.step}
                             </div>
                             <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm border border-blue-100">
-                                <item.icon className="w-6 h-6" />
+                                <item.icon className="w-6 h-6" aria-label={item.title} />
                             </div>
                             <h4 className="text-xl font-black text-slate-800 mb-2">{item.title}</h4>
                             <p className="text-slate-500 text-sm leading-relaxed font-medium">{item.desc}</p>
@@ -62,7 +77,7 @@ export const FeaturesSection: React.FC = () => {
                                 ].map((item, idx) => (
                                     <div key={idx} className="flex items-start gap-4">
                                         <div className="p-1 px-2.5 rounded-lg border border-blue-500/20 bg-blue-500/10 mt-1">
-                                            <CheckCircle2 className="w-4 h-4 text-blue-400" />
+                                            <CheckCircle2 className="w-4 h-4 text-blue-400" aria-label="Feature verified" />
                                         </div>
                                         <div>
                                             <h5 className="text-white font-bold text-sm tracking-tight">{item.title}</h5>
@@ -73,6 +88,7 @@ export const FeaturesSection: React.FC = () => {
                             </div>
                         </div>
 
+                        {/* ✅ UPDATED: Live Demo Section */}
                         <div className="relative">
                             <div className="absolute -inset-4 bg-gradient-to-tr from-blue-600/20 to-transparent blur-2xl rounded-full" />
                             <div className="bg-slate-800/50 backdrop-blur-xl border border-white/5 p-8 rounded-[2.5rem] shadow-2xl relative">
@@ -80,7 +96,7 @@ export const FeaturesSection: React.FC = () => {
                                     <div className="flex items-center justify-between">
                                         <div className="flex items-center gap-3">
                                             <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
-                                                <Zap className="w-5 h-5 text-white" />
+                                                <Zap className="w-5 h-5 text-white" aria-label="AI powered" />
                                             </div>
                                             <div className="flex flex-col">
                                                 <span className="text-xs font-black text-white uppercase tracking-wider">AI Analysis</span>
@@ -90,35 +106,118 @@ export const FeaturesSection: React.FC = () => {
                                                 </span>
                                             </div>
                                         </div>
-                                        <button className="px-5 py-2.5 bg-white/5 hover:bg-white/10 text-white text-[11px] font-black uppercase tracking-widest rounded-xl transition-all border border-white/10 hover:border-white/20">
-                                            Live Demo
-                                        </button>
+
+                                        {/* ✅ DYNAMIC BUTTONS */}
+                                        {demoStep === 'idle' && (
+                                            <button 
+                                                onClick={runLiveDemo}
+                                                className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-black uppercase tracking-widest rounded-xl transition-all border border-blue-500 hover:border-blue-400 shadow-lg shadow-blue-600/20"
+                                            >
+                                                Live Demo
+                                            </button>
+                                        )}
+                                        {demoStep === 'processing' && (
+                                            <button 
+                                                disabled
+                                                className="px-5 py-2.5 bg-slate-700 text-slate-400 text-[11px] font-black uppercase tracking-widest rounded-xl border border-slate-600 flex items-center gap-2"
+                                            >
+                                                <Loader2 className="w-3 h-3 animate-spin" />
+                                                Processing...
+                                            </button>
+                                        )}
+                                        {demoStep === 'complete' && (
+                                            <button 
+                                                onClick={resetDemo}
+                                                className="px-5 py-2.5 bg-green-600 hover:bg-green-500 text-white text-[11px] font-black uppercase tracking-widest rounded-xl transition-all border border-green-500"
+                                            >
+                                                Try Again
+                                            </button>
+                                        )}
                                     </div>
 
-                                    <div className="h-64 rounded-2xl bg-slate-900 border border-white/5 relative overflow-hidden group">
-                                        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=600')] bg-cover bg-center transition-transform duration-700 group-hover:scale-110" />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
-                                        <div className="absolute bottom-5 left-6 right-6">
+                                    {/* ✅ DYNAMIC IMAGE CONTAINER - CHECKERED BG + TRANSPARENT SHOE */}
+                                    <div className="h-64 rounded-2xl bg-slate-900 border border-white/5 relative overflow-hidden">
+                                        
+                                        {/* CHECKERED BACKGROUND - Visible when complete */}
+                                        <div 
+                                            className={`absolute inset-0 transition-opacity duration-1000 ${
+                                                demoStep === 'complete' ? 'opacity-100' : 'opacity-0'
+                                            }`}
+                                            style={{
+                                                backgroundImage: `
+                                                    linear-gradient(45deg, #e5e5e5 25%, transparent 25%), 
+                                                    linear-gradient(-45deg, #e5e5e5 25%, transparent 25%), 
+                                                    linear-gradient(45deg, transparent 75%, #e5e5e5 75%), 
+                                                    linear-gradient(-45deg, transparent 75%, #e5e5e5 75%)
+                                                `,
+                                                backgroundSize: '20px 20px',
+                                                backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px',
+                                                backgroundColor: '#f8fafc'
+                                            }}
+                                        />
+
+                                        {/* 1. ORIGINAL IMAGE */}
+                                        <div 
+                                            className="absolute inset-0 bg-cover bg-center transition-all duration-1000"
+                                            style={{
+                                                backgroundImage: `url('/demo/shoe-original.jpg')`,
+                                                opacity: demoStep === 'complete' ? 0 : 1
+                                            }}
+                                        />
+
+                                        {/* 2. RESULT IMAGE - Centered IMG tag */}
+                                        <div 
+                                            className={`absolute inset-0 flex items-center justify-center transition-all duration-1000 ${
+                                                demoStep === 'complete' ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                                            }`}
+                                        >
+                                            <img 
+                                                src="/demo/shoe-result.png" 
+                                                alt="Shoe with transparent background"
+                                                className="max-w-[90%] max-h-[90%] object-contain drop-shadow-2xl"
+                                            />
+                                        </div>
+                                        
+                                        {/* 3. PROCESSING OVERLAY */}
+                                        {demoStep === 'processing' && (
+                                            <div className="absolute inset-0 flex items-center justify-center bg-slate-900/80 backdrop-blur-sm z-20">
+                                                <div className="text-center space-y-3">
+                                                    <Loader2 className="w-8 h-8 text-blue-500 animate-spin mx-auto" />
+                                                    <p className="text-xs font-black text-white uppercase tracking-widest">Removing Background...</p>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {/* 4. BOTTOM INFO - No green checkmark */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent pointer-events-none" />
+                                        <div className="absolute bottom-5 left-6 right-6 z-10">
                                             <div className="flex justify-between items-end">
                                                 <div className="space-y-1">
                                                     <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest">Efficiency</p>
-                                                    <p className="text-sm font-bold text-white tracking-tight">High-Precision Masking</p>
+                                                    <p className="text-sm font-bold text-white tracking-tight">
+                                                        {demoStep === 'complete' ? 'Background Removed!' : 'High-Precision Masking'}
+                                                    </p>
                                                 </div>
-                                                <div className="p-2bg-blue-600 rounded-lg">
-                                                    <Shield className="w-4 h-4 text-blue-400" />
+                                                <div className="p-2 bg-blue-600 rounded-lg">
+                                                    <Shield className="w-4 h-4 text-blue-400" aria-label="Secure processing" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
+                                    {/* Stats */}
                                     <div className="grid grid-cols-2 gap-4">
                                         {[
                                             { label: 'Speed', val: '0.4s' },
-                                            { label: 'Accuracy', val: '99.9%' }
+                                            { label: 'Accuracy', val: demoStep === 'complete' ? '100%' : '99.9%' }
                                         ].map(stat => (
                                             <div key={stat.label} className="bg-white/5 p-4 rounded-2xl border border-white/5 flex flex-col items-center">
                                                 <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">{stat.label}</span>
-                                                <span className="text-xl font-black text-white tracking-tight italic">{stat.val}</span>
+                                                <span className={`text-xl font-black tracking-tight italic ${
+                                                    demoStep === 'complete' && stat.label === 'Accuracy' ? 'text-green-400' : 'text-white'
+                                                }`}>
+                                                    {stat.val}
+                                                </span>
                                             </div>
                                         ))}
                                     </div>
@@ -129,7 +228,7 @@ export const FeaturesSection: React.FC = () => {
                 </div>
             </div>
 
-            {/* SEO FAQ Section */}
+            {/* SEO FAQ Section - वैसा ही है */}
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center space-y-4 mb-16">
                     <h2 className="text-sm font-black text-blue-600 uppercase tracking-widest italic flex items-center justify-center gap-2">
@@ -148,7 +247,7 @@ export const FeaturesSection: React.FC = () => {
                         <div key={idx} className="p-8 bg-slate-50 rounded-3xl border border-slate-200 hover:border-blue-200 hover:bg-white transition-all cursor-default group">
                             <h4 className="text-lg font-black text-slate-800 mb-3 flex items-center justify-between">
                                 {faq.q}
-                                <MousePointer2 className="w-4 h-4 text-slate-300 group-hover:text-blue-500 transition-colors" />
+                                <MousePointer2 className="w-4 h-4 text-slate-300 group-hover:text-blue-500 transition-colors" aria-label="FAQ item" />
                             </h4>
                             <p className="text-slate-500 text-sm leading-relaxed font-medium">{faq.a}</p>
                         </div>
