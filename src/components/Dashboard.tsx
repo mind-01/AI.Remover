@@ -12,7 +12,6 @@ interface DashboardProps {
 export const Dashboard: React.FC<DashboardProps> = ({ onClose }) => {
     const { history, loading } = useAuth();
     const { language } = useLanguage();
-    const t = translations[language]?.common || translations.en.common;
 
     const handleDownload = async (url: string, id: string) => {
         const response = await fetch(url);

@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Mail, Lock, Loader2, ArrowRight } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
-import { cn } from '../../lib/utils';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { translations } from '../../lib/translations';
 
 interface AuthModalProps {
     isOpen: boolean;
@@ -12,8 +10,6 @@ interface AuthModalProps {
 }
 
 export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
-    const { language } = useLanguage();
-    const t = translations[language]?.common || translations.en.common;
     const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
