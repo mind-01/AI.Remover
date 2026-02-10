@@ -76,6 +76,8 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
     const [isMagicBrush] = useState(true);
     const [isProcessing, setIsProcessing] = useState(false);
     const [customColor, setCustomColor] = useState('#6366f1');
+    const [applyToAll, setApplyToAll] = useState(false);
+    const [taskConfigs, setTaskConfigs] = useState<Record<string, Omit<EditorState, 'mask'>>>({});
 
     // Canvas Refs
     const displayCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -143,7 +145,18 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                 selectionCanvas.height = proc.height;
                 const mCtx = maskCanvas.getContext('2d', { willReadFrequently: true })!;
                 mCtx.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
-                mCtx.drawImage(proc, 0, 0);
+
+                const savedConfig = taskConfigs[activeTaskId];
+                if (savedConfig && (savedConfig as any).mask) {
+                    const savedMask = new Image();
+                    savedMask.onload = () => {
+                        mCtx.drawImage(savedMask, 0, 0);
+                        renderDisplay();
+                    };
+                    savedMask.src = (savedConfig as any).mask;
+                } else {
+                    mCtx.drawImage(proc, 0, 0);
+                }
 
                 // Initial History State
                 const initialState: EditorState = {
@@ -258,6 +271,78 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
         });
         setHistoryIndex(prev => Math.min(prev + 1, 49));
     }, [bgColor, bgImage, isBlurEnabled, bgBlur, isShadowEnabled, shadowOpacity, shadowIntensity, isReflectionEnabled, brightness, contrast, aspectRatio, objectPadding, historyIndex]);
+
+    // Update all tasks or single task
+    const updateConfig = useCallback((updates: Partial<Omit<EditorState, 'mask'>>) => {
+        if (applyToAll) {
+            const nextConfigs = { ...taskConfigs };
+            taskList.forEach(task => {
+                nextConfigs[task.id] = {
+                    ...(nextConfigs[task.id] || {
+                        bgColor: 'transparent', bgImage: null, isBlurEnabled: false, bgBlur: 8,
+                        isShadowEnabled: false, shadowOpacity: 40, shadowIntensity: 6,
+                        isReflectionEnabled: false, brightness: 100, contrast: 100,
+                        aspectRatio: 'aspect-[4/3]', objectPadding: 0
+                    }),
+                    ...updates
+                };
+            });
+            setTaskConfigs(nextConfigs);
+        } else {
+            setTaskConfigs(prev => ({
+                ...prev,
+                [activeTaskId]: {
+                    ...(prev[activeTaskId] || {
+                        bgColor: 'transparent', bgImage: null, isBlurEnabled: false, bgBlur: 8,
+                        isShadowEnabled: false, shadowOpacity: 40, shadowIntensity: 6,
+                        isReflectionEnabled: false, brightness: 100, contrast: 100,
+                        aspectRatio: 'aspect-[4/3]', objectPadding: 0
+                    }),
+                    ...updates
+                }
+            }));
+        }
+    }, [applyToAll, taskConfigs, activeTaskId, taskList]);
+
+    // Sync local states to config
+    useEffect(() => {
+        // Save current mask to previous task before switching
+        return () => {
+            const mCanvas = maskCanvasRef.current;
+            if (mCanvas && activeTaskId) {
+                setTaskConfigs(prev => ({
+                    ...prev,
+                    [activeTaskId]: {
+                        ...(prev[activeTaskId] || {
+                            bgColor: 'transparent', bgImage: null, isBlurEnabled: false, bgBlur: 8,
+                            isShadowEnabled: false, shadowOpacity: 40, shadowIntensity: 6,
+                            isReflectionEnabled: false, brightness: 100, contrast: 100,
+                            aspectRatio: 'aspect-[4/3]', objectPadding: 0
+                        }),
+                        mask: mCanvas.toDataURL()
+                    } as any
+                }));
+            }
+        };
+    }, [activeTaskId]); // Removed taskConfigs dependency to avoid infinite loop
+
+    useEffect(() => {
+        const config = taskConfigs[activeTaskId];
+        if (config) {
+            setBgColor(config.bgColor);
+            setBgImage(config.bgImage);
+            setIsBlurEnabled(config.isBlurEnabled);
+            setBgBlur(config.bgBlur);
+            setIsShadowEnabled(config.isShadowEnabled);
+            setShadowOpacity(config.shadowOpacity);
+            setShadowIntensity(config.shadowIntensity);
+            setIsReflectionEnabled(config.isReflectionEnabled);
+            setBrightness(config.brightness);
+            setContrast(config.contrast);
+            setAspectRatio(config.aspectRatio);
+            setObjectPadding(config.objectPadding);
+        }
+    }, [activeTaskId]);
 
     // Apply specific history state
     const applyHistoryState = useCallback((state: EditorState) => {
@@ -823,6 +908,29 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                         >
                             <Trash2 className="w-3.5 h-3.5" /> {t.common.clearAll}
                         </button>
+
+                        <div className="pt-2 px-1">
+                            <div className="flex p-1 bg-slate-100/80 rounded-2xl w-full border border-slate-100/50">
+                                <button
+                                    onClick={() => setApplyToAll(false)}
+                                    className={cn(
+                                        "flex-grow py-2 rounded-xl text-[8px] font-black uppercase tracking-wider transition-all",
+                                        !applyToAll ? "bg-white text-blue-600 shadow-sm" : "text-slate-400 hover:text-slate-500"
+                                    )}
+                                >
+                                    {t.common.singleEdit}
+                                </button>
+                                <button
+                                    onClick={() => setApplyToAll(true)}
+                                    className={cn(
+                                        "flex-grow py-2 rounded-xl text-[8px] font-black uppercase tracking-wider transition-all",
+                                        applyToAll ? "bg-white text-blue-600 shadow-sm" : "text-slate-400 hover:text-slate-500"
+                                    )}
+                                >
+                                    {t.common.applyToAll}
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
                     <div className="w-full h-[1px] bg-slate-100 mb-2" />
@@ -978,6 +1086,30 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                     <div className="w-full h-1 flex justify-center py-2">
                         <div className="w-8 h-1 bg-slate-200 rounded-full" />
                     </div>
+
+                    {/* Mobile Batch Toggle */}
+                    <div className="px-4 py-1">
+                        <div className="flex p-1 bg-slate-100/50 rounded-xl w-full border border-slate-100/30">
+                            <button
+                                onClick={() => setApplyToAll(false)}
+                                className={cn(
+                                    "flex-grow py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all",
+                                    !applyToAll ? "bg-white text-blue-600 shadow-sm" : "text-slate-400"
+                                )}
+                            >
+                                {t.common.singleEdit}
+                            </button>
+                            <button
+                                onClick={() => setApplyToAll(true)}
+                                className={cn(
+                                    "flex-grow py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all",
+                                    applyToAll ? "bg-white text-blue-600 shadow-sm" : "text-slate-400"
+                                )}
+                            >
+                                {t.common.applyToAll}
+                            </button>
+                        </div>
+                    </div>
                     {/* Active Tool Panel (Slide-up context) */}
                     <div className="relative overflow-hidden bg-white h-[140px]">
                         <AnimatePresence mode="wait">
@@ -1003,11 +1135,11 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                     <div className="flex flex-col justify-center gap-4 px-6 w-full h-full">
                                         <div className="flex items-center gap-4">
                                             <span className="w-16 text-[10px] font-black text-slate-400 uppercase tracking-tighter">{t.editor.brightness}</span>
-                                            <input type="range" value={brightness} min="50" max="150" onChange={(e) => setBrightness(parseInt(e.target.value))} className="flex-grow h-2 accent-blue-600" />
+                                            <input type="range" value={brightness} min="50" max="150" onChange={(e) => { const val = parseInt(e.target.value); setBrightness(val); updateConfig({ brightness: val }); }} className="flex-grow h-2 accent-blue-600" />
                                         </div>
                                         <div className="flex items-center gap-4">
                                             <span className="w-16 text-[10px] font-black text-slate-400 uppercase tracking-tighter">{t.editor.contrast}</span>
-                                            <input type="range" value={contrast} min="50" max="150" onChange={(e) => setContrast(parseInt(e.target.value))} className="flex-grow h-2 accent-blue-600" />
+                                            <input type="range" value={contrast} min="50" max="150" onChange={(e) => { const val = parseInt(e.target.value); setContrast(val); updateConfig({ contrast: val }); }} className="flex-grow h-2 accent-blue-600" />
                                         </div>
                                     </div>
                                 )}
@@ -1066,19 +1198,19 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                 {activeTab === 'effects' && (
                                     <div className="flex flex-col justify-center gap-4 px-6 w-full h-full">
                                         <div className="flex items-center gap-4">
-                                            <button onClick={() => setIsBlurEnabled(!isBlurEnabled)} className={cn("flex-shrink-0 p-2 rounded-xl border-2 transition-all", isBlurEnabled ? "bg-blue-50 border-blue-200 text-blue-600 shadow-sm" : "bg-slate-50 border-slate-100 text-slate-400")}>
+                                            <button onClick={() => { setIsBlurEnabled(!isBlurEnabled); updateConfig({ isBlurEnabled: !isBlurEnabled }); }} className={cn("flex-shrink-0 p-2 rounded-xl border-2 transition-all", isBlurEnabled ? "bg-blue-50 border-blue-200 text-blue-600 shadow-sm" : "bg-slate-50 border-slate-100 text-slate-400")}>
                                                 <Sparkles className="w-5 h-5" />
                                             </button>
-                                            <input type="range" value={bgBlur} min="0" max="40" onChange={(e) => setBgBlur(parseInt(e.target.value))} disabled={!isBlurEnabled} className="flex-grow h-2 accent-blue-600" />
+                                            <input type="range" value={bgBlur} min="0" max="40" onChange={(e) => { const val = parseInt(e.target.value); setBgBlur(val); updateConfig({ bgBlur: val }); }} disabled={!isBlurEnabled} className="flex-grow h-2 accent-blue-600" />
                                         </div>
                                         <div className="flex items-center gap-4">
-                                            <button onClick={() => setIsShadowEnabled(!isShadowEnabled)} className={cn("flex-shrink-0 p-2 rounded-xl border-2 transition-all", isShadowEnabled ? "bg-blue-50 border-blue-200 text-blue-600 shadow-sm" : "bg-slate-50 border-slate-100 text-slate-400")}>
+                                            <button onClick={() => { setIsShadowEnabled(!isShadowEnabled); updateConfig({ isShadowEnabled: !isShadowEnabled }); }} className={cn("flex-shrink-0 p-2 rounded-xl border-2 transition-all", isShadowEnabled ? "bg-blue-50 border-blue-200 text-blue-600 shadow-sm" : "bg-slate-50 border-slate-100 text-slate-400")}>
                                                 <LayersIcon className="w-5 h-5" />
                                             </button>
-                                            <input type="range" value={shadowOpacity} min="0" max="100" onChange={(e) => setShadowOpacity(parseInt(e.target.value))} disabled={!isShadowEnabled} className="flex-grow h-2 accent-blue-600" />
+                                            <input type="range" value={shadowOpacity} min="0" max="100" onChange={(e) => { const val = parseInt(e.target.value); setShadowOpacity(val); updateConfig({ shadowOpacity: val }); }} disabled={!isShadowEnabled} className="flex-grow h-2 accent-blue-600" />
                                         </div>
                                         <div className="flex justify-center">
-                                            <button onClick={() => setIsReflectionEnabled(!isReflectionEnabled)} className={cn("px-6 py-2 rounded-xl border-2 text-[10px] font-black uppercase tracking-widest transition-all", isReflectionEnabled ? "bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-200" : "bg-slate-50 border-slate-100 text-slate-400")}>
+                                            <button onClick={() => { setIsReflectionEnabled(!isReflectionEnabled); updateConfig({ isReflectionEnabled: !isReflectionEnabled }); }} className={cn("px-6 py-2 rounded-xl border-2 text-[10px] font-black uppercase tracking-widest transition-all", isReflectionEnabled ? "bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-200" : "bg-slate-50 border-slate-100 text-slate-400")}>
                                                 {t.editor.reflectionLabel}
                                             </button>
                                         </div>
@@ -1168,11 +1300,11 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
 
                                     {bgSubTab === 'photo' && (
                                         <div className="grid grid-cols-2 gap-3 animate-in fade-in slide-in-from-bottom-2">
-                                            <button onClick={() => setBgImage(null)} className={cn("h-24 rounded-2xl border-2 flex items-center justify-center bg-slate-50", !bgImage ? "border-blue-600" : "border-slate-100")}>
+                                            <button onClick={() => { setBgImage(null); updateConfig({ bgImage: null }); }} className={cn("h-24 rounded-2xl border-2 flex items-center justify-center bg-slate-50", !bgImage ? "border-blue-600" : "border-slate-100")}>
                                                 <div className="text-[10px] font-black text-slate-400 uppercase">{t.editor.noneOption}</div>
                                             </button>
                                             {photoPresets.map((url, i) => (
-                                                <button key={i} onClick={() => setBgImage(url)} className={cn("h-24 rounded-2xl border-2 overflow-hidden transition-all group relative", bgImage === url ? "border-blue-600 scale-102 shadow-lg" : "border-slate-100")}>
+                                                <button key={i} onClick={() => { setBgImage(url); updateConfig({ bgImage: url }); }} className={cn("h-24 rounded-2xl border-2 overflow-hidden transition-all group relative", bgImage === url ? "border-blue-600 scale-102 shadow-lg" : "border-slate-100")}>
                                                     <img src={url} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="" onError={(e) => (e.target as HTMLImageElement).parentElement?.classList.add('hidden')} />
                                                 </button>
                                             ))}
@@ -1184,7 +1316,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                             {colorGridItems.map((item) => {
                                                 if (item === 'transparent') {
                                                     return (
-                                                        <button key="none" onClick={() => { setBgColor('transparent'); setBgImage(null); }} className={cn("h-12 rounded-xl border-2 flex items-center justify-center transition-all", bgColor === 'transparent' && !bgImage ? "border-blue-600 scale-105 shadow-md" : "border-slate-50")}>
+                                                        <button key="none" onClick={() => { setBgColor('transparent'); setBgImage(null); updateConfig({ bgColor: 'transparent', bgImage: null }); }} className={cn("h-12 rounded-xl border-2 flex items-center justify-center transition-all", bgColor === 'transparent' && !bgImage ? "border-blue-600 scale-105 shadow-md" : "border-slate-50")}>
                                                             <div className="w-5 h-5 border-2 border-slate-300 rounded-full flex items-center justify-center relative">
                                                                 <div className="absolute w-full h-[2px] bg-slate-300 rotate-45" />
                                                             </div>
@@ -1195,11 +1327,11 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                                     return (
                                                         <button key="custom" onClick={() => colorPickerRef.current?.click()} className={cn("h-12 rounded-xl border-2 flex items-center justify-center transition-all bg-gradient-to-tr from-red-400 via-yellow-400 via-green-400 via-blue-400 to-purple-400", bgColor !== 'transparent' && !colorGridItems.includes(bgColor) && !bgImage ? "border-blue-600 scale-105 shadow-md" : "border-slate-50")}>
                                                             <Palette className="w-5 h-5 text-white drop-shadow-md" />
-                                                            <input ref={colorPickerRef} type="color" value={customColor} onChange={(e) => { setCustomColor(e.target.value); setBgColor(e.target.value); setBgImage(null); }} className="sr-only" />
+                                                            <input ref={colorPickerRef} type="color" value={customColor} onChange={(e) => { const col = e.target.value; setCustomColor(col); setBgColor(col); setBgImage(null); updateConfig({ bgColor: col, bgImage: null }); }} className="sr-only" />
                                                         </button>
                                                     );
                                                 }
-                                                return <button key={item} onClick={() => { setBgColor(item); setBgImage(null); }} className={cn("h-12 rounded-xl border-2 transition-all", bgColor === item && !bgImage ? "border-blue-600 scale-105 shadow-md" : "border-slate-50")} style={{ background: item }} />;
+                                                return <button key={item} onClick={() => { setBgColor(item); setBgImage(null); updateConfig({ bgColor: item, bgImage: null }); }} className={cn("h-12 rounded-xl border-2 transition-all", bgColor === item && !bgImage ? "border-blue-600 scale-105 shadow-md" : "border-slate-50")} style={{ background: item }} />;
                                             })}
                                         </div>
                                     )}
@@ -1210,25 +1342,25 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                 <section className="space-y-8 animate-in fade-in slide-in-from-right-4">
                                     <div className="space-y-6">
                                         <div className="flex items-center gap-3">
-                                            <div className={cn("w-10 h-5 rounded-full transition-all relative cursor-pointer", isBlurEnabled ? "bg-blue-600" : "bg-slate-300")} onClick={() => setIsBlurEnabled(!isBlurEnabled)}>
+                                            <div className={cn("w-10 h-5 rounded-full transition-all relative cursor-pointer", isBlurEnabled ? "bg-blue-600" : "bg-slate-300")} onClick={() => { setIsBlurEnabled(!isBlurEnabled); updateConfig({ isBlurEnabled: !isBlurEnabled }); }}>
                                                 <div className={cn("absolute top-1 w-3 h-3 bg-white rounded-full transition-all shadow-sm", isBlurEnabled ? "right-1" : "left-1")} />
                                             </div>
                                             <span className="text-[11px] font-black text-slate-800 uppercase tracking-tighter">{t.editor.blurBackground}</span>
                                         </div>
-                                        <input type="range" min="0" max="40" step="1" value={bgBlur} onChange={(e) => setBgBlur(parseInt(e.target.value))} className="w-full h-1 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+                                        <input type="range" min="0" max="40" step="1" value={bgBlur} onChange={(e) => { const val = parseInt(e.target.value); setBgBlur(val); updateConfig({ bgBlur: val }); }} className="w-full h-1 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600" />
                                     </div>
                                     <div className="space-y-6">
                                         <div className="flex items-center gap-3 font-black text-[11px] text-slate-800 uppercase tracking-tighter">
-                                            <div className={cn("w-10 h-5 rounded-full transition-all relative cursor-pointer", isShadowEnabled ? "bg-blue-600" : "bg-slate-300")} onClick={() => setIsShadowEnabled(!isShadowEnabled)}>
+                                            <div className={cn("w-10 h-5 rounded-full transition-all relative cursor-pointer", isShadowEnabled ? "bg-blue-600" : "bg-slate-300")} onClick={() => { setIsShadowEnabled(!isShadowEnabled); updateConfig({ isShadowEnabled: !isShadowEnabled }); }}>
                                                 <div className={cn("absolute top-1 w-3 h-3 bg-white rounded-full transition-all shadow-sm", isShadowEnabled ? "right-1" : "left-1")} />
                                             </div>
                                             <span>{t.editor.productShadow}</span>
                                         </div>
-                                        <input type="range" min="0" max="100" value={shadowOpacity} onChange={(e) => setShadowOpacity(parseInt(e.target.value))} className="w-full h-1 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+                                        <input type="range" min="0" max="100" value={shadowOpacity} onChange={(e) => { const val = parseInt(e.target.value); setShadowOpacity(val); updateConfig({ shadowOpacity: val }); }} className="w-full h-1 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600" />
                                     </div>
                                     <div className="flex items-center justify-between p-4 bg-blue-50/50 rounded-3xl border border-blue-100">
                                         <span className="text-[11px] font-black text-blue-900 uppercase tracking-tighter">{t.editor.reflectionLabel}</span>
-                                        <button onClick={() => setIsReflectionEnabled(!isReflectionEnabled)} className={cn("w-10 h-5 rounded-full transition-all relative", isReflectionEnabled ? "bg-blue-600" : "bg-slate-300")}>
+                                        <button onClick={() => { setIsReflectionEnabled(!isReflectionEnabled); updateConfig({ isReflectionEnabled: !isReflectionEnabled }); }} className={cn("w-10 h-5 rounded-full transition-all relative", isReflectionEnabled ? "bg-blue-600" : "bg-slate-300")}>
                                             <div className={cn("absolute top-1 w-3 h-3 bg-white rounded-full transition-all shadow-sm", isReflectionEnabled ? "right-1" : "left-1")} />
                                         </button>
                                     </div>
@@ -1240,11 +1372,11 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                     <div className="space-y-4 p-5 bg-slate-50 rounded-3xl">
                                         <div className="space-y-2">
                                             <div className="flex justify-between text-[10px] font-black text-slate-600 uppercase"><span>{t.editor.brightness}</span><span>{brightness}%</span></div>
-                                            <input type="range" min="50" max="150" value={brightness} onChange={(e) => setBrightness(parseInt(e.target.value))} className="w-full h-1 bg-white rounded-lg appearance-none cursor-pointer accent-blue-600" />
+                                            <input type="range" min="50" max="150" value={brightness} onChange={(e) => { const val = parseInt(e.target.value); setBrightness(val); updateConfig({ brightness: val }); }} className="w-full h-1 bg-white rounded-lg appearance-none cursor-pointer accent-blue-600" />
                                         </div>
                                         <div className="space-y-2">
                                             <div className="flex justify-between text-[10px] font-black text-slate-600 uppercase"><span>{t.editor.contrast}</span><span>{contrast}%</span></div>
-                                            <input type="range" min="50" max="150" value={contrast} onChange={(e) => setContrast(parseInt(e.target.value))} className="w-full h-1 bg-white rounded-lg appearance-none cursor-pointer accent-blue-600" />
+                                            <input type="range" min="50" max="150" value={contrast} onChange={(e) => { const val = parseInt(e.target.value); setContrast(val); updateConfig({ contrast: val }); }} className="w-full h-1 bg-white rounded-lg appearance-none cursor-pointer accent-blue-600" />
                                         </div>
                                     </div>
                                 </section>
@@ -1258,7 +1390,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                         </div>
                                         <div className="grid grid-cols-2 gap-3">
                                             {socialRatios.map(r => (
-                                                <button key={r.value} onClick={() => setAspectRatio(r.value)} className={cn("px-4 py-4 text-[11px] font-black rounded-2xl border-2 transition-all text-center leading-tight", aspectRatio === r.value ? "bg-blue-600 border-blue-600 text-white shadow-xl scale-105" : "bg-white border-slate-100 text-slate-600 hover:border-blue-100")}>{r.label}</button>
+                                                <button key={r.value} onClick={() => { setAspectRatio(r.value); updateConfig({ aspectRatio: r.value }); }} className={cn("px-4 py-4 text-[11px] font-black rounded-2xl border-2 transition-all text-center leading-tight", aspectRatio === r.value ? "bg-blue-600 border-blue-600 text-white shadow-xl scale-105" : "bg-white border-slate-100 text-slate-600 hover:border-blue-100")}>{r.label}</button>
                                             ))}
                                         </div>
                                     </div>
@@ -1267,7 +1399,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                             <div className="flex items-center gap-2"><ZoomIn className="w-4 h-4 text-blue-600" /><span className="text-[11px] font-black text-slate-800 uppercase tracking-tighter">{t.editor.fitPadding}</span></div>
                                             <span className="text-[10px] font-black text-blue-600 bg-blue-50 px-2 py-1 rounded-lg">{objectPadding}%</span>
                                         </div>
-                                        <input type="range" min="0" max="40" value={objectPadding} onChange={(e) => setObjectPadding(parseInt(e.target.value))} className="w-full h-1.5 bg-white rounded-lg appearance-none cursor-pointer accent-blue-600" />
+                                        <input type="range" min="0" max="40" value={objectPadding} onChange={(e) => { const val = parseInt(e.target.value); setObjectPadding(val); updateConfig({ objectPadding: val }); }} className="w-full h-1.5 bg-white rounded-lg appearance-none cursor-pointer accent-blue-600" />
                                     </div>
                                 </section>
                             )}
@@ -1275,7 +1407,6 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                         <div className="p-6 border-t border-slate-50 bg-white">
                             <button onClick={onReset} className="w-full py-4 text-red-500 font-black hover:bg-red-50 rounded-2xl transition-all flex items-center justify-center gap-2 text-[10px] uppercase border border-red-50">
                                 <Trash2 className="w-3.5 h-3.5" /> Clear Workspace
-                            </button>
                         </div>
                     </div>
                 </div>

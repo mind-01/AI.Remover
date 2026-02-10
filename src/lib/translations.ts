@@ -77,7 +77,9 @@ export const translations: Record<string, any> = {
             downloadAll: 'Download All',
             clearAll: 'Clear All',
             addingMore: 'Adding...',
-            items: 'items'
+            items: 'items',
+            applyToAll: 'Apply to All',
+            singleEdit: 'Edit Single'
         },
         editor: {
             downloadMenuTitle: 'Select Download Quality',
