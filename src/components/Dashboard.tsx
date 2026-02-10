@@ -2,8 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Download, Trash2, Clock, Image as ImageIcon, ExternalLink } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { useLanguage } from '../contexts/LanguageContext';
-import { translations } from '../lib/translations';
 
 interface DashboardProps {
     onClose: () => void;
@@ -11,7 +9,6 @@ interface DashboardProps {
 
 export const Dashboard: React.FC<DashboardProps> = ({ onClose }) => {
     const { history, loading } = useAuth();
-    const { language } = useLanguage();
 
     const handleDownload = async (url: string, id: string) => {
         const response = await fetch(url);
@@ -113,3 +110,5 @@ export const Dashboard: React.FC<DashboardProps> = ({ onClose }) => {
         </div>
     );
 };
+
+export default Dashboard;

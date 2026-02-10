@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Mail, Lock, Loader2, ArrowRight } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
-import { useLanguage } from '../../contexts/LanguageContext';
 
 interface AuthModalProps {
     isOpen: boolean;

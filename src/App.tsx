@@ -12,7 +12,7 @@ import { Footer } from './components/layout/Footer';
 import { useLanguage } from './contexts/LanguageContext';
 import { translations } from './lib/translations';
 import { useAuth } from './contexts/AuthContext';
-import { Dashboard } from './components/Dashboard';
+import Dashboard from './components/Dashboard';
 
 interface ProcessingTask {
   id: string;
