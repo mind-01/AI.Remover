@@ -41,7 +41,7 @@ export const translations: Record<string, any> = {
             pricing: 'Pricing',
             api: 'API',
             uploadButton: 'Upload Image',
-            heroTitle: 'Remove image background automatically',
+            heroTitle: 'Remove background automatically',
             heroSubtitle: 'Upload your photos to make the background transparent with 100% precision using our professional AI models.',
             dropImage: 'Drop image here',
             noRegistration: 'No registration required. 100% Free.',
@@ -4793,3 +4793,4 @@ languages.forEach(lang => {
         (translations as any)[lang.code] = translations.en;
     }
 });
+
