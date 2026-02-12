@@ -58,6 +58,11 @@ export const BlogAdminPage: React.FC = () => {
         if (!supabase || !user) return;
         setLoading(true);
         try {
+            // Basic validation
+            if (!currentPost.title || !currentPost.slug || !currentPost.content) {
+                throw new Error("Title, Slug, aur Content bharna zaroori hai.");
+            }
+
             const postData = {
                 ...currentPost,
                 author_id: user.id,
@@ -83,12 +88,31 @@ export const BlogAdminPage: React.FC = () => {
             setIsEditing(false);
             setCurrentPost({ title: '', slug: '', content: '', excerpt: '', cover_image: '', status: 'draft' });
             fetchPosts();
-        } catch (err) {
+        } catch (err: any) {
             console.error('Error saving post:', err);
-            alert('Error saving post. Check console.');
+            alert(`Galti: ${err.message || 'Post save nahi ho paya. Console check karein.'}`);
         } finally {
             setLoading(false);
         }
+    };
+
+    const generateSlug = (title: string) => {
+        return title
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/(^-|-$)+/g, '');
+    };
+
+    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newTitle = e.target.value;
+        const updates: Partial<BlogPost> = { title: newTitle };
+
+        // Auto-generate slug if it's currently empty or was previously auto-generated
+        if (!currentPost.slug || currentPost.slug === generateSlug(currentPost.title || '')) {
+            updates.slug = generateSlug(newTitle);
+        }
+
+        setCurrentPost({ ...currentPost, ...updates });
     };
 
     const handleDelete = async (id: string) => {
@@ -178,30 +202,32 @@ export const BlogAdminPage: React.FC = () => {
                                 </div>
 
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                                    <div className="space-y-6">
-                                        <div className="space-y-2">
+                                    <div className="space-y-8">
+                                        <div className="space-y-3">
                                             <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Article Title</label>
                                             <input
                                                 type="text"
                                                 value={currentPost.title}
-                                                onChange={(e) => setCurrentPost({ ...currentPost, title: e.target.value })}
+                                                onChange={handleTitleChange}
                                                 placeholder="Enter a catchy title..."
                                                 className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl font-bold focus:ring-2 focus:ring-blue-600/20 outline-none"
                                             />
+                                            <p className="text-[10px] text-slate-500 font-medium ml-4 tracking-wide italic">Bilkul waisa hi heading jo aap blog ke upar dikhana chahte hain.</p>
                                         </div>
 
-                                        <div className="space-y-2">
+                                        <div className="space-y-3">
                                             <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">URL Slug</label>
                                             <input
                                                 type="text"
                                                 value={currentPost.slug}
-                                                onChange={(e) => setCurrentPost({ ...currentPost, slug: e.target.value.toLowerCase().replace(/ /g, '-') })}
+                                                onChange={(e) => setCurrentPost({ ...currentPost, slug: e.target.value.toLowerCase().replace(/[^a-z0-9]+/g, '-') })}
                                                 placeholder="how-to-remove-bg"
                                                 className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl font-bold font-mono focus:ring-2 focus:ring-blue-600/20 outline-none"
                                             />
+                                            <p className="text-[10px] text-slate-500 font-medium ml-4 tracking-wide italic">Ye URL ka hissa hota hai. Sirf chote aksharon aur dash (-) ka use karein. Example: <b>background-kaise-hataye</b></p>
                                         </div>
 
-                                        <div className="space-y-2">
+                                        <div className="space-y-3">
                                             <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Excerpt (Summary)</label>
                                             <textarea
                                                 value={currentPost.excerpt}
@@ -210,35 +236,36 @@ export const BlogAdminPage: React.FC = () => {
                                                 rows={3}
                                                 className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl font-bold focus:ring-2 focus:ring-blue-600/20 outline-none resize-none"
                                             />
+                                            <p className="text-[10px] text-slate-500 font-medium ml-4 tracking-wide italic">Search results mein dikhne wali 1-2 lines ki summary.</p>
                                         </div>
 
-                                        <div className="space-y-2">
+                                        <div className="space-y-3">
                                             <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Cover Image URL</label>
-                                            <div className="flex gap-4">
-                                                <div className="p-4 bg-slate-100 dark:bg-slate-800 rounded-2xl flex-1 flex items-center gap-3">
-                                                    <ImageIcon className="w-5 h-5 text-slate-400" />
-                                                    <input
-                                                        type="text"
-                                                        value={currentPost.cover_image}
-                                                        onChange={(e) => setCurrentPost({ ...currentPost, cover_image: e.target.value })}
-                                                        placeholder="Post image URL..."
-                                                        className="bg-transparent border-none focus:outline-none w-full font-bold"
-                                                    />
-                                                </div>
+                                            <div className="p-4 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center gap-3">
+                                                <ImageIcon className="w-5 h-5 text-slate-400" />
+                                                <input
+                                                    type="text"
+                                                    value={currentPost.cover_image}
+                                                    onChange={(e) => setCurrentPost({ ...currentPost, cover_image: e.target.value })}
+                                                    placeholder="e.g. https://images.unsplash.com/photo-xxx.jpg"
+                                                    className="bg-transparent border-none focus:outline-none w-full font-bold"
+                                                />
                                             </div>
+                                            <p className="text-[10px] text-slate-500 font-medium ml-4 tracking-wide italic">Online image ka link (jaise Unsplash ya Google) paste karein. Iske aakhir mein .jpg hona chahiye.</p>
                                         </div>
                                     </div>
 
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Content (HTML Supported)</label>
+                                    <div className="space-y-3">
+                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-4">Content (Write Article Here)</label>
                                         <div className="p-4 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-[2rem] h-full min-h-[400px]">
                                             <textarea
                                                 value={currentPost.content}
                                                 onChange={(e) => setCurrentPost({ ...currentPost, content: e.target.value })}
-                                                placeholder="Write your article content here..."
-                                                className="w-full h-full bg-transparent border-none focus:outline-none font-medium p-4 resize-none leading-relaxed"
+                                                placeholder="Apna blog yahan likhein. Aap paragraph aur headings use kar sakte hain..."
+                                                className="w-full h-full bg-transparent border-none focus:outline-none font-medium p-6 resize-none leading-relaxed text-lg"
                                             />
                                         </div>
+                                        <p className="text-[10px] text-slate-500 font-medium ml-4 tracking-wide italic text-center">Yahan apna pura article likhein. Yahan link paste nahi karna hai, content likhna hai.</p>
                                     </div>
                                 </div>
                             </motion.div>
