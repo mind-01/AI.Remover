@@ -73,7 +73,7 @@ export const ComparisonSection: React.FC = () => {
                         <p className="text-blue-700 dark:text-blue-300 font-medium">Join 50,000+ creators who trust AI Remover PRO everyday.</p>
                     </div>
                     <button className="px-10 py-4 bg-blue-600 text-white font-black rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 dark:shadow-none whitespace-nowrap">
-                        Download Now - It's Free
+                        Try it Now - It's Free
                     </button>
                 </div>
             </div>

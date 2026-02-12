@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Terminal, Copy, Check, Code2, Globe } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const APISection: React.FC = () => {
     const [copied, setCopied] = useState(false);
@@ -61,9 +62,9 @@ console.log(result.processed_url);`;
                             ))}
                         </div>
 
-                        <button className="mt-10 px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black rounded-xl hover:scale-105 transition-all shadow-xl shadow-slate-200 dark:shadow-none">
+                        <Link to="/api-docs" className="mt-10 inline-block px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black rounded-xl hover:scale-105 transition-all shadow-xl shadow-slate-200 dark:shadow-none">
                             Read API Docs
-                        </button>
+                        </Link>
                     </div>
 
                     {/* Code Editor Mockup */}

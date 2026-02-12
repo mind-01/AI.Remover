@@ -13,6 +13,7 @@ import { ContactUs } from './pages/ContactUs';
 import { PlatformStatus } from './pages/PlatformStatus';
 import { ResourcesPage } from './pages/ResourcesPage';
 import { PricingPage } from './pages/PricingPage';
+import { APIDocs } from './pages/APIDocs';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
               <Route path="/status" element={<PlatformStatus />} />
               <Route path="/resources" element={<ResourcesPage />} />
               <Route path="/pricing" element={<PricingPage />} />
+              <Route path="/api-docs" element={<APIDocs />} />
             </Routes>
           </BrowserRouter>
         </AuthProvider>
