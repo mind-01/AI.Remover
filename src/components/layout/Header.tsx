@@ -30,7 +30,7 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = (
                         </span>
                     </div>
 
-                    <div className="hidden md:flex items-center space-x-10">
+                    <div className="flex items-center gap-4">
                         <button
                             onClick={toggleTheme}
                             className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors"
@@ -43,44 +43,46 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = (
                             )}
                         </button>
 
-                        <a href="#" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400">{t.tools}</a>
-                        <a href="#" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400">{t.pricing}</a>
+                        <div className="hidden md:flex items-center space-x-10">
+                            <a href="#" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400">{t.tools}</a>
+                            <a href="#" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400">{t.pricing}</a>
 
-                        {loading ? (
-                            <div className="flex items-center gap-2 text-slate-400">
-                                <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
-                                <span className="text-[10px] font-black uppercase tracking-widest">Checking...</span>
-                            </div>
-                        ) : user ? (
-                            <div className="flex items-center gap-4">
+                            {loading ? (
+                                <div className="flex items-center gap-2 text-slate-400">
+                                    <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+                                    <span className="text-[10px] font-black uppercase tracking-widest">Checking...</span>
+                                </div>
+                            ) : user ? (
+                                <div className="flex items-center gap-4">
+                                    <button
+                                        onClick={() => setShowDashboard(true)}
+                                        className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400"
+                                    >
+                                        {t.dashboard || 'Dashboard'}
+                                    </button>
+                                    <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-sm shadow-lg shadow-blue-100 uppercase ring-2 ring-white dark:ring-slate-800">
+                                        {user.email?.[0] || 'U'}
+                                    </div>
+                                    <button
+                                        onClick={signOut}
+                                        className="text-[10px] font-black text-slate-400 hover:text-red-500 uppercase tracking-widest transition-colors"
+                                    >
+                                        {t.logout || 'Logout'}
+                                    </button>
+                                </div>
+                            ) : (
                                 <button
-                                    onClick={() => setShowDashboard(true)}
+                                    onClick={() => setIsAuthModalOpen(true)}
                                     className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400"
                                 >
-                                    {t.dashboard || 'Dashboard'}
+                                    {t.login || 'Login'}
                                 </button>
-                                <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-sm shadow-lg shadow-blue-100 uppercase ring-2 ring-white dark:ring-slate-800">
-                                    {user.email?.[0] || 'U'}
-                                </div>
-                                <button
-                                    onClick={signOut}
-                                    className="text-[10px] font-black text-slate-400 hover:text-red-500 uppercase tracking-widest transition-colors"
-                                >
-                                    {t.logout || 'Logout'}
-                                </button>
-                            </div>
-                        ) : (
-                            <button
-                                onClick={() => setIsAuthModalOpen(true)}
-                                className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400"
-                            >
-                                {t.login || 'Login'}
-                            </button>
-                        )}
+                            )}
 
-                        <button className="px-6 py-2.5 bg-slate-900 text-white text-sm font-black rounded-xl hover:bg-slate-800 transition-all shadow-lg shadow-slate-200 hover:scale-105 active:scale-95 uppercase tracking-wide dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 dark:shadow-none">
-                            {t.getPro}
-                        </button>
+                            <button className="px-6 py-2.5 bg-slate-900 text-white text-sm font-black rounded-xl hover:bg-slate-800 transition-all shadow-lg shadow-slate-200 hover:scale-105 active:scale-95 uppercase tracking-wide dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 dark:shadow-none">
+                                {t.getPro}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
