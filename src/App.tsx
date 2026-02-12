@@ -13,6 +13,14 @@ import { useLanguage } from './contexts/LanguageContext';
 import { translations } from './lib/translations';
 import { useAuth } from './contexts/AuthContext';
 import Dashboard from './components/Dashboard';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { PrivacyPolicy } from './pages/PrivacyPolicy';
+import { TermsOfService } from './pages/TermsOfService';
+import { RefundPolicy } from './pages/RefundPolicy';
+import { HomePage } from './pages/HomePage'; // Assuming HomePage is the original App content
+import { ThemeProvider } from './contexts/ThemeContext'; // Assuming ThemeProvider is needed
+import { LanguageProvider } from './contexts/LanguageContext'; // Assuming LanguageProvider is needed
+import { AuthProvider } from './contexts/AuthContext'; // Assuming AuthProvider is needed
 
 interface ProcessingTask {
   id: string;
@@ -23,7 +31,8 @@ interface ProcessingTask {
   progress: number;
 }
 
-function App() {
+// Original App component logic moved to HomePage for routing
+function OriginalAppContent() {
   const { language } = useLanguage();
   const [tasks, setTasks] = useState<ProcessingTask[]>([]);
   const [activeTaskId, setActiveTaskId] = useState<string | null>(null);

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Layers, Github, Twitter, Mail, Shield, Lock, Globe, Sparkles } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../lib/translations';
@@ -115,25 +116,21 @@ export const Footer: React.FC<FooterProps> = () => {
 
                     {/* Legal */}
                     <div>
-                        <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest mb-6 dark:text-white">{t.legal}</h4>
+                        <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-6 dark:text-white">Support</h3>
                         <ul className="space-y-4">
-                            {[
-                                { name: t.privacy, icon: Shield, available: false },
-                                { name: t.terms, icon: Lock, available: false },
-                                { name: t.help, icon: Globe, available: false }
-                            ].map((item) => (
-                                <li key={item.name}>
-                                    <a
-                                        href="#"
-                                        onClick={(e) => { e.preventDefault(); alert(`${item.name} - Coming soon!`) }}
-                                        aria-label={item.name}
-                                        className="text-sm text-slate-500 hover:text-blue-600 font-bold transition-colors flex items-center gap-2 group dark:text-slate-400 dark:hover:text-blue-400"
-                                    >
-                                        <item.icon className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600 transition-colors dark:text-slate-500 dark:group-hover:text-blue-400" aria-hidden="true" />
-                                        {item.name}
-                                    </a>
-                                </li>
-                            ))}
+                            <li><a href="#" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Help Center</a></li>
+                            <li><a href="#" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">API Documentation</a></li>
+                            <li><a href="#" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Integrations</a></li>
+                            <li><a href="#" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-6 dark:text-white">Legal</h3>
+                        <ul className="space-y-4">
+                            <li><Link to="/privacy" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Privacy Policy</Link></li>
+                            <li><Link to="/terms" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Terms of Service</Link></li>
+                            <li><Link to="/refund" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Refund Policy</Link></li>
+                            <li><a href="#" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Cookie Policy</a></li>
                         </ul>
                     </div>
                 </div>
