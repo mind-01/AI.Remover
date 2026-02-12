@@ -1,27 +1,12 @@
 {
-    "headers": [
-        {
-            "source": "/assets/(.*)",
-            "headers": [
-                {
-                    "key": "Cache-Control",
-                    "value": "public, max-age=31536000, immutable"
-                }
-            ]
-        },
-        {
-            "source": "/(.*)\\.(png|jpg|jpeg|svg|webp|ico)",
-            "headers": [
-                {
-                    "key": "Cache-Control",
-                    "value": "public, max-age=31536000, immutable"
-                }
-            ]
-        }
-    ],
     "rewrites": [
+        {
+            "source": "/((?!api-docs|blog|admin/blog).*\\..*)",
+            "destination": "/$1"
+        },
         {
             "source": "/(.*)",
             "destination": "/index.html"
         }
     ]
+}
