@@ -11,17 +11,25 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = (
     const { user, signOut, loading } = useAuth();
     const { theme, toggleTheme } = useTheme();
     const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
     const t = translations[language]?.common || translations.en.common;
 
     console.log('Header: Rendered. User:', user ? user.email : 'NULL');
+
+    // Custom "Dot and Dash" Menu Icon
+    const MenuIcon = () => (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-slate-800 dark:text-white">
+            <rect x="4" y="6" width="16" height="2" rx="1" fill="currentColor" />
+            <circle cx="5" cy="18" r="1" fill="currentColor" />
+            <rect x="8" y="17" width="12" height="2" rx="1" fill="currentColor" />
+        </svg>
+    );
 
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 border-b border-black/5 bg-white/70 backdrop-blur-xl dark:bg-slate-900/80 dark:border-white/10 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
-                    <div
-                        className="flex items-center space-x-2.5 cursor-pointer group"
-                    >
+                    <div className="flex items-center space-x-2.5 cursor-pointer group" onClick={() => setShowDashboard(false)}>
                         <div className="p-2.5 bg-blue-600 rounded-xl shadow-lg shadow-blue-200 group-hover:scale-105 transition-all duration-300">
                             <Layers className="w-5 h-5 text-white" />
                         </div>
@@ -30,62 +38,132 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = (
                         </span>
                     </div>
 
-                    <div className="flex items-center gap-4">
+                    {/* Desktop Navigation */}
+                    <div className="hidden md:flex items-center space-x-10">
                         <button
                             onClick={toggleTheme}
                             className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors"
                             aria-label="Toggle theme"
                         >
-                            {theme === 'dark' ? (
-                                <Sun className="w-5 h-5" />
-                            ) : (
-                                <Moon className="w-5 h-5" />
-                            )}
+                            {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                         </button>
 
-                        <div className="hidden md:flex items-center space-x-10">
-                            <a href="#" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400">{t.tools}</a>
-                            <a href="#" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400">{t.pricing}</a>
+                        <a href="#" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400">{t.tools}</a>
+                        <a href="#" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400">{t.pricing}</a>
 
-                            {loading ? (
-                                <div className="flex items-center gap-2 text-slate-400">
-                                    <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
-                                    <span className="text-[10px] font-black uppercase tracking-widest">Checking...</span>
+                        {loading ? (
+                            <div className="flex items-center gap-2 text-slate-400">
+                                <Loader2 className="w-4 h-4 animate-spin text-blue-600" />
+                                <span className="text-[10px] font-black uppercase tracking-widest">Checking...</span>
+                            </div>
+                        ) : user ? (
+                            <div className="flex items-center gap-4">
+                                <button onClick={() => setShowDashboard(true)} className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400">
+                                    {t.dashboard || 'Dashboard'}
+                                </button>
+                                <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-sm shadow-lg shadow-blue-100 uppercase ring-2 ring-white dark:ring-slate-800">
+                                    {user.email?.[0] || 'U'}
                                 </div>
-                            ) : user ? (
-                                <div className="flex items-center gap-4">
-                                    <button
-                                        onClick={() => setShowDashboard(true)}
-                                        className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400"
-                                    >
-                                        {t.dashboard || 'Dashboard'}
-                                    </button>
-                                    <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-sm shadow-lg shadow-blue-100 uppercase ring-2 ring-white dark:ring-slate-800">
+                            </div>
+                        ) : (
+                            <button onClick={() => setIsAuthModalOpen(true)} className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400">
+                                {t.login || 'Login'}
+                            </button>
+                        )}
+
+                        <button className="px-6 py-2.5 bg-slate-900 text-white text-sm font-black rounded-xl hover:bg-slate-800 transition-all shadow-lg shadow-slate-200 hover:scale-105 active:scale-95 uppercase tracking-wide dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 dark:shadow-none">
+                            {t.getPro}
+                        </button>
+                    </div>
+
+                    {/* Mobile Menu Button */}
+                    <div className="flex md:hidden items-center gap-4">
+                        <button
+                            onClick={toggleTheme}
+                            className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors"
+                        >
+                            {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                        </button>
+                        <button
+                            onClick={() => setIsMobileMenuOpen(true)}
+                            className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                        >
+                            <MenuIcon />
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {/* Mobile Slide-out Drawer */}
+            {isMobileMenuOpen && (
+                <>
+                    <div
+                        className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[60] md:hidden"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                    />
+                    <div className="fixed top-0 right-0 bottom-0 w-[280px] bg-white dark:bg-slate-900 shadow-2xl z-[70] p-6 flex flex-col gap-6 md:hidden transition-transform duration-300 transform translate-x-0 border-l border-slate-100 dark:border-slate-800">
+                        <div className="flex justify-between items-center mb-4">
+                            <span className="text-lg font-black text-slate-800 dark:text-white">Menu</span>
+                            <button
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500"
+                            >
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div className="flex flex-col gap-4">
+                            {user ? (
+                                <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-sm uppercase">
                                         {user.email?.[0] || 'U'}
                                     </div>
-                                    <button
-                                        onClick={signOut}
-                                        className="text-[10px] font-black text-slate-400 hover:text-red-500 uppercase tracking-widest transition-colors"
-                                    >
-                                        {t.logout || 'Logout'}
-                                    </button>
+                                    <div className="flex flex-col">
+                                        <span className="text-sm font-bold text-slate-900 dark:text-white truncate max-w-[150px]">{user.email}</span>
+                                        <button onClick={signOut} className="text-xs text-red-500 font-bold text-left">Sign Out</button>
+                                    </div>
                                 </div>
                             ) : (
                                 <button
-                                    onClick={() => setIsAuthModalOpen(true)}
-                                    className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400"
+                                    onClick={() => { setIsAuthModalOpen(true); setIsMobileMenuOpen(false); }}
+                                    className="w-full py-3 bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-blue-200"
                                 >
-                                    {t.login || 'Login'}
+                                    {t.login || 'Login / Sign Up'}
                                 </button>
                             )}
 
-                            <button className="px-6 py-2.5 bg-slate-900 text-white text-sm font-black rounded-xl hover:bg-slate-800 transition-all shadow-lg shadow-slate-200 hover:scale-105 active:scale-95 uppercase tracking-wide dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 dark:shadow-none">
+                            <div className="h-px bg-slate-100 dark:bg-slate-800 my-2" />
+
+                            <a href="#" className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold">
+                                <span>{t.tools}</span>
+                                <Layers className="w-4 h-4 opacity-50" />
+                            </a>
+                            <a href="#" className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold">
+                                <span>{t.pricing}</span>
+                                <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Save 20%</span>
+                            </a>
+                            {user && (
+                                <button
+                                    onClick={() => { setShowDashboard(true); setIsMobileMenuOpen(false); }}
+                                    className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold w-full text-left"
+                                >
+                                    <span>{t.dashboard || 'Dashboard'}</span>
+                                </button>
+                            )}
+                        </div>
+
+                        <div className="mt-auto">
+                            <button className="w-full py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-black uppercase tracking-wide">
                                 {t.getPro}
                             </button>
                         </div>
                     </div>
-                </div>
-            </div>
+                </>
+            )}
+
             <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
         </nav>
     );
