@@ -101,7 +101,10 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = (
                         className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[1000] md:hidden"
                         onClick={() => setIsMobileMenuOpen(false)}
                     />
-                    <div className="fixed top-0 right-0 bottom-0 w-[280px] bg-white dark:bg-slate-950 shadow-2xl z-[1001] p-6 flex flex-col gap-6 md:hidden transition-transform duration-300 transform translate-x-0 border-l border-slate-100 dark:border-slate-800 overflow-y-auto">
+                    <div
+                        className="fixed top-0 right-0 bottom-0 w-[280px] shadow-2xl z-[1001] p-6 flex flex-col gap-6 md:hidden transition-transform duration-300 transform translate-x-0 border-l border-slate-100 dark:border-slate-800 overflow-y-auto"
+                        style={{ backgroundColor: theme === 'dark' ? '#020617' : '#ffffff' }}
+                    >
                         <div className="flex justify-between items-center mb-4">
                             <span className="text-lg font-black text-slate-800 dark:text-white">Menu</span>
                             <button
