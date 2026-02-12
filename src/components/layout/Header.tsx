@@ -121,18 +121,18 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = (
                         <div className="flex flex-col gap-4">
                             {user ? (
                                 <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-sm uppercase">
+                                    <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-sm uppercase font-sans">
                                         {user.email?.[0] || 'U'}
                                     </div>
                                     <div className="flex flex-col">
-                                        <span className="text-sm font-bold text-slate-900 dark:text-white truncate max-w-[150px]">{user.email}</span>
-                                        <button onClick={signOut} className="text-xs text-red-500 font-bold text-left">Sign Out</button>
+                                        <span className="text-sm font-bold text-slate-900 dark:text-white truncate max-w-[150px] font-sans">{user.email}</span>
+                                        <button onClick={signOut} className="text-xs text-red-500 font-bold text-left font-sans">Sign Out</button>
                                     </div>
                                 </div>
                             ) : (
                                 <button
                                     onClick={() => { setIsAuthModalOpen(true); setIsMobileMenuOpen(false); }}
-                                    className="w-full py-3 bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-blue-200"
+                                    className="w-full py-3 bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-blue-200 font-sans"
                                 >
                                     {t.login || 'Login / Sign Up'}
                                 </button>
@@ -140,13 +140,13 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = (
 
                             <div className="h-px bg-slate-100 dark:bg-slate-800 my-2" />
 
-                            <a href="#" className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white font-bold">
+                            <a href="#" className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white font-bold font-sans">
                                 <span>{t.tools}</span>
                                 <Layers className="w-4 h-4 opacity-50" />
                             </a>
-                            <a href="#" className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white font-bold">
+                            <a href="#" className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white font-bold font-sans">
                                 <span>{t.pricing}</span>
-                                <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Save 20%</span>
+                                <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-sans">Save 20%</span>
                             </a>
                             {user && (
                                 <button
