@@ -51,7 +51,6 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = (
                         </button>
 
                         <Link to="/" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400">{t.tools}</Link>
-                        <Link to="/pricing" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400">{t.pricing}</Link>
 
                         {loading ? (
                             <div className="flex items-center gap-2 text-slate-400">
@@ -73,9 +72,9 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = (
                             </button>
                         )}
 
-                        <button className="px-6 py-2.5 bg-slate-900 text-white text-sm font-black rounded-xl hover:bg-slate-800 transition-all shadow-lg shadow-slate-200 hover:scale-105 active:scale-95 uppercase tracking-wide dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 dark:shadow-none">
+                        <Link to="/pricing" className="px-6 py-2.5 bg-slate-900 text-white text-sm font-black rounded-xl hover:bg-slate-800 transition-all shadow-lg shadow-slate-200 hover:scale-105 active:scale-95 uppercase tracking-wide dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 dark:shadow-none">
                             {t.getPro}
-                        </button>
+                        </Link>
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -193,9 +192,9 @@ const MobileMenu: React.FC<any> = ({ user, t, signOut, onClose, setShowDashboard
                 </div>
 
                 <div className="mt-auto">
-                    <button className="w-full py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-black uppercase tracking-wide font-sans">
+                    <Link to="/pricing" onClick={onClose} className="w-full py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-black uppercase tracking-wide font-sans text-center block">
                         {t.getPro}
-                    </button>
+                    </Link>
                 </div>
             </div>
         </div>

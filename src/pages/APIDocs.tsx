@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Header } from '../components/layout/Header';
 import { Footer } from '../components/layout/Footer';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Terminal, Copy, Check, BookOpen, Key, Activity, Loader2 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
@@ -139,10 +140,10 @@ const result = await response.json();`
                                     onClick={handleRequestAccess}
                                     disabled={requestStatus !== 'idle'}
                                     className={`mb-8 px-6 py-3 font-black rounded-xl transition-all flex items-center gap-2 shadow-lg ${requestStatus === 'success'
-                                            ? 'bg-green-500 text-white cursor-default'
-                                            : requestStatus === 'loading'
-                                                ? 'bg-blue-400 text-white cursor-wait'
-                                                : 'bg-blue-600 text-white hover:bg-blue-700 hover:scale-105 active:scale-95'
+                                        ? 'bg-green-500 text-white cursor-default'
+                                        : requestStatus === 'loading'
+                                            ? 'bg-blue-400 text-white cursor-wait'
+                                            : 'bg-blue-600 text-white hover:bg-blue-700 hover:scale-105 active:scale-95'
                                         }`}
                                 >
                                     {requestStatus === 'loading' ? (
@@ -250,9 +251,9 @@ const result = await response.json();`
                                     <h3 className="text-2xl font-black mb-2">Need a custom plan?</h3>
                                     <p className="font-bold opacity-90">We offer Enterprise volume pricing for 1M+ images.</p>
                                 </div>
-                                <button className="px-10 py-4 bg-white text-blue-600 font-black rounded-xl hover:scale-105 transition-all shadow-xl shadow-blue-900/20 whitespace-nowrap">
+                                <Link to="/contact" className="px-10 py-4 bg-white text-blue-600 font-black rounded-xl hover:scale-105 transition-all shadow-xl shadow-blue-900/20 whitespace-nowrap">
                                     Contact Sales
-                                </button>
+                                </Link>
                             </div>
                         </div>
                     </div>
