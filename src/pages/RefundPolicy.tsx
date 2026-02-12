@@ -1,5 +1,5 @@
 import React from 'react';
-import { DollarSign, ArrowLeft, RefreshCw } from 'lucide-react';
+import { RefreshCw, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const RefundPolicy: React.FC = () => {

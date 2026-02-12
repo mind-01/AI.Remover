@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileText, ArrowLeft, AlertCircle } from 'lucide-react';
+import { FileText, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const TermsOfService: React.FC = () => {

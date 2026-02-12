@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Layers, Github, Twitter, Mail, Shield, Lock, Globe, Sparkles } from 'lucide-react';
+import { Layers, Github, Twitter, Mail, Sparkles } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../lib/translations';
 import { LanguageSelector } from '../LanguageSelector';
