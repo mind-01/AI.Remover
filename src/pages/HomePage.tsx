@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
+import { Zap, ShieldCheck, Users } from 'lucide-react';
 import { removeBackground } from '@imgly/background-removal';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Analytics } from '@vercel/analytics/react';
@@ -205,6 +206,37 @@ export function HomePage() {
                                 <motion.div key="hero" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95 }}>
                                     <Hero onFilesSelect={handleFilesSelect} />
                                     <FeaturesSection />
+
+                                    {/* Trust & Stats Section */}
+                                    <section className="py-20 bg-slate-50 dark:bg-slate-900/50">
+                                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                                <div className="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center group">
+                                                    <div className="p-4 bg-blue-100 dark:bg-blue-900/30 rounded-2xl text-blue-600 dark:text-blue-400 mb-6 group-hover:scale-110 transition-transform">
+                                                        <Zap className="w-8 h-8" />
+                                                    </div>
+                                                    <h3 className="text-4xl font-black text-slate-900 dark:text-white mb-2">1.2M+</h3>
+                                                    <p className="text-slate-500 dark:text-slate-400 font-bold">Images Processed Live</p>
+                                                </div>
+
+                                                <div className="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center group">
+                                                    <div className="p-4 bg-green-100 dark:bg-green-900/30 rounded-2xl text-green-600 dark:text-green-400 mb-6 group-hover:scale-110 transition-transform">
+                                                        <ShieldCheck className="w-8 h-8" />
+                                                    </div>
+                                                    <h3 className="text-4xl font-black text-slate-900 dark:text-white mb-2">100%</h3>
+                                                    <p className="text-slate-500 dark:text-slate-400 font-bold">Private & Local Processing</p>
+                                                </div>
+
+                                                <div className="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center group">
+                                                    <div className="p-4 bg-amber-100 dark:bg-amber-900/30 rounded-2xl text-amber-600 dark:text-amber-400 mb-6 group-hover:scale-110 transition-transform">
+                                                        <Users className="w-8 h-8" />
+                                                    </div>
+                                                    <h3 className="text-4xl font-black text-slate-900 dark:text-white mb-2">3.2s</h3>
+                                                    <p className="text-slate-500 dark:text-slate-400 font-bold">Avg. Processing Time</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
                                 </motion.div>
 
                             ) : isAnyProcessing && !activeTask?.processedUrl ? (
