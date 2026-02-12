@@ -1,6 +1,7 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
 import { Layers, Loader2, Sun, Moon } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../lib/translations';
 import { useAuth } from '../../contexts/AuthContext';
@@ -49,8 +50,8 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = (
                             {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                         </button>
 
-                        <a href="#" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400">{t.tools}</a>
-                        <a href="#pricing" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400">{t.pricing}</a>
+                        <Link to="/" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400">{t.tools}</Link>
+                        <Link to="/pricing" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400">{t.pricing}</Link>
 
                         {loading ? (
                             <div className="flex items-center gap-2 text-slate-400">
@@ -177,10 +178,10 @@ const MobileMenu: React.FC<any> = ({ user, t, signOut, onClose, setShowDashboard
                         <span>{t.tools}</span>
                         <Layers className="w-4 h-4 opacity-50" />
                     </a>
-                    <a href="#pricing" onClick={onClose} className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white font-bold font-sans">
+                    <Link to="/pricing" onClick={onClose} className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white font-bold font-sans">
                         <span>{t.pricing}</span>
                         <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-sans">Save 20%</span>
-                    </a>
+                    </Link>
                     {user && (
                         <button
                             onClick={() => { setShowDashboard(true); onClose(); }}

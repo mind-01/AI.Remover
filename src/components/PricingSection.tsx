@@ -8,10 +8,10 @@ export const PricingSection: React.FC = () => {
             price: "$0",
             desc: "For hobbyists & individuals",
             features: [
-                "10 images per month",
+                "Unlimited Local Exports",
                 "Standard resolution",
                 "Community support",
-                "Local browser processing"
+                "Privacy-first processing"
             ],
             cta: "Get Started",
             popular: false
