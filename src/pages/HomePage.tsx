@@ -14,6 +14,9 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../lib/translations';
 import { useAuth } from '../contexts/AuthContext';
 import Dashboard from '../components/Dashboard';
+import { PricingSection } from '../components/PricingSection';
+import { APISection } from '../components/APISection';
+import { ComparisonSection } from '../components/ComparisonSection';
 
 interface ProcessingTask {
     id: string;
@@ -237,6 +240,10 @@ export function HomePage() {
                                             </div>
                                         </div>
                                     </section>
+
+                                    <ComparisonSection />
+                                    <PricingSection />
+                                    <APISection />
                                 </motion.div>
 
                             ) : isAnyProcessing && !activeTask?.processedUrl ? (
