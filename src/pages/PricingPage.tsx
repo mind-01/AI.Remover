@@ -4,10 +4,15 @@ import { Footer } from '../components/layout/Footer';
 import { PricingSection } from '../components/PricingSection';
 import { motion } from 'framer-motion';
 
+import { useNavigate } from 'react-router-dom';
+
 export const PricingPage: React.FC = () => {
+    const navigate = useNavigate();
     return (
         <div className="min-h-screen bg-white dark:bg-slate-900 transition-colors duration-300">
-            <Header setShowDashboard={() => { }} />
+            <Header setShowDashboard={(_show, view) => {
+                navigate('/', { state: { showDashboard: true, dashboardView: view || 'history' } });
+            }} />
 
             <main className="pt-20">
                 <motion.div

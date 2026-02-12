@@ -29,7 +29,8 @@ export const languages = [
     { name: 'Srpski', code: 'sr' },
     { name: 'Slovenščina', code: 'sl' },
     { name: 'Lietuvių', code: 'lt' },
-    { name: 'हिन्दी', code: 'hi' }
+    { name: 'हिन्दी', code: 'hi' },
+    { name: 'اردو', code: 'ur' }
 ] as const;
 
 export type LanguageCode = typeof languages[number]['code'];
@@ -4784,6 +4785,65 @@ export const translations: Record<string, any> = {
             privacyNote: 'Lai uzzinātu vairāk par to, kā AI Remover PRO apstrādē jūsu personas datus, skatiet mūsu Privātuma politiku.'
         }
     },
+    ur: {
+        common: {
+            tools: 'ٹولز',
+            pricing: 'قیمت',
+            api: 'API',
+            uploadButton: 'تصویر اپ لوڈ کریں',
+            heroTitle: 'تصویر کا پس منظر خود بخود ہٹائیں',
+            heroSubtitle: 'ہمارے پروفیشنل AI ماڈلز کا استعمال کرتے ہوئے 100% درستگی کے ساتھ پس منظر کو شفاف بنانے کے لیے اپنی تصاویر اپ لوڈ کریں۔',
+            dropImage: 'تصویر یہاں رکھیں',
+            noRegistration: 'رجسٹریشن کی ضرورت نہیں ہے۔ 100% مفت۔',
+            bgRemover: 'بیک گراؤنڈ ریموور',
+            onlineTools: 'آن لائن ٹولز',
+            resources: 'ذرائع',
+            howItWorks: 'یہ کیسے کام کرتا ہے',
+            legal: 'قانونی',
+            operational: 'تمام سسٹمز فعال ہیں',
+            madeWith: 'بنایا گیا',
+            forCreators: 'تخلیق کاروں کے لیے',
+            allRightsReserved: 'AI Remover PRO. جملہ حقوق محفوظ ہیں۔',
+            getPro: 'پرو حاصل کریں',
+            leadingAi: 'نمایاں AI بیک گراؤنڈ ریموور',
+            formats: 'JPG, PNG, WEBP (زیادہ سے زیادہ 15MB)',
+            processing: 'پروسیسنگ ہو رہی ہے...',
+            download: 'ڈاؤن لوڈ',
+            cutout: 'کٹ آؤٹ',
+            background: 'بیک گراؤنڈ',
+            effects: 'اثرات',
+            adjust: 'ترتیب دیں',
+            resize: 'سائز تبدیل کریں',
+            footerDesc: 'جدید ترین AI ٹیکنالوجی کا استعمال کرتے ہوئے پروفیشنل گریڈ بیک گراؤنڈ ہٹانا۔ تخلیق کاروں کے لیے 100% خودکار اور اعلی درستگی کے نتائج۔',
+            pngMaker: 'شفاف PNG میکر',
+            objectEraser: 'آبجیکٹ ایریزر',
+            apiDoc: 'API دستاویزات',
+            devTools: 'ڈویلپر ٹولز',
+            blog: 'بلاگ',
+            privacy: 'رازداری کی پالیسی',
+            terms: 'سروس کی شرائط',
+            help: 'مدد مرکز',
+            reviews: '4.4/5 (150 ریویوز کی بنیاد پر)',
+            downloadAll: 'تمام ڈاؤن لوڈ کریں',
+            clearAll: 'تمام تاریخ صاف کریں',
+            addingMore: 'شامل کیا جا رہا ہے...',
+            items: 'آئٹمز',
+            login: 'لاگ ان',
+            logout: 'لاگ آؤٹ',
+            dashboard: 'ڈیش بورڈ'
+        },
+        dashboard: {
+            title: 'میری تاریخ',
+            loading: 'تاریخ لوڈ ہو رہی ہے...',
+            emptyTitle: 'ابھی تک کوئی تاریخ نہیں ہے',
+            emptyDesc: 'اپنی پہلی تصویر اپ لوڈ کریں اور اپنا پروفیشنل مجموعہ بنانا شروع کریں۔',
+            startEditing: 'ایڈیٹنگ شروع کریں',
+            viewFull: 'مکمل دیکھیں',
+            cutouts: 'پروفیشنل کٹ آؤٹس',
+            clearAll: 'سب صاف کریں',
+            clearConfirm: 'کیا آپ واقعی تمام تاریخ صاف کرنا چاہتے ہیں؟'
+        }
+    }
 };
 
 

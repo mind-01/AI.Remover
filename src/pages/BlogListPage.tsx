@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Calendar, Clock, ArrowRight, Search, Loader2 } from 'lucide-react';
 import { Header } from '../components/layout/Header';
 import { Footer } from '../components/layout/Footer';
@@ -20,6 +20,7 @@ export const BlogListPage: React.FC = () => {
     const [posts, setPosts] = useState<BlogPost[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -35,7 +36,6 @@ export const BlogListPage: React.FC = () => {
                 setPosts(data || []);
             } catch (err) {
                 console.error('Error fetching posts:', err);
-                // Fallback dummy posts if table doesn't exist yet
                 setPosts([
                     {
                         id: '1',
@@ -43,15 +43,6 @@ export const BlogListPage: React.FC = () => {
                         slug: 'remove-background-like-pro',
                         excerpt: 'Learn the secrets to achieving pixel-perfect cutouts using our advanced AI technology.',
                         cover_image: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=800&q=80',
-                        created_at: new Date().toISOString(),
-                        status: 'published'
-                    },
-                    {
-                        id: '2',
-                        title: 'The Future of AI in Graphic Design',
-                        slug: 'future-ai-design',
-                        excerpt: 'Discover how AI is revolutionizing the creative industry and what it means for designers.',
-                        cover_image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     }
@@ -71,11 +62,12 @@ export const BlogListPage: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
-            <Header setShowDashboard={() => { }} />
+            <Header setShowDashboard={(_show, view) => {
+                navigate('/', { state: { showDashboard: true, dashboardView: view || 'history' } });
+            }} />
 
             <main className="pt-32 pb-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    {/* Hero Section */}
                     <div className="text-center mb-16 space-y-6">
                         <motion.h1
                             initial={{ opacity: 0, y: 20 }}
@@ -94,7 +86,6 @@ export const BlogListPage: React.FC = () => {
                         </motion.p>
                     </div>
 
-                    {/* Search Bar */}
                     <div className="max-w-xl mx-auto mb-16 relative group">
                         <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-blue-600 transition-colors" />
                         <input
@@ -106,7 +97,6 @@ export const BlogListPage: React.FC = () => {
                         />
                     </div>
 
-                    {/* Blog Grid */}
                     {loading ? (
                         <div className="flex flex-col items-center justify-center py-20 gap-4">
                             <Loader2 className="w-10 h-10 text-blue-600 animate-spin" />

@@ -1,9 +1,10 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { ShieldCheck, Users, Folder } from 'lucide-react';
 import { removeBackground } from '@imgly/background-removal';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
+import { useLocation } from 'react-router-dom';
 import { Header } from '../components/layout/Header';
 import { Hero } from '../components/Hero';
 import { ProcessingView } from '../components/ProcessingView';
@@ -32,8 +33,19 @@ export function HomePage() {
     const [activeTaskId, setActiveTaskId] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [showDashboard, setShowDashboard] = useState(false);
+    const [dashboardView, setDashboardView] = useState<'history' | 'profile' | 'settings'>('history');
+    const location = useLocation();
     const addMoreInputRef = useRef<HTMLInputElement>(null);
     const { user, addToHistory, uploadImage } = useAuth();
+
+    useEffect(() => {
+        if (location.state?.showDashboard) {
+            setShowDashboard(true);
+            if (location.state.dashboardView) {
+                setDashboardView(location.state.dashboardView);
+            }
+        }
+    }, [location]);
 
     const refineImage = useCallback((blob: Blob): Promise<Blob> => {
         return new Promise((resolve) => {
@@ -194,13 +206,21 @@ export function HomePage() {
 
     return (
         <div className="min-h-screen text-slate-900 dark:text-slate-50 overflow-x-hidden font-sans bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
-            <Header setShowDashboard={setShowDashboard} />
+            <Header
+                setShowDashboard={(show, view) => {
+                    setShowDashboard(show);
+                    if (view) setDashboardView(view);
+                }}
+            />
 
             <main className="pt-20">
                 <AnimatePresence mode="wait">
                     {showDashboard ? (
                         <motion.div key="dashboard" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                            <Dashboard onClose={() => setShowDashboard(false)} />
+                            <Dashboard
+                                onClose={() => setShowDashboard(false)}
+                                initialView={dashboardView}
+                            />
                         </motion.div>
                     ) : (
                         <>
