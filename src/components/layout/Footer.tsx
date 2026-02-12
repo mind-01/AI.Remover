@@ -114,18 +114,15 @@ export const Footer: React.FC<FooterProps> = () => {
                         </ul>
                     </div>
 
-                    {/* Support & Legal */}
+                    {/* Support */}
                     <div>
                         <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-6 dark:text-white">Support</h3>
                         <ul className="space-y-4">
-                            <li><a href="#" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">{t.help || 'Help Center'}</a></li>
-                            <li><a href="#" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">{t.apiDoc || 'API Documentation'}</a></li>
-                            <li><a href="#" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Integrations</a></li>
-                            <li><a href="#" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Contact Us</a></li>
-                            <li><Link to="/privacy" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">{t.privacy || 'Privacy Policy'}</Link></li>
-                            <li><Link to="/terms" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">{t.terms || 'Terms of Service'}</Link></li>
-                            <li><Link to="/refund" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Refund Policy</Link></li>
-                            <li><a href="#" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Cookie Policy</a></li>
+                            <li><a href="#" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Help & FAQs</a></li>
+                            <li><a href="#" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Contact us</a></li>
+                            <li><Link to="/refund" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Refunds</Link></li>
+                            <li><a href="#" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Platform Status</a></li>
+                            <li><a href="#" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Resources</a></li>
                         </ul>
                     </div>
                 </div>
