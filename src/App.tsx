@@ -4,7 +4,7 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import { LanguageProvider } from './contexts/LanguageContext';
 
 // Pages
-import { HomePage } from './pages/HomePage';
+import { HomePage } from './pages/HomePage.tsx';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { TermsOfService } from './pages/TermsOfService';
 import { RefundPolicy } from './pages/RefundPolicy';
@@ -13,7 +13,10 @@ import { ContactUs } from './pages/ContactUs';
 import { PlatformStatus } from './pages/PlatformStatus';
 import { ResourcesPage } from './pages/ResourcesPage';
 import { PricingPage } from './pages/PricingPage';
-import { APIDocs } from './pages/APIDocs';
+import { APIDocs } from './pages/APIDocs.tsx';
+import { BlogListPage } from './pages/BlogListPage.tsx';
+import { BlogPostPage } from './pages/BlogPostPage.tsx';
+import { BlogAdminPage } from './pages/BlogAdminPage.tsx';
 
 function App() {
   return (
@@ -32,6 +35,9 @@ function App() {
               <Route path="/resources" element={<ResourcesPage />} />
               <Route path="/pricing" element={<PricingPage />} />
               <Route path="/api-docs" element={<APIDocs />} />
+              <Route path="/blog" element={<BlogListPage />} />
+              <Route path="/blog/:slug" element={<BlogPostPage />} />
+              <Route path="/admin/blog" element={<BlogAdminPage />} />
             </Routes>
           </BrowserRouter>
         </AuthProvider>

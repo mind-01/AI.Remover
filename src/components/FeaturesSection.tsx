@@ -25,7 +25,7 @@ export const FeaturesSection: React.FC = () => {
     return (
         <section className="py-24 space-y-32">
             {/* How it Works - वैसा ही है */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="how-it-works" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-32">
                 <div className="text-center space-y-4 mb-16">
                     <h2 className="text-sm font-black text-blue-600 uppercase tracking-widest">{t.features.process}</h2>
                     <h3 className="text-4xl font-black text-slate-800 tracking-tight dark:text-white">{t.features.howToTitle}</h3>

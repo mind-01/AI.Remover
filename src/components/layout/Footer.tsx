@@ -94,10 +94,9 @@ export const Footer: React.FC<FooterProps> = () => {
                         <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest mb-6 dark:text-white">{t.resources}</h4>
                         <ul className="space-y-4">
                             {[
-                                { name: t.howItWorks, href: "#how-it-works", available: true },
                                 { name: t.apiDoc, to: "/api-docs", available: true },
                                 { name: t.devTools, href: "#", available: false },
-                                { name: t.blog, href: "#", available: false }
+                                { name: t.blog, to: "/blog", available: true }
                             ].map((item) => (
                                 <li key={item.name}>
                                     {item.to ? (
