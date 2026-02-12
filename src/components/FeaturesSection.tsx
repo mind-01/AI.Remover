@@ -28,8 +28,8 @@ export const FeaturesSection: React.FC = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center space-y-4 mb-16">
                     <h2 className="text-sm font-black text-blue-600 uppercase tracking-widest">{t.features.process}</h2>
-                    <h3 className="text-4xl font-black text-slate-800 tracking-tight">{t.features.howToTitle}</h3>
-                    <p className="text-lg text-slate-500 max-w-2xl mx-auto font-medium">
+                    <h3 className="text-4xl font-black text-slate-800 tracking-tight dark:text-white">{t.features.howToTitle}</h3>
+                    <p className="text-lg text-slate-500 max-w-2xl mx-auto font-medium dark:text-slate-400">
                         {t.features.howToDesc}
                     </p>
                 </div>
@@ -40,15 +40,15 @@ export const FeaturesSection: React.FC = () => {
                         { step: '02', title: t.features.aiTitle, desc: t.features.aiDesc, icon: Wand2 },
                         { step: '03', title: t.features.downloadTitle, desc: t.features.downloadDesc, icon: Download },
                     ].map((item, idx) => (
-                        <div key={idx} className="relative p-10 bg-white rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-100/50 hover:scale-[1.02] transition-all duration-300 group">
-                            <div className="absolute top-8 right-10 text-6xl font-black text-slate-50 opacity-[0.05] group-hover:opacity-[0.1] transition-opacity uppercase italic">
+                        <div key={idx} className="relative p-10 bg-white rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-100/50 hover:scale-[1.02] transition-all duration-300 group dark:bg-slate-900 dark:border-slate-800 dark:shadow-none">
+                            <div className="absolute top-8 right-10 text-6xl font-black text-slate-50 opacity-[0.05] group-hover:opacity-[0.1] transition-opacity uppercase italic dark:text-slate-700">
                                 {t.features.step} {item.step}
                             </div>
-                            <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm border border-blue-100">
+                            <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 shadow-sm border border-blue-100 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-400">
                                 <item.icon className="w-6 h-6" aria-label={item.title} />
                             </div>
-                            <h4 className="text-xl font-black text-slate-800 mb-2">{item.title}</h4>
-                            <p className="text-slate-500 text-sm leading-relaxed font-medium">{item.desc}</p>
+                            <h4 className="text-xl font-black text-slate-800 mb-2 dark:text-white">{item.title}</h4>
+                            <p className="text-slate-500 text-sm leading-relaxed font-medium dark:text-slate-400">{item.desc}</p>
                         </div>
                     ))}
                 </div>
@@ -232,20 +232,20 @@ export const FeaturesSection: React.FC = () => {
             {/* SEO FAQ Section - वैसा ही है */}
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center space-y-4 mb-16">
-                    <h2 className="text-sm font-black text-blue-600 uppercase tracking-widest italic flex items-center justify-center gap-2">
+                    <h2 className="text-sm font-black text-blue-600 uppercase tracking-widest italic flex items-center justify-center gap-2 dark:text-blue-400">
                         {t.features.commonQuestions}
                     </h2>
-                    <h3 className="text-3xl font-black text-slate-800 tracking-tight leading-tight">{t.features.faqTitle}</h3>
+                    <h3 className="text-3xl font-black text-slate-800 tracking-tight leading-tight dark:text-white">{t.features.faqTitle}</h3>
                 </div>
 
                 <div className="space-y-6">
                     {(t.faq || translations.en.faq).map((faq: any, idx: number) => (
-                        <div key={idx} className="p-8 bg-slate-50 rounded-3xl border border-slate-200 hover:border-blue-200 hover:bg-white transition-all cursor-default group">
-                            <h4 className="text-lg font-black text-slate-800 mb-3 flex items-center justify-between">
+                        <div key={idx} className="p-8 bg-slate-50 rounded-3xl border border-slate-200 hover:border-blue-200 hover:bg-white transition-all cursor-default group dark:bg-slate-900 dark:border-slate-800 dark:hover:bg-slate-800 dark:hover:border-slate-700">
+                            <h4 className="text-lg font-black text-slate-800 mb-3 flex items-center justify-between dark:text-white">
                                 {faq.q}
-                                <MousePointer2 className="w-4 h-4 text-slate-300 group-hover:text-blue-500 transition-colors" aria-label="FAQ item" />
+                                <MousePointer2 className="w-4 h-4 text-slate-300 group-hover:text-blue-500 transition-colors dark:text-slate-600" aria-label="FAQ item" />
                             </h4>
-                            <p className="text-slate-500 text-sm leading-relaxed font-medium">{faq.a}</p>
+                            <p className="text-slate-500 text-sm leading-relaxed font-medium dark:text-slate-400">{faq.a}</p>
                         </div>
                     ))}
                 </div>

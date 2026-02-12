@@ -190,7 +190,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen text-slate-900 overflow-x-hidden font-sans bg-[#fcfcfd]">
+    <div className="min-h-screen text-slate-900 dark:text-slate-50 overflow-x-hidden font-sans bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
       <Header setShowDashboard={setShowDashboard} />
 
       <main className="pt-20">

@@ -22,29 +22,29 @@ export const ProcessingView: React.FC<ProcessingViewProps> = ({ progress, curren
             </div>
 
             <div className="mt-12 text-center space-y-4">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black uppercase tracking-widest border border-blue-100 mb-2">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-[10px] font-black uppercase tracking-widest border border-blue-100 mb-2 dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800">
                     <Sparkles className="w-3 h-3" />
                     AI is working magic
                 </div>
 
-                <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight leading-tight">
+                <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight leading-tight dark:text-white">
                     {total && total > 1 ? `Batch Processing...` : `AI is Processing...`}
                 </h2>
 
                 {total && total > 1 && (
-                    <p className="text-blue-600 font-black uppercase tracking-widest text-xs">
+                    <p className="text-blue-600 font-black uppercase tracking-widest text-xs dark:text-blue-400">
                         Handling {current} of {total} files
                     </p>
                 )}
 
-                <p className="text-slate-500 font-medium leading-relaxed max-w-sm mx-auto">
+                <p className="text-slate-500 font-medium leading-relaxed max-w-sm mx-auto dark:text-slate-400">
                     We're removing backgrounds and refining every edge for professional results.
                 </p>
             </div>
 
             {progress !== undefined && (
                 <div className="w-full mt-12 space-y-3">
-                    <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden shadow-inner border border-slate-50">
+                    <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden shadow-inner border border-slate-50 dark:bg-slate-800 dark:border-slate-700">
                         <motion.div
                             initial={{ width: 0 }}
                             animate={{ width: `${progress}%` }}
@@ -52,8 +52,8 @@ export const ProcessingView: React.FC<ProcessingViewProps> = ({ progress, curren
                         />
                     </div>
                     <div className="flex justify-between items-center px-1">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Overall Progress</span>
-                        <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">{Math.round(progress)}%</span>
+                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest dark:text-slate-500">Overall Progress</span>
+                        <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest dark:text-blue-400">{Math.round(progress)}%</span>
                     </div>
                 </div>
             )}

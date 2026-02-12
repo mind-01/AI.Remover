@@ -49,17 +49,17 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-xs font-black uppercase tracking-widest border border-blue-100 shadow-sm"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-xs font-black uppercase tracking-widest border border-blue-100 shadow-sm dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800/50"
                     >
                         <Sparkles className="w-3.5 h-3.5" />
                         {t.leadingAi}
                     </motion.div>
 
                     <div className="space-y-6">
-                        <h1 className="text-5xl md:text-7xl font-black text-slate-800 tracking-tight leading-[1.1]">
+                        <h1 className="text-5xl md:text-7xl font-black text-slate-800 tracking-tight leading-[1.1] dark:text-white">
                             {t.heroTitle}
                         </h1>
-                        <p className="text-xl text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed">
+                        <p className="text-xl text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed dark:text-slate-400">
                             {t.heroSubtitle}
                         </p>
                     </div>
@@ -67,7 +67,7 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
                     <div
                         className={`
               relative max-w-2xl mx-auto p-12 rounded-[3rem] border-4 border-dashed transition-all duration-300
-              ${isDragging ? 'border-blue-500 bg-blue-50 scale-[1.02]' : 'border-slate-200 bg-white hover:border-slate-300 shadow-2xl shadow-slate-200/50'}
+              ${isDragging ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' : 'border-slate-200 bg-white hover:border-slate-300 shadow-2xl shadow-slate-200/50 dark:bg-slate-800 dark:border-slate-700 dark:shadow-none'}
             `}
                         onDragOver={handleDragOver}
                         onDragLeave={handleDragLeave}
@@ -85,7 +85,7 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
                         <div className="space-y-8">
                             <div className="relative inline-flex">
                                 <div className="absolute inset-0 bg-blue-400 blur-2xl opacity-20 animate-pulse" />
-                                <div className="relative p-8 bg-blue-600 rounded-3xl shadow-xl shadow-blue-200">
+                                <div className="relative p-8 bg-blue-600 rounded-3xl shadow-xl shadow-blue-200 dark:shadow-blue-900/20">
                                     <Upload className="w-10 h-10 text-white" />
                                 </div>
                             </div>
@@ -93,18 +93,18 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
                             <div className="space-y-4">
                                 <button
                                     onClick={() => fileInputRef.current?.click()}
-                                    className="px-12 py-5 bg-slate-900 text-white rounded-2xl text-lg font-black hover:bg-slate-800 transition-all shadow-2xl shadow-slate-200 hover:scale-105 active:scale-95 flex items-center gap-3 mx-auto uppercase tracking-wide"
+                                    className="px-12 py-5 bg-slate-900 text-white rounded-2xl text-lg font-black hover:bg-slate-800 transition-all shadow-2xl shadow-slate-200 hover:scale-105 active:scale-95 flex items-center gap-3 mx-auto uppercase tracking-wide dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 dark:shadow-none"
                                 >
                                     {t.uploadButton} <ArrowRight className="w-5 h-5" />
                                 </button>
-                                <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">
+                                <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] dark:text-slate-500">
                                     {isDragging ? t.dropImage : t.noRegistration}
                                 </p>
                             </div>
 
-                            <div className="flex flex-col items-center gap-2 text-[10px] font-bold text-slate-400 mt-4 uppercase tracking-wider">
-                                <span className="flex items-center gap-1.5 bg-slate-50 px-3 py-1 rounded-lg border border-slate-100">
-                                    <ImageIcon className="w-3 h-3 text-slate-400" /> {t.formats}
+                            <div className="flex flex-col items-center gap-2 text-[10px] font-bold text-slate-400 mt-4 uppercase tracking-wider dark:text-slate-500">
+                                <span className="flex items-center gap-1.5 bg-slate-50 px-3 py-1 rounded-lg border border-slate-100 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-300">
+                                    <ImageIcon className="w-3 h-3 text-slate-400 dark:text-slate-400" /> {t.formats}
                                 </span>
                             </div>
                         </div>

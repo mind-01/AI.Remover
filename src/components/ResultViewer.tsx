@@ -766,30 +766,30 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
     ];
 
     return (
-        <div className="fixed inset-0 z-[60] h-[100dvh] flex flex-col bg-white sm:bg-slate-50 overflow-hidden font-sans">
+        <div className="fixed inset-0 z-[60] h-[100dvh] flex flex-col bg-white sm:bg-slate-50 overflow-hidden font-sans dark:bg-slate-900">
             {/* Mobile Top Bar */}
-            <div className="lg:hidden flex-none flex items-center justify-between px-6 py-3 bg-white">
-                <button className="p-2 text-slate-800">
+            <div className="lg:hidden flex-none flex items-center justify-between px-6 py-3 bg-white dark:bg-slate-900 border-b dark:border-slate-800">
+                <button className="p-2 text-slate-800 dark:text-white">
                     <LayersIcon className="w-5 h-5" />
                 </button>
                 <div className="flex items-center gap-6">
-                    <button className="p-2 text-slate-400">
+                    <button className="p-2 text-slate-400 dark:text-slate-500">
                         <ZoomIn className="w-5 h-5" />
                     </button>
-                    <button onClick={undo} className="p-2 text-slate-400">
+                    <button onClick={undo} className="p-2 text-slate-400 dark:text-slate-500">
                         <Undo2 className="w-5 h-5" />
                     </button>
-                    <button onClick={redo} className="p-2 text-slate-400">
+                    <button onClick={redo} className="p-2 text-slate-400 dark:text-slate-500">
                         <Redo2 className="w-5 h-5" />
                     </button>
                 </div>
             </div>
 
             {/* Mobile Task Strip (Top) */}
-            <div className="lg:hidden flex-none flex items-center gap-3 px-4 py-2 overflow-x-auto no-scrollbar bg-white shadow-sm border-b border-slate-50">
+            <div className="lg:hidden flex-none flex items-center gap-3 px-4 py-2 overflow-x-auto no-scrollbar bg-white shadow-sm border-b border-slate-50 dark:bg-slate-900 dark:border-slate-800">
                 <button
                     onClick={onAddMore}
-                    className="w-14 h-14 flex-shrink-0 bg-blue-50 rounded-xl flex items-center justify-center border-2 border-blue-100 text-blue-600 active:scale-90 transition-all"
+                    className="w-14 h-14 flex-shrink-0 bg-blue-50 rounded-xl flex items-center justify-center border-2 border-blue-100 text-blue-600 active:scale-90 transition-all dark:bg-slate-800 dark:border-slate-700 dark:text-blue-400"
                 >
                     <div className="text-xl font-black">+</div>
                 </button>
@@ -820,7 +820,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                 <div className="hidden sm:flex items-center gap-4">
                     {/* Top Toolbar - Heightened Z-Index to prevent clipping */}
                     <div className="flex items-center justify-center w-full relative z-[60]">
-                        <div className="bg-white/90 backdrop-blur-xl border border-slate-200 shadow-[0_10px_40px_rgba(0,0,0,0.08)] rounded-full px-2 py-1.5 flex items-center gap-1 lg:gap-3">
+                        <div className="bg-white/90 backdrop-blur-xl border border-slate-200 shadow-[0_10px_40px_rgba(0,0,0,0.08)] rounded-full px-2 py-1.5 flex items-center gap-1 lg:gap-3 dark:bg-slate-900/90 dark:border-slate-800 dark:shadow-none">
                             {toolbarItems.map((item) => (
                                 <button
                                     key={item.id}
@@ -828,8 +828,8 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                     className={cn(
                                         "flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 text-xs font-black uppercase tracking-tight",
                                         activeTab === item.id
-                                            ? "bg-blue-600 text-white shadow-lg shadow-blue-100 scale-105"
-                                            : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+                                            ? "bg-blue-600 text-white shadow-lg shadow-blue-100 scale-105 dark:shadow-none"
+                                            : "text-slate-500 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
                                     )}
                                 >
                                     {item.icon}
@@ -837,13 +837,13 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                 </button>
                             ))}
 
-                            <div className="w-[1px] h-6 bg-slate-100 mx-2 hidden sm:block" />
+                            <div className="w-[1px] h-6 bg-slate-100 mx-2 hidden sm:block dark:bg-slate-800" />
 
                             <div className="flex items-center gap-1 sm:gap-2 mr-2">
-                                <button onClick={undo} disabled={historyIndex <= 0} className="p-2 text-slate-400 hover:text-slate-900 hover:bg-slate-50 rounded-full transition-all disabled:opacity-20">
+                                <button onClick={undo} disabled={historyIndex <= 0} className="p-2 text-slate-400 hover:text-slate-900 hover:bg-slate-50 rounded-full transition-all disabled:opacity-20 dark:hover:bg-slate-800 dark:hover:text-white">
                                     <Undo2 className="w-4 h-4" />
                                 </button>
-                                <button onClick={redo} disabled={historyIndex >= history.length - 1} className="p-2 text-slate-400 hover:text-slate-900 hover:bg-slate-50 rounded-full transition-all disabled:opacity-20">
+                                <button onClick={redo} disabled={historyIndex >= history.length - 1} className="p-2 text-slate-400 hover:text-slate-900 hover:bg-slate-50 rounded-full transition-all disabled:opacity-20 dark:hover:bg-slate-800 dark:hover:text-white">
                                     <Redo2 className="w-4 h-4" />
                                 </button>
                             </div>
@@ -851,17 +851,17 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                             <div className="relative">
                                 <button
                                     onClick={() => setIsDownloadMenuOpen(!isDownloadMenuOpen)}
-                                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full text-xs font-black uppercase tracking-widest shadow-lg shadow-blue-100 flex items-center gap-2 transition-all active:scale-95"
+                                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full text-xs font-black uppercase tracking-widest shadow-lg shadow-blue-100 flex items-center gap-2 transition-all active:scale-95 dark:shadow-none"
                                 >
                                     {t.download} <ChevronRight className={cn("w-3 h-3 transition-transform", isDownloadMenuOpen && "rotate-90")} />
                                 </button>
 
                                 {isDownloadMenuOpen && (
-                                    <div className="absolute top-full right-0 mt-4 bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-200 overflow-hidden z-[100] min-w-[240px] animate-in fade-in slide-in-from-top-4 duration-300">
-                                        <div className="p-4 border-b border-slate-100 bg-slate-50/80 backdrop-blur-sm">
+                                    <div className="absolute top-full right-0 mt-4 bg-white rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-slate-200 overflow-hidden z-[100] min-w-[240px] animate-in fade-in slide-in-from-top-4 duration-300 dark:bg-slate-900 dark:border-slate-800 dark:shadow-black/50">
+                                        <div className="p-4 border-b border-slate-100 bg-slate-50/80 backdrop-blur-sm dark:bg-slate-800/80 dark:border-slate-800">
                                             <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{t.editor.downloadMenuTitle}</p>
                                         </div>
-                                        <div className="p-2 bg-white">
+                                        <div className="p-2 bg-white dark:bg-slate-900">
                                             {[{ id: 'high', label: t.editor.qualityHigh, sub: t.editor.qualityHighSub, scale: 1 }, { id: 'medium', label: t.editor.qualityMedium, sub: t.editor.qualityMediumSub, scale: 0.7 }, { id: 'low', scale: 0.4, label: t.editor.qualityLow, sub: t.editor.qualityLowSub }].map((opt) => (
                                                 <button
                                                     key={opt.id}
@@ -872,8 +872,8 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                                     className="w-full text-left p-4 hover:bg-blue-600 group rounded-2xl transition-all duration-200 mb-1 last:mb-0"
                                                 >
                                                     <div className="flex justify-between items-center mb-1">
-                                                        <p className="text-[13px] font-black text-slate-800 group-hover:text-white transition-colors">{opt.label}</p>
-                                                        <p className="text-[10px] font-black text-blue-600 bg-blue-50 px-2 py-0.5 rounded-lg group-hover:bg-white/20 group-hover:text-white transition-all">
+                                                        <p className="text-[13px] font-black text-slate-800 group-hover:text-white transition-colors dark:text-white">{opt.label}</p>
+                                                        <p className="text-[10px] font-black text-blue-600 bg-blue-50 px-2 py-0.5 rounded-lg group-hover:bg-white/20 group-hover:text-white transition-all dark:bg-blue-900/30 dark:text-blue-400">
                                                             {estimatedSizes[opt.id] || '...'}
                                                         </p>
                                                     </div>
@@ -983,7 +983,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                 </div>
 
                 <div className="flex-grow flex-shrink min-h-0 flex flex-col gap-4 min-w-0 lg:min-h-[400px]">
-                    <div className="flex-grow flex-shrink min-h-0 relative flex items-center justify-center bg-slate-100/50 sm:rounded-[3rem] border-y sm:border border-slate-100 shadow-inner overflow-hidden group/editor p-2 sm:p-4">
+                    <div className="flex-grow flex-shrink min-h-0 relative flex items-center justify-center bg-slate-100/50 sm:rounded-[3rem] border-y sm:border border-slate-100 shadow-inner overflow-hidden group/editor p-2 sm:p-4 dark:bg-slate-800/50 dark:border-slate-800">
                         <div
                             className={cn(
                                 "relative overflow-hidden shadow-2xl flex items-center justify-center transition-all duration-300 rounded-[2.5rem]",
@@ -1244,7 +1244,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                 </div>
 
                 <div className="hidden lg:flex w-full lg:w-80 flex-shrink-0 flex flex-col h-full">
-                    <div className="bg-white rounded-[1.5rem] sm:rounded-[2.5rem] shadow-2xl border border-slate-100 flex flex-col h-full overflow-hidden">
+                    <div className="bg-white rounded-[1.5rem] sm:rounded-[2.5rem] shadow-2xl border border-slate-100 flex flex-col h-full overflow-hidden dark:bg-slate-900 dark:border-slate-800 dark:shadow-black/20">
                         <div className="flex-grow p-4 sm:p-6 space-y-4 sm:space-y-6 overflow-y-auto no-scrollbar">
 
                             {activeTab === 'cutout' && (
@@ -1253,26 +1253,26 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                         onClick={handleSmartRestoreAll}
                                         disabled={isProcessing}
                                         className={cn(
-                                            "p-6 rounded-3xl flex items-center gap-4 border transition-all w-full text-left group bg-white border-slate-100 hover:border-blue-200 active:scale-[0.98] shadow-sm disabled:opacity-50"
+                                            "p-6 rounded-3xl flex items-center gap-4 border transition-all w-full text-left group bg-white border-slate-100 hover:border-blue-200 active:scale-[0.98] shadow-sm disabled:opacity-50 dark:bg-slate-800 dark:border-slate-700 dark:hover:border-blue-700"
                                         )}
                                     >
-                                        <div className="p-3 rounded-2xl bg-blue-50 text-blue-600 shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                                        <div className="p-3 rounded-2xl bg-blue-50 text-blue-600 shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-colors dark:bg-blue-900/30 dark:text-blue-400">
                                             <Wand2 className="w-6 h-6" />
                                         </div>
                                         <div>
-                                            <p className="text-[11px] font-black uppercase tracking-tight text-slate-800">{t.editor.smartRestoreTitle}</p>
-                                            <p className="text-[10px] font-bold leading-tight text-blue-600">
+                                            <p className="text-[11px] font-black uppercase tracking-tight text-slate-800 dark:text-white">{t.editor.smartRestoreTitle}</p>
+                                            <p className="text-[10px] font-bold leading-tight text-blue-600 dark:text-blue-400">
                                                 {isProcessing ? t.common.processing : t.editor.smartRestoreDesc}
                                             </p>
                                         </div>
                                     </button>
 
                                     <div className="grid grid-cols-2 gap-3 pb-2">
-                                        <button onClick={() => setEditMode('erase')} className={cn("flex flex-col items-center gap-2 p-5 rounded-3xl border-2 transition-all", editMode === 'erase' ? "border-blue-600 bg-blue-50/50 text-blue-600 shadow-lg" : "border-slate-100 bg-white text-slate-400")}>
+                                        <button onClick={() => setEditMode('erase')} className={cn("flex flex-col items-center gap-2 p-5 rounded-3xl border-2 transition-all", editMode === 'erase' ? "border-blue-600 bg-blue-50/50 text-blue-600 shadow-lg dark:bg-blue-900/20 dark:text-blue-400" : "border-slate-100 bg-white text-slate-400 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-500")}>
                                             <div className="w-10 h-10 rounded-full border-2 border-current flex items-center justify-center font-black">-</div>
                                             <span className="text-[11px] font-black uppercase tracking-tight">{t.editor.erase}</span>
                                         </button>
-                                        <button onClick={() => setEditMode('restore')} className={cn("flex flex-col items-center gap-2 p-5 rounded-3xl border-2 transition-all", editMode === 'restore' ? "border-blue-600 bg-blue-50/50 text-blue-600 shadow-lg" : "border-slate-100 bg-white text-slate-400")}>
+                                        <button onClick={() => setEditMode('restore')} className={cn("flex flex-col items-center gap-2 p-5 rounded-3xl border-2 transition-all", editMode === 'restore' ? "border-blue-600 bg-blue-50/50 text-blue-600 shadow-lg dark:bg-blue-900/20 dark:text-blue-400" : "border-slate-100 bg-white text-slate-400 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-500")}>
                                             <div className="w-10 h-10 rounded-full border-2 border-current flex items-center justify-center font-black">+</div>
                                             <span className="text-[11px] font-black uppercase tracking-tight">{t.editor.restore}</span>
                                         </button>
@@ -1280,19 +1280,19 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
 
                                     <div className="space-y-4">
                                         <div className="flex justify-between items-center px-1">
-                                            <label className="text-[11px] font-black text-slate-800 uppercase tracking-tighter">{t.editor.brushSizeLabel}</label>
-                                            <span className="text-[11px] font-black text-blue-600">{brushSize}px</span>
+                                            <label className="text-[11px] font-black text-slate-800 uppercase tracking-tighter dark:text-white">{t.editor.brushSizeLabel}</label>
+                                            <span className="text-[11px] font-black text-blue-600 dark:text-blue-400">{brushSize}px</span>
                                         </div>
-                                        <input type="range" min="10" max="250" value={brushSize} onChange={(e) => setBrushSize(parseInt(e.target.value))} className="w-full h-1 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+                                        <input type="range" min="10" max="250" value={brushSize} onChange={(e) => setBrushSize(parseInt(e.target.value))} className="w-full h-1 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600 dark:bg-slate-700" />
                                     </div>
                                 </section>
                             )}
 
                             {activeTab === 'background' && (
                                 <section className="space-y-6 animate-in fade-in slide-in-from-right-4">
-                                    <div className="flex p-1 bg-slate-100 rounded-2xl w-full">
+                                    <div className="flex p-1 bg-slate-100 rounded-2xl w-full dark:bg-slate-800">
                                         {(['photo', 'color'] as const).map(tab => (
-                                            <button key={tab} onClick={() => setBgSubTab(tab)} className={cn("flex-grow py-2.5 rounded-xl text-[11px] font-black uppercase transition-all", bgSubTab === tab ? "bg-white text-slate-900 shadow-sm" : "text-slate-400")}>
+                                            <button key={tab} onClick={() => setBgSubTab(tab)} className={cn("flex-grow py-2.5 rounded-xl text-[11px] font-black uppercase transition-all", bgSubTab === tab ? "bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-white" : "text-slate-400 dark:text-slate-500")}>
                                                 {tab === 'photo' ? t.editor.photoTab : t.editor.colorTab}
                                             </button>
                                         ))}
@@ -1300,11 +1300,11 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
 
                                     {bgSubTab === 'photo' && (
                                         <div className="grid grid-cols-2 gap-3 animate-in fade-in slide-in-from-bottom-2">
-                                            <button onClick={() => { setBgImage(null); updateConfig({ bgImage: null }); }} className={cn("h-24 rounded-2xl border-2 flex items-center justify-center bg-slate-50", !bgImage ? "border-blue-600" : "border-slate-100")}>
+                                            <button onClick={() => { setBgImage(null); updateConfig({ bgImage: null }); }} className={cn("h-24 rounded-2xl border-2 flex items-center justify-center bg-slate-50", !bgImage ? "border-blue-600" : "border-slate-100 dark:border-slate-700 dark:bg-slate-800")}>
                                                 <div className="text-[10px] font-black text-slate-400 uppercase">{t.editor.noneOption}</div>
                                             </button>
                                             {photoPresets.map((url, i) => (
-                                                <button key={i} onClick={() => { setBgImage(url); updateConfig({ bgImage: url }); }} className={cn("h-24 rounded-2xl border-2 overflow-hidden transition-all group relative", bgImage === url ? "border-blue-600 scale-102 shadow-lg" : "border-slate-100")}>
+                                                <button key={i} onClick={() => { setBgImage(url); updateConfig({ bgImage: url }); }} className={cn("h-24 rounded-2xl border-2 overflow-hidden transition-all group relative", bgImage === url ? "border-blue-600 scale-102 shadow-lg" : "border-slate-100 dark:border-slate-700")}>
                                                     <img src={url} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="" onError={(e) => (e.target as HTMLImageElement).parentElement?.classList.add('hidden')} />
                                                 </button>
                                             ))}
@@ -1316,7 +1316,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                             {colorGridItems.map((item) => {
                                                 if (item === 'transparent') {
                                                     return (
-                                                        <button key="none" onClick={() => { setBgColor('transparent'); setBgImage(null); updateConfig({ bgColor: 'transparent', bgImage: null }); }} className={cn("h-12 rounded-xl border-2 flex items-center justify-center transition-all", bgColor === 'transparent' && !bgImage ? "border-blue-600 scale-105 shadow-md" : "border-slate-50")}>
+                                                        <button key="none" onClick={() => { setBgColor('transparent'); setBgImage(null); updateConfig({ bgColor: 'transparent', bgImage: null }); }} className={cn("h-12 rounded-xl border-2 flex items-center justify-center transition-all", bgColor === 'transparent' && !bgImage ? "border-blue-600 scale-105 shadow-md" : "border-slate-50 dark:border-slate-700")}>
                                                             <div className="w-5 h-5 border-2 border-slate-300 rounded-full flex items-center justify-center relative">
                                                                 <div className="absolute w-full h-[2px] bg-slate-300 rotate-45" />
                                                             </div>
@@ -1325,13 +1325,13 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                                 }
                                                 if (item === 'custom') {
                                                     return (
-                                                        <button key="custom" onClick={() => colorPickerRef.current?.click()} className={cn("h-12 rounded-xl border-2 flex items-center justify-center transition-all bg-gradient-to-tr from-red-400 via-yellow-400 via-green-400 via-blue-400 to-purple-400", bgColor !== 'transparent' && !colorGridItems.includes(bgColor) && !bgImage ? "border-blue-600 scale-105 shadow-md" : "border-slate-50")}>
+                                                        <button key="custom" onClick={() => colorPickerRef.current?.click()} className={cn("h-12 rounded-xl border-2 flex items-center justify-center transition-all bg-gradient-to-tr from-red-400 via-yellow-400 via-green-400 via-blue-400 to-purple-400", bgColor !== 'transparent' && !colorGridItems.includes(bgColor) && !bgImage ? "border-blue-600 scale-105 shadow-md" : "border-slate-50 dark:border-slate-700")}>
                                                             <Palette className="w-5 h-5 text-white drop-shadow-md" />
                                                             <input ref={colorPickerRef} type="color" value={customColor} onChange={(e) => { const col = e.target.value; setCustomColor(col); setBgColor(col); setBgImage(null); updateConfig({ bgColor: col, bgImage: null }); }} className="sr-only" />
                                                         </button>
                                                     );
                                                 }
-                                                return <button key={item} onClick={() => { setBgColor(item); setBgImage(null); updateConfig({ bgColor: item, bgImage: null }); }} className={cn("h-12 rounded-xl border-2 transition-all", bgColor === item && !bgImage ? "border-blue-600 scale-105 shadow-md" : "border-slate-50")} style={{ background: item }} />;
+                                                return <button key={item} onClick={() => { setBgColor(item); setBgImage(null); updateConfig({ bgColor: item, bgImage: null }); }} className={cn("h-12 rounded-xl border-2 transition-all", bgColor === item && !bgImage ? "border-blue-600 scale-105 shadow-md" : "border-slate-50 dark:border-slate-700")} style={{ background: item }} />;
                                             })}
                                         </div>
                                     )}
@@ -1342,25 +1342,25 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                 <section className="space-y-8 animate-in fade-in slide-in-from-right-4">
                                     <div className="space-y-6">
                                         <div className="flex items-center gap-3">
-                                            <div className={cn("w-10 h-5 rounded-full transition-all relative cursor-pointer", isBlurEnabled ? "bg-blue-600" : "bg-slate-300")} onClick={() => { setIsBlurEnabled(!isBlurEnabled); updateConfig({ isBlurEnabled: !isBlurEnabled }); }}>
+                                            <div className={cn("w-10 h-5 rounded-full transition-all relative cursor-pointer", isBlurEnabled ? "bg-blue-600" : "bg-slate-300 dark:bg-slate-600")} onClick={() => { setIsBlurEnabled(!isBlurEnabled); updateConfig({ isBlurEnabled: !isBlurEnabled }); }}>
                                                 <div className={cn("absolute top-1 w-3 h-3 bg-white rounded-full transition-all shadow-sm", isBlurEnabled ? "right-1" : "left-1")} />
                                             </div>
-                                            <span className="text-[11px] font-black text-slate-800 uppercase tracking-tighter">{t.editor.blurBackground}</span>
+                                            <span className="text-[11px] font-black text-slate-800 uppercase tracking-tighter dark:text-white">{t.editor.blurBackground}</span>
                                         </div>
-                                        <input type="range" min="0" max="40" step="1" value={bgBlur} onChange={(e) => { const val = parseInt(e.target.value); setBgBlur(val); updateConfig({ bgBlur: val }); }} className="w-full h-1 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+                                        <input type="range" min="0" max="40" step="1" value={bgBlur} onChange={(e) => { const val = parseInt(e.target.value); setBgBlur(val); updateConfig({ bgBlur: val }); }} className="w-full h-1 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600 dark:bg-slate-700" />
                                     </div>
                                     <div className="space-y-6">
-                                        <div className="flex items-center gap-3 font-black text-[11px] text-slate-800 uppercase tracking-tighter">
-                                            <div className={cn("w-10 h-5 rounded-full transition-all relative cursor-pointer", isShadowEnabled ? "bg-blue-600" : "bg-slate-300")} onClick={() => { setIsShadowEnabled(!isShadowEnabled); updateConfig({ isShadowEnabled: !isShadowEnabled }); }}>
+                                        <div className="flex items-center gap-3 font-black text-[11px] text-slate-800 uppercase tracking-tighter dark:text-white">
+                                            <div className={cn("w-10 h-5 rounded-full transition-all relative cursor-pointer", isShadowEnabled ? "bg-blue-600" : "bg-slate-300 dark:bg-slate-600")} onClick={() => { setIsShadowEnabled(!isShadowEnabled); updateConfig({ isShadowEnabled: !isShadowEnabled }); }}>
                                                 <div className={cn("absolute top-1 w-3 h-3 bg-white rounded-full transition-all shadow-sm", isShadowEnabled ? "right-1" : "left-1")} />
                                             </div>
                                             <span>{t.editor.productShadow}</span>
                                         </div>
-                                        <input type="range" min="0" max="100" value={shadowOpacity} onChange={(e) => { const val = parseInt(e.target.value); setShadowOpacity(val); updateConfig({ shadowOpacity: val }); }} className="w-full h-1 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+                                        <input type="range" min="0" max="100" value={shadowOpacity} onChange={(e) => { const val = parseInt(e.target.value); setShadowOpacity(val); updateConfig({ shadowOpacity: val }); }} className="w-full h-1 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-blue-600 dark:bg-slate-700" />
                                     </div>
-                                    <div className="flex items-center justify-between p-4 bg-blue-50/50 rounded-3xl border border-blue-100">
-                                        <span className="text-[11px] font-black text-blue-900 uppercase tracking-tighter">{t.editor.reflectionLabel}</span>
-                                        <button onClick={() => { setIsReflectionEnabled(!isReflectionEnabled); updateConfig({ isReflectionEnabled: !isReflectionEnabled }); }} className={cn("w-10 h-5 rounded-full transition-all relative", isReflectionEnabled ? "bg-blue-600" : "bg-slate-300")}>
+                                    <div className="flex items-center justify-between p-4 bg-blue-50/50 rounded-3xl border border-blue-100 dark:bg-blue-900/20 dark:border-blue-800">
+                                        <span className="text-[11px] font-black text-blue-900 uppercase tracking-tighter dark:text-blue-400">{t.editor.reflectionLabel}</span>
+                                        <button onClick={() => { setIsReflectionEnabled(!isReflectionEnabled); updateConfig({ isReflectionEnabled: !isReflectionEnabled }); }} className={cn("w-10 h-5 rounded-full transition-all relative", isReflectionEnabled ? "bg-blue-600" : "bg-slate-300 dark:bg-slate-600")}>
                                             <div className={cn("absolute top-1 w-3 h-3 bg-white rounded-full transition-all shadow-sm", isReflectionEnabled ? "right-1" : "left-1")} />
                                         </button>
                                     </div>
@@ -1369,14 +1369,14 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
 
                             {activeTab === 'adjust' && (
                                 <section className="space-y-6 animate-in fade-in slide-in-from-right-4">
-                                    <div className="space-y-4 p-5 bg-slate-50 rounded-3xl">
+                                    <div className="space-y-4 p-5 bg-slate-50 rounded-3xl dark:bg-slate-800">
                                         <div className="space-y-2">
-                                            <div className="flex justify-between text-[10px] font-black text-slate-600 uppercase"><span>{t.editor.brightness}</span><span>{brightness}%</span></div>
-                                            <input type="range" min="50" max="150" value={brightness} onChange={(e) => { const val = parseInt(e.target.value); setBrightness(val); updateConfig({ brightness: val }); }} className="w-full h-1 bg-white rounded-lg appearance-none cursor-pointer accent-blue-600" />
+                                            <div className="flex justify-between text-[10px] font-black text-slate-600 uppercase dark:text-slate-400"><span>{t.editor.brightness}</span><span>{brightness}%</span></div>
+                                            <input type="range" min="50" max="150" value={brightness} onChange={(e) => { const val = parseInt(e.target.value); setBrightness(val); updateConfig({ brightness: val }); }} className="w-full h-1 bg-white rounded-lg appearance-none cursor-pointer accent-blue-600 dark:bg-slate-700" />
                                         </div>
                                         <div className="space-y-2">
-                                            <div className="flex justify-between text-[10px] font-black text-slate-600 uppercase"><span>{t.editor.contrast}</span><span>{contrast}%</span></div>
-                                            <input type="range" min="50" max="150" value={contrast} onChange={(e) => { const val = parseInt(e.target.value); setContrast(val); updateConfig({ contrast: val }); }} className="w-full h-1 bg-white rounded-lg appearance-none cursor-pointer accent-blue-600" />
+                                            <div className="flex justify-between text-[10px] font-black text-slate-600 uppercase dark:text-slate-400"><span>{t.editor.contrast}</span><span>{contrast}%</span></div>
+                                            <input type="range" min="50" max="150" value={contrast} onChange={(e) => { const val = parseInt(e.target.value); setContrast(val); updateConfig({ contrast: val }); }} className="w-full h-1 bg-white rounded-lg appearance-none cursor-pointer accent-blue-600 dark:bg-slate-700" />
                                         </div>
                                     </div>
                                 </section>
@@ -1386,26 +1386,26 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                     <div className="space-y-4">
                                         <div className="flex items-center gap-2 px-1">
                                             <Maximize className="w-4 h-4 text-blue-600" />
-                                            <label className="text-[11px] font-black text-slate-800 uppercase tracking-tighter">{t.editor.socialResizing}</label>
+                                            <label className="text-[11px] font-black text-slate-800 uppercase tracking-tighter dark:text-white">{t.editor.socialResizing}</label>
                                         </div>
                                         <div className="grid grid-cols-2 gap-3">
                                             {socialRatios.map(r => (
-                                                <button key={r.value} onClick={() => { setAspectRatio(r.value); updateConfig({ aspectRatio: r.value }); }} className={cn("px-4 py-4 text-[11px] font-black rounded-2xl border-2 transition-all text-center leading-tight", aspectRatio === r.value ? "bg-blue-600 border-blue-600 text-white shadow-xl scale-105" : "bg-white border-slate-100 text-slate-600 hover:border-blue-100")}>{r.label}</button>
+                                                <button key={r.value} onClick={() => { setAspectRatio(r.value); updateConfig({ aspectRatio: r.value }); }} className={cn("px-4 py-4 text-[11px] font-black rounded-2xl border-2 transition-all text-center leading-tight", aspectRatio === r.value ? "bg-blue-600 border-blue-600 text-white shadow-xl scale-105" : "bg-white border-slate-100 text-slate-600 hover:border-blue-100 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-400 dark:hover:border-blue-900")}>{r.label}</button>
                                             ))}
                                         </div>
                                     </div>
-                                    <div className="space-y-4 p-6 bg-slate-50 rounded-[2rem] border border-slate-100">
+                                    <div className="space-y-4 p-6 bg-slate-50 rounded-[2rem] border border-slate-100 dark:bg-slate-800 dark:border-slate-700">
                                         <div className="flex justify-between items-center mb-2">
-                                            <div className="flex items-center gap-2"><ZoomIn className="w-4 h-4 text-blue-600" /><span className="text-[11px] font-black text-slate-800 uppercase tracking-tighter">{t.editor.fitPadding}</span></div>
-                                            <span className="text-[10px] font-black text-blue-600 bg-blue-50 px-2 py-1 rounded-lg">{objectPadding}%</span>
+                                            <div className="flex items-center gap-2"><ZoomIn className="w-4 h-4 text-blue-600" /><span className="text-[11px] font-black text-slate-800 uppercase tracking-tighter dark:text-white">{t.editor.fitPadding}</span></div>
+                                            <span className="text-[10px] font-black text-blue-600 bg-blue-50 px-2 py-1 rounded-lg dark:bg-blue-900/30 dark:text-blue-400">{objectPadding}%</span>
                                         </div>
-                                        <input type="range" min="0" max="40" value={objectPadding} onChange={(e) => { const val = parseInt(e.target.value); setObjectPadding(val); updateConfig({ objectPadding: val }); }} className="w-full h-1.5 bg-white rounded-lg appearance-none cursor-pointer accent-blue-600" />
+                                        <input type="range" min="0" max="40" value={objectPadding} onChange={(e) => { const val = parseInt(e.target.value); setObjectPadding(val); updateConfig({ objectPadding: val }); }} className="w-full h-1.5 bg-white rounded-lg appearance-none cursor-pointer accent-blue-600 dark:bg-slate-700" />
                                     </div>
                                 </section>
                             )}
                         </div>
-                        <div className="p-6 border-t border-slate-50 bg-white">
-                            <button onClick={onReset} className="w-full py-4 text-red-500 font-black hover:bg-red-50 rounded-2xl transition-all flex items-center justify-center gap-2 text-[10px] uppercase border border-red-50">
+                        <div className="p-6 border-t border-slate-50 bg-white dark:bg-slate-900 dark:border-slate-800">
+                            <button onClick={onReset} className="w-full py-4 text-red-500 font-black hover:bg-red-50 rounded-2xl transition-all flex items-center justify-center gap-2 text-[10px] uppercase border border-red-50 dark:border-red-900/30 dark:hover:bg-red-900/20">
                                 <Trash2 className="w-3.5 h-3.5" /> Clear Workspace
                             </button>
                         </div>
