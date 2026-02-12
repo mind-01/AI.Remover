@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
-import { Zap, ShieldCheck, Users } from 'lucide-react';
+import { ShieldCheck, Users, Folder } from 'lucide-react';
 import { removeBackground } from '@imgly/background-removal';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Analytics } from '@vercel/analytics/react';
@@ -213,10 +213,10 @@ export function HomePage() {
                                             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                                                 <div className="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center group">
                                                     <div className="p-4 bg-blue-100 dark:bg-blue-900/30 rounded-2xl text-blue-600 dark:text-blue-400 mb-6 group-hover:scale-110 transition-transform">
-                                                        <Zap className="w-8 h-8" />
+                                                        <Folder className="w-8 h-8" />
                                                     </div>
-                                                    <h3 className="text-4xl font-black text-slate-900 dark:text-white mb-2">1.2M+</h3>
-                                                    <p className="text-slate-500 dark:text-slate-400 font-bold">Images Processed Live</p>
+                                                    <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2 uppercase tracking-tight">Sync Your History</h3>
+                                                    <p className="text-slate-500 dark:text-slate-400 font-bold">Login to keep your processed images safe.</p>
                                                 </div>
 
                                                 <div className="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center group">
