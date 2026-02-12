@@ -140,11 +140,11 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = (
 
                             <div className="h-px bg-slate-100 dark:bg-slate-800 my-2" />
 
-                            <a href="#" className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold">
+                            <a href="#" className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white font-bold">
                                 <span>{t.tools}</span>
                                 <Layers className="w-4 h-4 opacity-50" />
                             </a>
-                            <a href="#" className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold">
+                            <a href="#" className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white font-bold">
                                 <span>{t.pricing}</span>
                                 <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Save 20%</span>
                             </a>
