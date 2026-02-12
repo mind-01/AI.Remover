@@ -8,6 +8,10 @@ import { HomePage } from './pages/HomePage';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { TermsOfService } from './pages/TermsOfService';
 import { RefundPolicy } from './pages/RefundPolicy';
+import { HelpFAQ } from './pages/HelpFAQ';
+import { ContactUs } from './pages/ContactUs';
+import { PlatformStatus } from './pages/PlatformStatus';
+import { ResourcesPage } from './pages/ResourcesPage';
 
 function App() {
   return (
@@ -20,6 +24,10 @@ function App() {
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/terms" element={<TermsOfService />} />
               <Route path="/refund" element={<RefundPolicy />} />
+              <Route path="/help" element={<HelpFAQ />} />
+              <Route path="/contact" element={<ContactUs />} />
+              <Route path="/status" element={<PlatformStatus />} />
+              <Route path="/resources" element={<ResourcesPage />} />
             </Routes>
           </BrowserRouter>
         </AuthProvider>

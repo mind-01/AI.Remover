@@ -118,11 +118,11 @@ export const Footer: React.FC<FooterProps> = () => {
                     <div>
                         <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-6 dark:text-white">Support</h3>
                         <ul className="space-y-4">
-                            <li><a href="#" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Help & FAQs</a></li>
-                            <li><a href="#" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Contact us</a></li>
+                            <li><Link to="/help" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Help & FAQs</Link></li>
+                            <li><Link to="/contact" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Contact us</Link></li>
                             <li><Link to="/refund" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Refunds</Link></li>
-                            <li><a href="#" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Platform Status</a></li>
-                            <li><a href="#" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Resources</a></li>
+                            <li><Link to="/status" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Platform Status</Link></li>
+                            <li><Link to="/resources" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Resources</Link></li>
                         </ul>
                     </div>
                 </div>
