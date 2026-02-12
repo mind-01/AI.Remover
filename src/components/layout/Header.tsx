@@ -1,6 +1,7 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import { Layers, Loader2, Sun, Moon } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Layers, Loader2, Sun, Moon, LogOut, User, Settings } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../lib/translations';
@@ -14,6 +15,7 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = (
     const { theme, toggleTheme } = useTheme();
     const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+    const [isUserDropdownOpen, setIsUserDropdownOpen] = React.useState(false);
     const t = translations[language]?.common || translations.en.common;
 
     console.log('Header: Rendered. User:', user ? user.email : 'NULL');
@@ -58,13 +60,60 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = (
                                 <span className="text-[10px] font-black uppercase tracking-widest">Checking...</span>
                             </div>
                         ) : user ? (
-                            <div className="flex items-center gap-4">
-                                <button onClick={() => setShowDashboard(true)} className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400">
-                                    {t.dashboard || 'Dashboard'}
-                                </button>
-                                <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-sm shadow-lg shadow-blue-100 uppercase ring-2 ring-white dark:ring-slate-800">
-                                    {user.email?.[0] || 'U'}
+                            <div
+                                className="relative"
+                                onMouseEnter={() => setIsUserDropdownOpen(true)}
+                                onMouseLeave={() => setIsUserDropdownOpen(false)}
+                            >
+                                <div className="flex items-center gap-4 cursor-pointer py-2">
+                                    <button onClick={() => setShowDashboard(true)} className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400">
+                                        {t.dashboard || 'Dashboard'}
+                                    </button>
+                                    <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-sm shadow-lg shadow-blue-100 uppercase ring-2 ring-white dark:ring-slate-800">
+                                        {user.email?.[0] || 'U'}
+                                    </div>
                                 </div>
+
+                                <AnimatePresence>
+                                    {isUserDropdownOpen && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                                            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                            transition={{ duration: 0.2, ease: "easeOut" }}
+                                            className="absolute right-0 mt-1 w-64 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-800 p-2 z-[60]"
+                                        >
+                                            <div className="px-4 py-3 border-b border-slate-50 dark:border-slate-800 mb-2">
+                                                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Signed in as</p>
+                                                <p className="text-sm font-bold text-slate-900 dark:text-white truncate">{user.email}</p>
+                                            </div>
+
+                                            <div className="space-y-1">
+                                                <button
+                                                    onClick={() => setShowDashboard(true)}
+                                                    className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-colors group"
+                                                >
+                                                    <User className="w-4 h-4 group-hover:text-blue-600 transition-colors" />
+                                                    <span>My Profile</span>
+                                                </button>
+                                                <button
+                                                    className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition-colors group"
+                                                >
+                                                    <Settings className="w-4 h-4 group-hover:text-blue-600 transition-colors" />
+                                                    <span>Account Settings</span>
+                                                </button>
+                                                <div className="h-px bg-slate-50 dark:bg-slate-800 my-1" />
+                                                <button
+                                                    onClick={signOut}
+                                                    className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-xl transition-colors group"
+                                                >
+                                                    <LogOut className="w-4 h-4" />
+                                                    <span>Log Out</span>
+                                                </button>
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </div>
                         ) : (
                             <button onClick={() => setIsAuthModalOpen(true)} className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors uppercase tracking-wider dark:text-slate-300 dark:hover:text-blue-400">
