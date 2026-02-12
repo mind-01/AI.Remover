@@ -95,80 +95,110 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean) => void }> = (
                 </div>
             </div>
 
-            {/* Mobile Slide-out Drawer */}
+            {/* Mobile Slide-out Drawer - Portaled to Root for Z-Index Fix */}
             {isMobileMenuOpen && (
-                <>
-                    <div
-                        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[1000] md:hidden"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                    />
-                    <div
-                        className="fixed top-0 right-0 bottom-0 w-[280px] shadow-2xl z-[1001] p-6 flex flex-col gap-6 md:hidden transition-transform duration-300 transform translate-x-0 border-l border-slate-100 dark:border-slate-800 overflow-y-auto"
-                        style={{ backgroundColor: theme === 'dark' ? '#020617' : '#ffffff' }}
-                    >
-                        <div className="flex justify-between items-center mb-4">
-                            <span className="text-lg font-black text-slate-800 dark:text-white">Menu</span>
-                            <button
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500"
-                            >
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                                </svg>
-                            </button>
-                        </div>
-
-                        <div className="flex flex-col gap-4">
-                            {user ? (
-                                <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-sm uppercase font-sans">
-                                        {user.email?.[0] || 'U'}
-                                    </div>
-                                    <div className="flex flex-col">
-                                        <span className="text-sm font-bold text-slate-900 dark:text-white truncate max-w-[150px] font-sans">{user.email}</span>
-                                        <button onClick={signOut} className="text-xs text-red-500 font-bold text-left font-sans">Sign Out</button>
-                                    </div>
-                                </div>
-                            ) : (
-                                <button
-                                    onClick={() => { setIsAuthModalOpen(true); setIsMobileMenuOpen(false); }}
-                                    className="w-full py-3 bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-blue-200 font-sans"
-                                >
-                                    {t.login || 'Login / Sign Up'}
-                                </button>
-                            )}
-
-                            <div className="h-px bg-slate-100 dark:bg-slate-800 my-2" />
-
-                            <a href="#" className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white font-bold font-sans">
-                                <span>{t.tools}</span>
-                                <Layers className="w-4 h-4 opacity-50" />
-                            </a>
-                            <a href="#" className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white font-bold font-sans">
-                                <span>{t.pricing}</span>
-                                <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-sans">Save 20%</span>
-                            </a>
-                            {user && (
-                                <button
-                                    onClick={() => { setShowDashboard(true); setIsMobileMenuOpen(false); }}
-                                    className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold w-full text-left"
-                                >
-                                    <span>{t.dashboard || 'Dashboard'}</span>
-                                </button>
-                            )}
-                        </div>
-
-                        <div className="mt-auto">
-                            <button className="w-full py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-black uppercase tracking-wide">
-                                {t.getPro}
-                            </button>
-                        </div>
-                    </div>
-                </>
+                <MobileMenu
+                    user={user}
+                    t={t}
+                    signOut={signOut}
+                    onClose={() => setIsMobileMenuOpen(false)}
+                    setShowDashboard={setShowDashboard}
+                    setIsAuthModalOpen={setIsAuthModalOpen}
+                    theme={theme}
+                />
             )}
 
             <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
         </nav>
     );
+};
+
+// Extracted Mobile Menu Component for Portal Usage
+const MobileMenu: React.FC<any> = ({ user, t, signOut, onClose, setShowDashboard, setIsAuthModalOpen, theme }) => {
+    // Prevent background scrolling when menu is open
+    React.useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.body.style.overflow = 'unset';
+            // Force re-enable scrolling on unmount to prevent lock-in
+            document.body.style.overflowY = 'auto';
+        };
+    }, []);
+
+    const menuContent = (
+        <div className="fixed inset-0 z-[9999] flex justify-end md:hidden font-sans">
+            {/* Backdrop */}
+            <div
+                className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                onClick={onClose}
+            />
+
+            {/* Drawer */}
+            <div
+                className="relative w-[280px] h-full shadow-2xl p-6 flex flex-col gap-6 transition-transform duration-300 transform border-l border-slate-100 dark:border-slate-800 overflow-y-auto"
+                style={{ backgroundColor: theme === 'dark' ? '#020617' : '#ffffff' }}
+            >
+                <div className="flex justify-between items-center mb-4">
+                    <span className="text-lg font-black text-slate-800 dark:text-white font-sans">Menu</span>
+                    <button
+                        onClick={onClose}
+                        className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500"
+                    >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+
+                <div className="flex flex-col gap-4">
+                    {user ? (
+                        <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-sm uppercase font-sans">
+                                {user.email?.[0] || 'U'}
+                            </div>
+                            <div className="flex flex-col">
+                                <span className="text-sm font-bold text-slate-900 dark:text-white truncate max-w-[150px] font-sans">{user.email}</span>
+                                <button onClick={signOut} className="text-xs text-red-500 font-bold text-left font-sans">Sign Out</button>
+                            </div>
+                        </div>
+                    ) : (
+                        <button
+                            onClick={() => { setIsAuthModalOpen(true); onClose(); }}
+                            className="w-full py-3 bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-blue-200 font-sans"
+                        >
+                            {t.login || 'Login / Sign Up'}
+                        </button>
+                    )}
+
+                    <div className="h-px bg-slate-100 dark:bg-slate-800 my-2" />
+
+                    <a href="#" className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white font-bold font-sans">
+                        <span>{t.tools}</span>
+                        <Layers className="w-4 h-4 opacity-50" />
+                    </a>
+                    <a href="#" className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white font-bold font-sans">
+                        <span>{t.pricing}</span>
+                        <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-sans">Save 20%</span>
+                    </a>
+                    {user && (
+                        <button
+                            onClick={() => { setShowDashboard(true); onClose(); }}
+                            className="flex items-center justify-between p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white font-bold w-full text-left font-sans"
+                        >
+                            <span>{t.dashboard || 'Dashboard'}</span>
+                        </button>
+                    )}
+                </div>
+
+                <div className="mt-auto">
+                    <button className="w-full py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-black uppercase tracking-wide font-sans">
+                        {t.getPro}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+
+    return createPortal(menuContent, document.body);
 };
