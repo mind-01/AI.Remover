@@ -550,28 +550,27 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
             const y = ((clientY - rect.top) / rect.height) * 100;
             setZoomPosition({ x, y, clientX, clientY });
 
-            // Update Live Loupe Canvas
+            // Update Live Loupe Canvas from displayCanvas (contains all edits like brightness, etc.)
             const lCanvas = loupeCanvasRef.current;
-            const mCanvas = maskCanvasRef.current;
-            if (lCanvas && mCanvas) {
+            if (lCanvas && dCanvas) {
                 const lCtx = lCanvas.getContext('2d');
                 if (lCtx) {
                     const zoomLevel = 4;
-                    const loupeSize = 192; // 48 * 4 (matching UI width/height)
+                    const loupeSize = 192; // 48 * 4
                     lCanvas.width = loupeSize;
                     lCanvas.height = loupeSize;
 
-                    const sourceX = (x / 100) * mCanvas.width;
-                    const sourceY = (y / 100) * mCanvas.height;
+                    // Extract from main displayCanvas (sharpest version with all effects)
+                    const sourceX = (x / 100) * dCanvas.width;
+                    const sourceY = (y / 100) * dCanvas.height;
                     const sourceSize = (loupeSize / zoomLevel);
 
                     lCtx.imageSmoothingEnabled = true;
                     lCtx.imageSmoothingQuality = 'high';
                     lCtx.clearRect(0, 0, loupeSize, loupeSize);
 
-                    // Draw from high-res maskCanvas
                     lCtx.drawImage(
-                        mCanvas,
+                        dCanvas,
                         sourceX - (sourceSize / 2),
                         sourceY - (sourceSize / 2),
                         sourceSize,
