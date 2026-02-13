@@ -90,6 +90,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
     const displayCanvasRef = useRef<HTMLCanvasElement>(null);
     const maskCanvasRef = useRef<HTMLCanvasElement>(null);
     const selectionCanvasRef = useRef<HTMLCanvasElement>(null);
+    const loupeCanvasRef = useRef<HTMLCanvasElement>(null);
     const cursorRef = useRef<HTMLDivElement>(null);
     const colorPickerRef = useRef<HTMLInputElement>(null);
     const originalImageRef = useRef<HTMLImageElement | null>(null);
@@ -548,6 +549,40 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
             const x = ((clientX - rect.left) / rect.width) * 100;
             const y = ((clientY - rect.top) / rect.height) * 100;
             setZoomPosition({ x, y, clientX, clientY });
+
+            // Update Live Loupe Canvas
+            const lCanvas = loupeCanvasRef.current;
+            const mCanvas = maskCanvasRef.current;
+            if (lCanvas && mCanvas) {
+                const lCtx = lCanvas.getContext('2d');
+                if (lCtx) {
+                    const zoomLevel = 4;
+                    const loupeSize = 192; // 48 * 4 (matching UI width/height)
+                    lCanvas.width = loupeSize;
+                    lCanvas.height = loupeSize;
+
+                    const sourceX = (x / 100) * mCanvas.width;
+                    const sourceY = (y / 100) * mCanvas.height;
+                    const sourceSize = (loupeSize / zoomLevel);
+
+                    lCtx.imageSmoothingEnabled = true;
+                    lCtx.imageSmoothingQuality = 'high';
+                    lCtx.clearRect(0, 0, loupeSize, loupeSize);
+
+                    // Draw from high-res maskCanvas
+                    lCtx.drawImage(
+                        mCanvas,
+                        sourceX - (sourceSize / 2),
+                        sourceY - (sourceSize / 2),
+                        sourceSize,
+                        sourceSize,
+                        0,
+                        0,
+                        loupeSize,
+                        loupeSize
+                    );
+                }
+            }
         }
 
         if (cursorRef.current && activeTab === 'cutout') {
@@ -1096,29 +1131,23 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                         top: 0,
                                         transform: `translate3d(${zoomPosition.clientX - 96}px, ${zoomPosition.clientY - 96}px, 0)`,
                                         backgroundImage: `
-                                            url(${processedUrl}),
                                             linear-gradient(45deg, #ccc 25%, transparent 25%), 
                                             linear-gradient(-45deg, #ccc 25%, transparent 25%), 
                                             linear-gradient(45deg, transparent 75%, #ccc 75%), 
                                             linear-gradient(-45deg, transparent 75%, #ccc 75%)
                                         `,
-                                        backgroundRepeat: 'no-repeat, repeat, repeat, repeat, repeat',
-                                        backgroundSize: `
-                                            ${(displayCanvasRef.current?.getBoundingClientRect().width || 0) * 4}px ${(displayCanvasRef.current?.getBoundingClientRect().height || 0) * 4}px,
-                                            ${24 * 4}px ${24 * 4}px,
-                                            ${24 * 4}px ${24 * 4}px,
-                                            ${24 * 4}px ${24 * 4}px,
-                                            ${24 * 4}px ${24 * 4}px
-                                        `,
-                                        backgroundPosition: `
-                                            -${zoomPosition.x * 4 * ((displayCanvasRef.current?.getBoundingClientRect().width || 0) / 100) - 96}px -${zoomPosition.y * 4 * ((displayCanvasRef.current?.getBoundingClientRect().height || 0) / 100) - 96}px,
-                                            0 0, 0 ${12 * 4}px, ${12 * 4}px -${12 * 4}px, -${12 * 4}px 0px
-                                        `,
+                                        backgroundRepeat: 'repeat',
+                                        backgroundSize: `${24 * 4}px ${24 * 4}px`,
+                                        backgroundPosition: `0 0, 0 ${12 * 4}px, ${12 * 4}px -${12 * 4}px, -${12 * 4}px 0px`,
                                         backgroundColor: 'white'
                                     }}
                                 >
-                                    <div className="absolute inset-x-0 bottom-2 text-center">
-                                        <span className="bg-blue-600/80 text-white text-[8px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter shadow-lg">4.0x Zoom</span>
+                                    <canvas
+                                        ref={loupeCanvasRef}
+                                        className="w-full h-full object-contain relative z-10"
+                                    />
+                                    <div className="absolute inset-x-0 bottom-2 text-center z-20">
+                                        <span className="bg-blue-600/80 text-white text-[8px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter shadow-lg">Live 4.0x Zoom</span>
                                     </div>
                                 </div>
                             )}
