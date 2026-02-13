@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Download, Trash2, Clock, Image as ImageIcon, ExternalLink, User, Settings, Database, Sparkles, LogOut, Check, Globe, X, Save, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Download, Trash2, Clock, Image as ImageIcon, ExternalLink, User, Settings, Database, Sparkles, LogOut, Check, Globe, X, Save } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
