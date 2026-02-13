@@ -1,10 +1,17 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ChevronRight, Sparkles, Image as ImageIcon, Eraser, Trash2, Wand2, Sliders, Undo2, Redo2, Loader2, Palette, Maximize, ZoomIn, Download, Scissors, Layers as LayersIcon, Archive, MousePointerClick } from 'lucide-react';
+import { ChevronRight, Sparkles, Image as ImageIcon, Eraser, Trash2, Wand2, Sliders, Undo2, Redo2, Loader2, Palette, Maximize, ZoomIn, Download, Scissors, Layers as LayersIcon, Archive } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import JSZip from 'jszip';
 import { cn } from '../lib/utils';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../lib/translations';
+
+interface ZoomPosition {
+    x: number;
+    y: number;
+    clientX: number;
+    clientY: number;
+}
 
 interface ProcessingTask {
     id: string;
@@ -49,12 +56,9 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
     const { language } = useLanguage();
     const t = translations[language] || translations.en;
 
-    const [activeTab, setActiveTab] = useState<EditorTab>('cutout');
+    const [activeTab, setActiveTab] = useState<EditorTab>('zoom');
     const [bgSubTab, setBgSubTab] = useState<'photo' | 'color'>('photo');
-    const [isZooming, setIsZooming] = useState(false);
-    const [zoomPosition, setZoomPosition] = useState({ x: 50, y: 50 });
-    const [manualZoom, setManualZoom] = useState(1);
-    const [zoomMode, setZoomMode] = useState<'hover' | 'manual'>('manual');
+    const [zoomPosition, setZoomPosition] = useState<ZoomPosition>({ x: 50, y: 50, clientX: 0, clientY: 0 });
 
     // Core States
     const [bgColor, setBgColor] = useState('transparent');
@@ -179,13 +183,15 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                 };
                 setHistory([initialState]);
                 setHistoryIndex(0);
+                // Auto-redirect to Zoom tab
+                setActiveTab('zoom');
             }
 
             renderDisplay();
         };
 
         loadImages();
-    }, [processedUrl, originalUrl]);
+    }, [processedUrl, originalUrl, activeTaskId]);
 
     // Main Render Function
     const renderDisplay = useCallback(() => {
@@ -541,7 +547,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
             const rect = dCanvas.getBoundingClientRect();
             const x = ((clientX - rect.left) / rect.width) * 100;
             const y = ((clientY - rect.top) / rect.height) * 100;
-            setZoomPosition({ x, y });
+            setZoomPosition({ x, y, clientX, clientY });
         }
 
         if (cursorRef.current && activeTab === 'cutout') {
@@ -725,12 +731,12 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
     };
 
     const toolbarItems = [
+        { id: 'zoom', label: t.common.zoom, icon: <ZoomIn className="w-4 h-4" /> },
         { id: 'cutout', label: t.common.cutout, icon: <Eraser className="w-4 h-4" /> },
         { id: 'background', label: t.common.background, icon: <ImageIcon className="w-4 h-4" /> },
         { id: 'effects', label: t.common.effects, icon: <Sparkles className="w-4 h-4" /> },
         { id: 'adjust', label: t.common.adjust, icon: <Sliders className="w-4 h-4" /> },
         { id: 'resize', label: t.common.resize, icon: <Maximize className="w-4 h-4" /> },
-        { id: 'zoom', label: t.common.zoom, icon: <ZoomIn className="w-4 h-4" /> },
     ];
 
     const socialRatios = [
@@ -1004,15 +1010,9 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                             "w-[90%] aspect-video"
                             )}
                             style={{
-                                transform: activeTab === 'zoom'
-                                    ? (zoomMode === 'hover'
-                                        ? (isZooming ? 'scale(2.5)' : 'scale(1)')
-                                        : `scale(${manualZoom})`)
-                                    : 'none',
-                                transformOrigin: activeTab === 'zoom' && zoomMode === 'hover'
-                                    ? `${zoomPosition.x}% ${zoomPosition.y}%`
-                                    : 'center center',
-                                transition: (activeTab === 'zoom' && zoomMode === 'hover' && isZooming) ? 'none' : 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
+                                transform: 'none',
+                                transformOrigin: 'center center',
+                                transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
                             }}
                         >
                             <div
@@ -1047,8 +1047,8 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                     onMouseDown={startDrawing}
                                     onMouseMove={draw}
                                     onMouseUp={stopDrawing}
-                                    onMouseLeave={() => { stopDrawing(); setIsHovering(false); setIsZooming(false); }}
-                                    onMouseEnter={() => { setIsHovering(true); if (activeTab === 'zoom' && zoomMode === 'hover') setIsZooming(true); }}
+                                    onMouseLeave={() => { stopDrawing(); setIsHovering(false); }}
+                                    onMouseEnter={() => { setIsHovering(true); }}
                                     onTouchStart={startDrawing}
                                     onTouchMove={draw}
                                     onTouchEnd={stopDrawing}
@@ -1086,6 +1086,26 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
 
                             <canvas ref={maskCanvasRef} className="hidden" />
                             <canvas ref={selectionCanvasRef} className="hidden" />
+
+                            {/* Magnifier Loupe */}
+                            {activeTab === 'zoom' && isHovering && displayCanvasRef.current && (
+                                <div
+                                    className="fixed pointer-events-none z-[100] w-48 h-48 border-4 border-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] overflow-hidden bg-slate-900"
+                                    style={{
+                                        left: 0,
+                                        top: 0,
+                                        transform: `translate3d(${zoomPosition.clientX - 96}px, ${zoomPosition.clientY - 96}px, 0)`,
+                                        backgroundImage: `url(${processedUrl})`,
+                                        backgroundRepeat: 'no-repeat',
+                                        backgroundSize: `${(displayCanvasRef.current?.getBoundingClientRect().width || 0) * 4}px ${(displayCanvasRef.current?.getBoundingClientRect().height || 0) * 4}px`,
+                                        backgroundPosition: `-${zoomPosition.x * 4 * ((displayCanvasRef.current?.getBoundingClientRect().width || 0) / 100) - 96}px -${zoomPosition.y * 4 * ((displayCanvasRef.current?.getBoundingClientRect().height || 0) / 100) - 96}px`
+                                    }}
+                                >
+                                    <div className="absolute inset-x-0 bottom-2 text-center">
+                                        <span className="bg-blue-600/80 text-white text-[8px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter shadow-lg">4.0x Zoom</span>
+                                    </div>
+                                </div>
+                            )}
 
                             {activeTab !== 'cutout' && (
                                 <div className="absolute inset-x-0 bottom-4 text-center lg:hidden pointer-events-none">
@@ -1231,25 +1251,11 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                     </div>
                                 )}
                                 {activeTab === 'zoom' && (
-                                    <div className="flex flex-col justify-center gap-4 px-6 w-full h-full">
-                                        <div className="flex items-center gap-4">
-                                            <button
-                                                onClick={() => { setZoomMode(zoomMode === 'hover' ? 'manual' : 'hover'); setIsZooming(false); }}
-                                                className={cn("flex-shrink-0 p-2 rounded-xl border-2 transition-all", zoomMode === 'hover' ? "bg-blue-50 border-blue-200 text-blue-600 shadow-sm" : "bg-slate-50 border-slate-100 text-slate-400")}
-                                            >
-                                                <MousePointerClick className="w-5 h-5" />
-                                            </button>
-                                            <input
-                                                type="range"
-                                                value={manualZoom}
-                                                min="1"
-                                                max="4"
-                                                step="0.1"
-                                                onChange={(e) => { setManualZoom(parseFloat(e.target.value)); setZoomMode('manual'); }}
-                                                className="flex-grow h-2 accent-blue-600"
-                                            />
-                                            <span className="w-8 text-[10px] font-black text-slate-400">{manualZoom.toFixed(1)}x</span>
+                                    <div className="flex flex-col justify-center items-center gap-2 w-full h-full px-4">
+                                        <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600">
+                                            <ZoomIn className="w-6 h-6" />
                                         </div>
+                                        <p className="text-[10px] font-black text-slate-800 uppercase tracking-widest">{t.editor.hoverZoomNote}</p>
                                     </div>
                                 )}
                             </motion.div>
@@ -1444,40 +1450,22 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                             )}
                             {activeTab === 'zoom' && (
                                 <section className="space-y-8 animate-in fade-in slide-in-from-right-4">
-                                    <div className="space-y-6">
-                                        <div className="flex items-center justify-between px-1">
-                                            <label className="text-[11px] font-black text-slate-800 uppercase tracking-tighter dark:text-white">{t.editor.zoomMode}</label>
-                                            <div className="flex p-1 bg-slate-100 rounded-xl dark:bg-slate-800">
-                                                <button
-                                                    onClick={() => setZoomMode('manual')}
-                                                    className={cn("px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all", zoomMode === 'manual' ? "bg-white text-blue-600 shadow-sm dark:bg-slate-700 dark:text-white" : "text-slate-400")}
-                                                >
-                                                    {t.editor.sliderMode}
-                                                </button>
-                                                <button
-                                                    onClick={() => { setZoomMode('hover'); setIsZooming(false); }}
-                                                    className={cn("px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all", zoomMode === 'hover' ? "bg-white text-blue-600 shadow-sm dark:bg-slate-700 dark:text-white" : "text-slate-400")}
-                                                >
-                                                    {t.editor.hoverMode}
-                                                </button>
-                                            </div>
+                                    <div className="p-8 bg-blue-50/50 rounded-[2.5rem] border border-blue-100 dark:bg-blue-900/20 dark:border-blue-800 flex flex-col items-center text-center space-y-4">
+                                        <div className="w-16 h-16 bg-white rounded-2xl shadow-xl flex items-center justify-center dark:bg-slate-800">
+                                            <ZoomIn className="w-8 h-8 text-blue-600" />
                                         </div>
-
-                                        {zoomMode === 'manual' ? (
-                                            <div className="space-y-4 p-6 bg-slate-50 rounded-[2rem] border border-slate-100 dark:bg-slate-800 dark:border-slate-700 animate-in fade-in zoom-in-95 duration-200">
-                                                <div className="flex justify-between items-center mb-2">
-                                                    <div className="flex items-center gap-2"><Maximize className="w-4 h-4 text-blue-600" /><span className="text-[11px] font-black text-slate-800 uppercase tracking-tighter dark:text-white">{t.editor.zoomLevel}</span></div>
-                                                    <span className="text-[10px] font-black text-blue-600 bg-blue-50 px-2 py-1 rounded-lg dark:bg-blue-900/30 dark:text-blue-400">{manualZoom.toFixed(1)}x</span>
-                                                </div>
-                                                <input type="range" min="1" max="4" step="0.1" value={manualZoom} onChange={(e) => setManualZoom(parseFloat(e.target.value))} className="w-full h-1.5 bg-white rounded-lg appearance-none cursor-pointer accent-blue-600 dark:bg-slate-700" />
-                                            </div>
-                                        ) : (
-                                            <div className="p-6 bg-blue-50/50 rounded-[2rem] border border-blue-100 dark:bg-blue-900/20 dark:border-blue-800 animate-in fade-in zoom-in-95 duration-200">
-                                                <p className="text-[10px] font-bold text-blue-600 leading-relaxed text-center italic dark:text-blue-400">
-                                                    "{t.editor.hoverZoomNote}"
-                                                </p>
-                                            </div>
-                                        )}
+                                        <div>
+                                            <p className="text-[12px] font-black text-slate-800 uppercase tracking-tight dark:text-white mb-1">
+                                                {t.common.zoom}
+                                            </p>
+                                            <p className="text-[10px] font-bold text-slate-500 leading-relaxed italic max-w-[200px]">
+                                                "{t.editor.hoverZoomNote}"
+                                            </p>
+                                        </div>
+                                        <div className="pt-4 w-full">
+                                            <div className="h-px bg-blue-100 w-full dark:bg-blue-900/30" />
+                                            <p className="mt-4 text-[9px] font-black text-blue-600 uppercase tracking-widest">{t.editor.qualityHigh}</p>
+                                        </div>
                                     </div>
                                 </section>
                             )}
