@@ -1095,10 +1095,26 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                         left: 0,
                                         top: 0,
                                         transform: `translate3d(${zoomPosition.clientX - 96}px, ${zoomPosition.clientY - 96}px, 0)`,
-                                        backgroundImage: `url(${processedUrl})`,
-                                        backgroundRepeat: 'no-repeat',
-                                        backgroundSize: `${(displayCanvasRef.current?.getBoundingClientRect().width || 0) * 4}px ${(displayCanvasRef.current?.getBoundingClientRect().height || 0) * 4}px`,
-                                        backgroundPosition: `-${zoomPosition.x * 4 * ((displayCanvasRef.current?.getBoundingClientRect().width || 0) / 100) - 96}px -${zoomPosition.y * 4 * ((displayCanvasRef.current?.getBoundingClientRect().height || 0) / 100) - 96}px`
+                                        backgroundImage: `
+                                            url(${processedUrl}),
+                                            linear-gradient(45deg, #ccc 25%, transparent 25%), 
+                                            linear-gradient(-45deg, #ccc 25%, transparent 25%), 
+                                            linear-gradient(45deg, transparent 75%, #ccc 75%), 
+                                            linear-gradient(-45deg, transparent 75%, #ccc 75%)
+                                        `,
+                                        backgroundRepeat: 'no-repeat, repeat, repeat, repeat, repeat',
+                                        backgroundSize: `
+                                            ${(displayCanvasRef.current?.getBoundingClientRect().width || 0) * 4}px ${(displayCanvasRef.current?.getBoundingClientRect().height || 0) * 4}px,
+                                            ${24 * 4}px ${24 * 4}px,
+                                            ${24 * 4}px ${24 * 4}px,
+                                            ${24 * 4}px ${24 * 4}px,
+                                            ${24 * 4}px ${24 * 4}px
+                                        `,
+                                        backgroundPosition: `
+                                            -${zoomPosition.x * 4 * ((displayCanvasRef.current?.getBoundingClientRect().width || 0) / 100) - 96}px -${zoomPosition.y * 4 * ((displayCanvasRef.current?.getBoundingClientRect().height || 0) / 100) - 96}px,
+                                            0 0, 0 ${12 * 4}px, ${12 * 4}px -${12 * 4}px, -${12 * 4}px 0px
+                                        `,
+                                        backgroundColor: 'white'
                                     }}
                                 >
                                     <div className="absolute inset-x-0 bottom-2 text-center">
