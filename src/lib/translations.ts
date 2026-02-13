@@ -94,7 +94,15 @@ export const translations: Record<string, any> = {
             viewFull: 'View Full',
             cutouts: 'Professional Cutouts',
             clearAll: 'All Clear',
-            clearConfirm: 'Are you sure you want to clear all history?'
+            clearConfirm: 'Are you sure you want to clear all history?',
+            editProfile: 'Edit Profile',
+            displayName: 'Display Name',
+            emailLabel: 'Email Address (Locked)',
+            saveChanges: 'Save Changes',
+            cancel: 'Cancel',
+            updateSuccess: 'Profile updated successfully!',
+            updateError: 'Failed to update profile.',
+            memberAccount: 'Member Account'
         },
         auth: {
             welcome: 'Welcome Back',
@@ -139,7 +147,8 @@ export const translations: Record<string, any> = {
             square: 'Square (1:1)',
             story: 'Story (9:16)',
             video: 'YouTube (16:9)',
-            canvaNote: 'Canva integration available in Background tab'
+            canvaNote: 'Canva integration available in Background tab',
+            hoverZoomNote: 'Move mouse over image to zoom'
         },
         features: {
             process: 'Process',
@@ -278,7 +287,15 @@ export const translations: Record<string, any> = {
             viewFull: 'पूरा देखें',
             cutouts: 'प्रोफेशनल कटआउट्स',
             clearAll: 'सब साफ़ करें',
-            clearConfirm: 'क्या आप वाकई सारा इतिहास मिटाना चाहते हैं?'
+            clearConfirm: 'क्या आप वाकई सारा इतिहास मिटाना चाहते हैं?',
+            editProfile: 'प्रोफ़ाइल बदलें',
+            displayName: 'नाम',
+            emailLabel: 'ईमेल पता (लॉक)',
+            saveChanges: 'बदलाव सेव करें',
+            cancel: 'रद्द करें',
+            updateSuccess: 'प्रोफ़ाइल अपडेट हो गई!',
+            updateError: 'अपडेट करने में विफल।',
+            memberAccount: 'सदस्य खाता'
         },
         auth: {
             welcome: 'वापसी पर स्वागत है',
@@ -323,7 +340,8 @@ export const translations: Record<string, any> = {
             square: 'स्क्वायर (1:1)',
             story: 'स्टोरी (9:16)',
             video: 'यूट्यूब (16:9)',
-            canvaNote: 'बैकग्राउंड टैब में कैनवा एकीकरण उपलब्ध है'
+            canvaNote: 'बैकग्राउंड टैब में कैनवा एकीकरण उपलब्ध है',
+            hoverZoomNote: 'ज़ूम करने के लिए इमेज पर माउस ले जाएं'
         },
         features: {
             process: 'प्रोसेस',
@@ -4841,7 +4859,18 @@ export const translations: Record<string, any> = {
             viewFull: 'مکمل دیکھیں',
             cutouts: 'پروفیشنل کٹ آؤٹس',
             clearAll: 'سب صاف کریں',
-            clearConfirm: 'کیا آپ واقعی تمام تاریخ صاف کرنا چاہتے ہیں؟'
+            clearConfirm: 'کیا آپ واقعی تمام تاریخ صاف کرنا چاہتے ہیں؟',
+            editProfile: 'پروفائل تبدیل کریں',
+            displayName: 'نام',
+            emailLabel: 'ای میل ایڈریس (مقفل)',
+            saveChanges: 'تبدیلیاں محفوظ کریں',
+            cancel: 'منسوخ کریں',
+            updateSuccess: 'پروفائل اپ ڈیٹ ہو گئی!',
+            updateError: 'اپ ڈیٹ کرنے میں ناکام۔',
+            memberAccount: 'ممبر اکاؤنٹ'
+        },
+        editor: {
+            hoverZoomNote: 'زوم کرنے کے لیے ماؤس کو تصویر پر لائیں'
         }
     }
 };

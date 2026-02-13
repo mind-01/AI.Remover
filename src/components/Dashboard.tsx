@@ -22,6 +22,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ onClose, initialView = 'hi
     const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
     const t = translations[language]?.dashboard || translations.en.dashboard;
 
+    // Sync fullName when user metadata changes
+    React.useEffect(() => {
+        if (user?.user_metadata?.full_name) {
+            setFullName(user.user_metadata.full_name);
+        }
+    }, [user?.user_metadata?.full_name]);
+
     const handleDownload = async (url: string, id: string) => {
         const response = await fetch(url);
         const blob = await response.blob();
@@ -45,13 +52,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ onClose, initialView = 'hi
         setMessage(null);
         try {
             await updateProfile({ full_name: fullName });
-            setMessage({ type: 'success', text: language === 'hi' ? 'प्रोफ़ाइल अपडेट हो गई!' : language === 'ur' ? 'پروفائل اپ ڈیٹ ہو گئی!' : 'Profile updated successfully!' });
+            setMessage({ type: 'success', text: t.updateSuccess || 'Profile updated successfully!' });
             setTimeout(() => {
                 setIsEditingProfile(false);
                 setMessage(null);
             }, 2000);
         } catch (err) {
-            setMessage({ type: 'error', text: language === 'hi' ? 'अपडेट करने में विफल।' : language === 'ur' ? 'اپ ڈیٹ کرنے میں ناکام۔' : 'Failed to update profile.' });
+            setMessage({ type: 'error', text: t.updateError || 'Failed to update profile.' });
         } finally {
             setIsUpdating(false);
         }
@@ -212,100 +219,117 @@ export const Dashboard: React.FC<DashboardProps> = ({ onClose, initialView = 'hi
                                         </div>
                                     </div>
 
-                                    <div className="flex-1 space-y-6 text-center md:text-left">
-                                        {!isEditingProfile ? (
-                                            <>
-                                                <div>
-                                                    <h2 className="text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tight mb-2">
-                                                        {user?.user_metadata?.full_name || 'Member Account'}
-                                                    </h2>
-                                                    <p className="text-slate-500 dark:text-slate-400 font-bold text-lg">{user?.email}</p>
-                                                </div>
-
-                                                <div className="grid grid-cols-2 gap-4">
-                                                    <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-[2rem] border border-slate-100/50 dark:border-slate-700/50">
-                                                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Total Cutouts</p>
-                                                        <p className="text-3xl font-black text-slate-900 dark:text-white">{history.length}</p>
+                                    <div className="flex-1 space-y-6 text-center md:text-left min-h-[300px] flex flex-col justify-center">
+                                        <AnimatePresence mode="wait">
+                                            {!isEditingProfile ? (
+                                                <motion.div
+                                                    key="profile-view"
+                                                    initial={{ opacity: 0, x: 20 }}
+                                                    animate={{ opacity: 1, x: 0 }}
+                                                    exit={{ opacity: 0, x: -20 }}
+                                                    transition={{ duration: 0.3 }}
+                                                    className="space-y-6"
+                                                >
+                                                    <div>
+                                                        <h2 className="text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tight mb-2">
+                                                            {user?.user_metadata?.full_name || t.memberAccount}
+                                                        </h2>
+                                                        <p className="text-slate-500 dark:text-slate-400 font-bold text-lg">{user?.email}</p>
                                                     </div>
-                                                    <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-[2rem] border border-slate-100/50 dark:border-slate-700/50">
-                                                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Account Status</p>
-                                                        <p className="text-lg font-black text-green-600 dark:text-green-400 uppercase tracking-tight">Active Pro</p>
-                                                    </div>
-                                                </div>
 
-                                                <div className="pt-4 flex flex-wrap gap-4 justify-center md:justify-start">
-                                                    <button
-                                                        onClick={() => setIsEditingProfile(true)}
-                                                        className="px-8 py-3 bg-slate-900 dark:bg-blue-600 text-white font-black rounded-2xl text-xs uppercase tracking-widest shadow-xl shadow-slate-200 dark:shadow-none hover:bg-slate-800 transition-all active:scale-95"
-                                                    >
-                                                        Edit Profile
-                                                    </button>
-                                                    <button onClick={() => signOut()} className="px-8 py-3 bg-red-50 text-red-600 font-black rounded-2xl text-xs uppercase tracking-widest hover:bg-red-100 transition-all active:scale-95 flex items-center gap-2">
-                                                        <LogOut className="w-4 h-4" /> Sign Out
-                                                    </button>
-                                                </div>
-                                            </>
-                                        ) : (
-                                            <form onSubmit={handleUpdateProfile} className="space-y-6">
-                                                <div>
-                                                    <h2 className="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight mb-6">Edit Your Details</h2>
-
-                                                    <div className="space-y-4">
-                                                        <div className="relative group/field">
-                                                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block ml-2">Display Name</label>
-                                                            <input
-                                                                type="text"
-                                                                value={fullName}
-                                                                onChange={(e) => setFullName(e.target.value)}
-                                                                placeholder="Enter your name"
-                                                                disabled={isUpdating}
-                                                                className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border-2 border-transparent focus:border-blue-600 outline-none rounded-2xl font-bold text-slate-700 dark:text-white transition-all"
-                                                            />
+                                                    <div className="grid grid-cols-2 gap-4">
+                                                        <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-[2rem] border border-slate-100/50 dark:border-slate-700/50">
+                                                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Total Cutouts</p>
+                                                            <p className="text-3xl font-black text-slate-900 dark:text-white">{history.length}</p>
                                                         </div>
-                                                        <div className="relative group/field opacity-50 cursor-not-allowed">
-                                                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block ml-2">Email Address (Locked)</label>
-                                                            <input
-                                                                type="email"
-                                                                value={user?.email || ''}
-                                                                disabled
-                                                                className="w-full px-6 py-4 bg-slate-100 dark:bg-slate-900 border-2 border-transparent rounded-2xl font-bold text-slate-400 dark:text-slate-500"
-                                                            />
+                                                        <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-[2rem] border border-slate-100/50 dark:border-slate-700/50">
+                                                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Account Status</p>
+                                                            <p className="text-lg font-black text-green-600 dark:text-green-400 uppercase tracking-tight">Active Pro</p>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                {message && (
-                                                    <motion.div
-                                                        initial={{ opacity: 0, scale: 0.95 }}
-                                                        animate={{ opacity: 1, scale: 1 }}
-                                                        className={`p-4 rounded-xl font-bold text-sm flex items-center gap-2 ${message.type === 'success' ? 'bg-green-50 text-green-600 border border-green-100 dark:bg-green-900/20 dark:border-green-800 dark:text-green-400' : 'bg-red-50 text-red-600 border border-red-100 dark:bg-red-900/20 dark:border-red-800 dark:text-red-400'
-                                                            }`}
-                                                    >
-                                                        {message.type === 'success' ? <Check className="w-4 h-4" /> : <X className="w-4 h-4" />}
-                                                        {message.text}
-                                                    </motion.div>
-                                                )}
+                                                    <div className="pt-4 flex flex-wrap gap-4 justify-center md:justify-start">
+                                                        <button
+                                                            onClick={() => setIsEditingProfile(true)}
+                                                            className="px-8 py-3 bg-slate-900 dark:bg-blue-600 text-white font-black rounded-2xl text-xs uppercase tracking-widest shadow-xl shadow-slate-200 dark:shadow-none hover:bg-slate-800 transition-all active:scale-95"
+                                                        >
+                                                            {t.editProfile}
+                                                        </button>
+                                                        <button onClick={() => signOut()} className="px-8 py-3 bg-red-50 text-red-600 font-black rounded-2xl text-xs uppercase tracking-widest hover:bg-red-100 transition-all active:scale-95 flex items-center gap-2">
+                                                            <LogOut className="w-4 h-4" /> Sign Out
+                                                        </button>
+                                                    </div>
+                                                </motion.div>
+                                            ) : (
+                                                <motion.form
+                                                    key="profile-edit"
+                                                    initial={{ opacity: 0, x: 20 }}
+                                                    animate={{ opacity: 1, x: 0 }}
+                                                    exit={{ opacity: 0, x: -20 }}
+                                                    transition={{ duration: 0.3 }}
+                                                    onSubmit={handleUpdateProfile}
+                                                    className="space-y-6"
+                                                >
+                                                    <div>
+                                                        <h2 className="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight mb-6">{t.editProfile}</h2>
 
-                                                <div className="pt-4 flex flex-wrap gap-4 justify-center md:justify-start">
-                                                    <button
-                                                        type="submit"
-                                                        disabled={isUpdating}
-                                                        className="px-8 py-3.5 bg-blue-600 text-white font-black rounded-2xl text-[11px] uppercase tracking-widest shadow-lg shadow-blue-100 dark:shadow-none hover:bg-blue-700 transition-all active:scale-95 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                                                    >
-                                                        {isUpdating ? <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Save className="w-4 h-4" />}
-                                                        Save Changes
-                                                    </button>
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => { setIsEditingProfile(false); setFullName(user?.user_metadata?.full_name || ''); setMessage(null); }}
-                                                        disabled={isUpdating}
-                                                        className="px-8 py-3.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-black rounded-2xl text-[11px] uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 flex items-center gap-2"
-                                                    >
-                                                        <X className="w-4 h-4" /> Cancel
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        )}
+                                                        <div className="space-y-4">
+                                                            <div className="relative group/field">
+                                                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block ml-2">{t.displayName}</label>
+                                                                <input
+                                                                    type="text"
+                                                                    value={fullName}
+                                                                    onChange={(e) => setFullName(e.target.value)}
+                                                                    placeholder="Enter your name"
+                                                                    disabled={isUpdating}
+                                                                    className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border-2 border-transparent focus:border-blue-600 outline-none rounded-2xl font-bold text-slate-700 dark:text-white transition-all"
+                                                                />
+                                                            </div>
+                                                            <div className="relative group/field opacity-50 cursor-not-allowed">
+                                                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block ml-2">{t.emailLabel}</label>
+                                                                <input
+                                                                    type="email"
+                                                                    value={user?.email || ''}
+                                                                    disabled
+                                                                    className="w-full px-6 py-4 bg-slate-100 dark:bg-slate-900 border-2 border-transparent rounded-2xl font-bold text-slate-400 dark:text-slate-500"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    {message && (
+                                                        <motion.div
+                                                            initial={{ opacity: 0, scale: 0.95 }}
+                                                            animate={{ opacity: 1, scale: 1 }}
+                                                            className={`p-4 rounded-xl font-bold text-sm flex items-center gap-2 ${message.type === 'success' ? 'bg-green-50 text-green-600 border border-green-100 dark:bg-green-900/20 dark:border-green-800 dark:text-green-400' : 'bg-red-50 text-red-600 border border-red-100 dark:bg-red-900/20 dark:border-red-800 dark:text-red-400'
+                                                                }`}
+                                                        >
+                                                            {message.type === 'success' ? <Check className="w-4 h-4" /> : <X className="w-4 h-4" />}
+                                                            {message.text}
+                                                        </motion.div>
+                                                    )}
+
+                                                    <div className="pt-4 flex flex-wrap gap-4 justify-center md:justify-start">
+                                                        <button
+                                                            type="submit"
+                                                            disabled={isUpdating}
+                                                            className="px-8 py-3.5 bg-blue-600 text-white font-black rounded-2xl text-[11px] uppercase tracking-widest shadow-lg shadow-blue-100 dark:shadow-none hover:bg-blue-700 transition-all active:scale-95 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                        >
+                                                            {isUpdating ? <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Save className="w-4 h-4" />}
+                                                            {t.saveChanges}
+                                                        </button>
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => { setIsEditingProfile(false); setFullName(user?.user_metadata?.full_name || ''); setMessage(null); }}
+                                                            disabled={isUpdating}
+                                                            className="px-8 py-3.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-black rounded-2xl text-[11px] uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 flex items-center gap-2"
+                                                        >
+                                                            <X className="w-4 h-4" /> {t.cancel}
+                                                        </button>
+                                                    </div>
+                                                </motion.form>
+                                            )}
+                                        </AnimatePresence>
                                     </div>
                                 </div>
                             </div>

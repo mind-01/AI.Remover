@@ -51,7 +51,8 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
 
     const [activeTab, setActiveTab] = useState<EditorTab>('cutout');
     const [bgSubTab, setBgSubTab] = useState<'photo' | 'color'>('photo');
-    const [sliderValue, setSliderValue] = useState(50);
+    const [isZooming, setIsZooming] = useState(false);
+    const [zoomPosition, setZoomPosition] = useState({ x: 50, y: 50 });
 
     // Core States
     const [bgColor, setBgColor] = useState('transparent');
@@ -534,6 +535,13 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
             clientY = e.clientY;
         }
 
+        if (isZooming && activeTab !== 'cutout') {
+            const rect = dCanvas.getBoundingClientRect();
+            const x = ((clientX - rect.left) / rect.width) * 100;
+            const y = ((clientY - rect.top) / rect.height) * 100;
+            setZoomPosition({ x, y });
+        }
+
         if (cursorRef.current && activeTab === 'cutout') {
             cursorRef.current.style.left = '0px';
             cursorRef.current.style.top = '0px';
@@ -992,9 +1000,14 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                         aspectRatio === 'aspect-[9/16]' ? "h-[90%] aspect-[9/16]" :
                                             "w-[90%] aspect-video"
                             )}
+                            style={{
+                                transform: isZooming && activeTab !== 'cutout' ? 'scale(2.5)' : 'scale(1)',
+                                transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`,
+                                transition: isZooming ? 'none' : 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
+                            }}
                         >
                             <div
-                                className="absolute inset-0 transition-all duration-500"
+                                className="absolute inset-0"
                                 style={{
                                     background: bgImage
                                         ? `url(${bgImage}) center/cover no-repeat`
@@ -1025,8 +1038,8 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                     onMouseDown={startDrawing}
                                     onMouseMove={draw}
                                     onMouseUp={stopDrawing}
-                                    onMouseLeave={() => { stopDrawing(); setIsHovering(false); }}
-                                    onMouseEnter={() => setIsHovering(true)}
+                                    onMouseLeave={() => { stopDrawing(); setIsHovering(false); setIsZooming(false); }}
+                                    onMouseEnter={() => { setIsHovering(true); if (activeTab !== 'cutout') setIsZooming(true); }}
                                     onTouchStart={startDrawing}
                                     onTouchMove={draw}
                                     onTouchEnd={stopDrawing}
@@ -1066,17 +1079,9 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                             <canvas ref={selectionCanvasRef} className="hidden" />
 
                             {activeTab !== 'cutout' && (
-                                <>
-                                    <div className="absolute top-0 bottom-0 w-1 bg-white shadow-[0_0_20px_rgba(0,0,0,0.2)] z-40 pointer-events-none" style={{ left: `${sliderValue}%` }}>
-                                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-xl flex items-center justify-center border-2 border-blue-600 opacity-0 group-hover/editor:opacity-100 transition-opacity">
-                                            <ChevronRight className="w-4 h-4 text-blue-600" />
-                                        </div>
-                                        <input type="range" min="0" max="100" value={sliderValue} onChange={(e) => setSliderValue(parseInt(e.target.value))} className="absolute inset-x-[-20px] top-0 bottom-0 opacity-0 cursor-col-resize z-50 pointer-events-auto" />
-                                    </div>
-                                    <div className="absolute inset-x-0 bottom-4 text-center lg:hidden">
-                                        <p className="text-[9px] text-slate-500/40 leading-tight">{t.editor.canvaNote}</p>
-                                    </div>
-                                </>
+                                <div className="absolute inset-x-0 bottom-4 text-center lg:hidden pointer-events-none">
+                                    <p className="text-[9px] text-slate-500/60 leading-tight font-bold uppercase tracking-widest">{t.editor.hoverZoomNote || 'Hover to Zoom'}</p>
+                                </div>
                             )}
                         </div>
                     </div>
