@@ -65,6 +65,7 @@ export const translations: Record<string, any> = {
             effects: 'Effects',
             adjust: 'Adjust',
             resize: 'Resize',
+            zoom: 'Zoom',
             footerDesc: 'Professional-grade background removal using state-of-the-art AI technology. 100% automatic and high-precision outputs for creators.',
             pngMaker: 'Transparent PNG Maker',
             objectEraser: 'Object Eraser',
@@ -148,7 +149,11 @@ export const translations: Record<string, any> = {
             story: 'Story (9:16)',
             video: 'YouTube (16:9)',
             canvaNote: 'Canva integration available in Background tab',
-            hoverZoomNote: 'Move mouse over image to zoom'
+            hoverZoomNote: 'Move mouse over image to zoom',
+            zoomMode: 'Zoom Mode',
+            zoomLevel: 'Zoom Level',
+            hoverMode: 'Hover',
+            sliderMode: 'Slider'
         },
         features: {
             process: 'Process',
@@ -341,7 +346,11 @@ export const translations: Record<string, any> = {
             story: 'स्टोरी (9:16)',
             video: 'यूट्यूब (16:9)',
             canvaNote: 'बैकग्राउंड टैब में कैनवा एकीकरण उपलब्ध है',
-            hoverZoomNote: 'ज़ूम करने के लिए इमेज पर माउस ले जाएं'
+            hoverZoomNote: 'ज़ूम करने के लिए इमेज पर माउस ले जाएं',
+            zoomMode: 'ज़ूम मोड',
+            zoomLevel: 'ज़ूम लेवल',
+            hoverMode: 'होवर',
+            sliderMode: 'स्लाइडर'
         },
         features: {
             process: 'प्रोसेस',
@@ -4870,7 +4879,11 @@ export const translations: Record<string, any> = {
             memberAccount: 'ممبر اکاؤنٹ'
         },
         editor: {
-            hoverZoomNote: 'زوم کرنے کے لیے ماؤس کو تصویر پر لائیں'
+            hoverZoomNote: 'زوم کرنے کے لیے ماؤس کو تصویر پر لائیں',
+            zoomMode: 'زوم موڈ',
+            zoomLevel: 'زوم لیول',
+            hoverMode: 'ہوور',
+            sliderMode: 'سلائیڈر'
         }
     }
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ChevronRight, Sparkles, Image as ImageIcon, Eraser, Trash2, Wand2, Sliders, Undo2, Redo2, Loader2, Palette, Maximize, ZoomIn, Download, Scissors, Layers as LayersIcon, Archive } from 'lucide-react';
+import { ChevronRight, Sparkles, Image as ImageIcon, Eraser, Trash2, Wand2, Sliders, Undo2, Redo2, Loader2, Palette, Maximize, ZoomIn, Download, Scissors, Layers as LayersIcon, Archive, MousePointerClick } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import JSZip from 'jszip';
 import { cn } from '../lib/utils';
@@ -41,7 +41,7 @@ interface EditorState {
     objectPadding: number;
 }
 
-type EditorTab = 'cutout' | 'background' | 'effects' | 'adjust' | 'resize';
+type EditorTab = 'cutout' | 'background' | 'effects' | 'adjust' | 'resize' | 'zoom';
 
 export const ResultViewer: React.FC<ResultViewerProps> = ({
     originalUrl, processedUrl, onReset, onAddMore, taskList, activeTaskId, onSelectTask
@@ -53,6 +53,8 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
     const [bgSubTab, setBgSubTab] = useState<'photo' | 'color'>('photo');
     const [isZooming, setIsZooming] = useState(false);
     const [zoomPosition, setZoomPosition] = useState({ x: 50, y: 50 });
+    const [manualZoom, setManualZoom] = useState(1);
+    const [zoomMode, setZoomMode] = useState<'hover' | 'manual'>('manual');
 
     // Core States
     const [bgColor, setBgColor] = useState('transparent');
@@ -535,7 +537,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
             clientY = e.clientY;
         }
 
-        if (isZooming && activeTab !== 'cutout') {
+        if (activeTab === 'zoom') {
             const rect = dCanvas.getBoundingClientRect();
             const x = ((clientX - rect.left) / rect.width) * 100;
             const y = ((clientY - rect.top) / rect.height) * 100;
@@ -728,6 +730,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
         { id: 'effects', label: t.common.effects, icon: <Sparkles className="w-4 h-4" /> },
         { id: 'adjust', label: t.common.adjust, icon: <Sliders className="w-4 h-4" /> },
         { id: 'resize', label: t.common.resize, icon: <Maximize className="w-4 h-4" /> },
+        { id: 'zoom', label: t.common.zoom, icon: <ZoomIn className="w-4 h-4" /> },
     ];
 
     const socialRatios = [
@@ -1001,9 +1004,15 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                             "w-[90%] aspect-video"
                             )}
                             style={{
-                                transform: isZooming && activeTab !== 'cutout' ? 'scale(2.5)' : 'scale(1)',
-                                transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`,
-                                transition: isZooming ? 'none' : 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
+                                transform: activeTab === 'zoom'
+                                    ? (zoomMode === 'hover'
+                                        ? (isZooming ? 'scale(2.5)' : 'scale(1)')
+                                        : `scale(${manualZoom})`)
+                                    : 'none',
+                                transformOrigin: activeTab === 'zoom' && zoomMode === 'hover'
+                                    ? `${zoomPosition.x}% ${zoomPosition.y}%`
+                                    : 'center center',
+                                transition: (activeTab === 'zoom' && zoomMode === 'hover' && isZooming) ? 'none' : 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
                             }}
                         >
                             <div
@@ -1039,7 +1048,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                     onMouseMove={draw}
                                     onMouseUp={stopDrawing}
                                     onMouseLeave={() => { stopDrawing(); setIsHovering(false); setIsZooming(false); }}
-                                    onMouseEnter={() => { setIsHovering(true); if (activeTab !== 'cutout') setIsZooming(true); }}
+                                    onMouseEnter={() => { setIsHovering(true); if (activeTab === 'zoom' && zoomMode === 'hover') setIsZooming(true); }}
                                     onTouchStart={startDrawing}
                                     onTouchMove={draw}
                                     onTouchEnd={stopDrawing}
@@ -1221,6 +1230,28 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                         </div>
                                     </div>
                                 )}
+                                {activeTab === 'zoom' && (
+                                    <div className="flex flex-col justify-center gap-4 px-6 w-full h-full">
+                                        <div className="flex items-center gap-4">
+                                            <button
+                                                onClick={() => { setZoomMode(zoomMode === 'hover' ? 'manual' : 'hover'); setIsZooming(false); }}
+                                                className={cn("flex-shrink-0 p-2 rounded-xl border-2 transition-all", zoomMode === 'hover' ? "bg-blue-50 border-blue-200 text-blue-600 shadow-sm" : "bg-slate-50 border-slate-100 text-slate-400")}
+                                            >
+                                                <MousePointerClick className="w-5 h-5" />
+                                            </button>
+                                            <input
+                                                type="range"
+                                                value={manualZoom}
+                                                min="1"
+                                                max="4"
+                                                step="0.1"
+                                                onChange={(e) => { setManualZoom(parseFloat(e.target.value)); setZoomMode('manual'); }}
+                                                className="flex-grow h-2 accent-blue-600"
+                                            />
+                                            <span className="w-8 text-[10px] font-black text-slate-400">{manualZoom.toFixed(1)}x</span>
+                                        </div>
+                                    </div>
+                                )}
                             </motion.div>
                         </AnimatePresence>
                     </div>
@@ -1244,6 +1275,9 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                         </button>
                         <button onClick={() => setActiveTab('effects')} className={cn("flex flex-col items-center gap-1.5 transition-all active:scale-95", activeTab === 'effects' ? "text-blue-600" : "text-slate-400")}>
                             <Wand2 className="w-6 h-6" /><span className="text-[10px] font-bold">{t.common.effects}</span>
+                        </button>
+                        <button onClick={() => setActiveTab('zoom')} className={cn("flex flex-col items-center gap-1.5 transition-all active:scale-95", activeTab === 'zoom' ? "text-blue-600" : "text-slate-400")}>
+                            <ZoomIn className="w-6 h-6" /><span className="text-[10px] font-bold">{t.common.zoom}</span>
                         </button>
                     </div>
                 </div>
@@ -1405,6 +1439,45 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                             <span className="text-[10px] font-black text-blue-600 bg-blue-50 px-2 py-1 rounded-lg dark:bg-blue-900/30 dark:text-blue-400">{objectPadding}%</span>
                                         </div>
                                         <input type="range" min="0" max="40" value={objectPadding} onChange={(e) => { const val = parseInt(e.target.value); setObjectPadding(val); updateConfig({ objectPadding: val }); }} className="w-full h-1.5 bg-white rounded-lg appearance-none cursor-pointer accent-blue-600 dark:bg-slate-700" />
+                                    </div>
+                                </section>
+                            )}
+                            {activeTab === 'zoom' && (
+                                <section className="space-y-8 animate-in fade-in slide-in-from-right-4">
+                                    <div className="space-y-6">
+                                        <div className="flex items-center justify-between px-1">
+                                            <label className="text-[11px] font-black text-slate-800 uppercase tracking-tighter dark:text-white">{t.editor.zoomMode}</label>
+                                            <div className="flex p-1 bg-slate-100 rounded-xl dark:bg-slate-800">
+                                                <button
+                                                    onClick={() => setZoomMode('manual')}
+                                                    className={cn("px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all", zoomMode === 'manual' ? "bg-white text-blue-600 shadow-sm dark:bg-slate-700 dark:text-white" : "text-slate-400")}
+                                                >
+                                                    {t.editor.sliderMode}
+                                                </button>
+                                                <button
+                                                    onClick={() => { setZoomMode('hover'); setIsZooming(false); }}
+                                                    className={cn("px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider transition-all", zoomMode === 'hover' ? "bg-white text-blue-600 shadow-sm dark:bg-slate-700 dark:text-white" : "text-slate-400")}
+                                                >
+                                                    {t.editor.hoverMode}
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        {zoomMode === 'manual' ? (
+                                            <div className="space-y-4 p-6 bg-slate-50 rounded-[2rem] border border-slate-100 dark:bg-slate-800 dark:border-slate-700 animate-in fade-in zoom-in-95 duration-200">
+                                                <div className="flex justify-between items-center mb-2">
+                                                    <div className="flex items-center gap-2"><Maximize className="w-4 h-4 text-blue-600" /><span className="text-[11px] font-black text-slate-800 uppercase tracking-tighter dark:text-white">{t.editor.zoomLevel}</span></div>
+                                                    <span className="text-[10px] font-black text-blue-600 bg-blue-50 px-2 py-1 rounded-lg dark:bg-blue-900/30 dark:text-blue-400">{manualZoom.toFixed(1)}x</span>
+                                                </div>
+                                                <input type="range" min="1" max="4" step="0.1" value={manualZoom} onChange={(e) => setManualZoom(parseFloat(e.target.value))} className="w-full h-1.5 bg-white rounded-lg appearance-none cursor-pointer accent-blue-600 dark:bg-slate-700" />
+                                            </div>
+                                        ) : (
+                                            <div className="p-6 bg-blue-50/50 rounded-[2rem] border border-blue-100 dark:bg-blue-900/20 dark:border-blue-800 animate-in fade-in zoom-in-95 duration-200">
+                                                <p className="text-[10px] font-bold text-blue-600 leading-relaxed text-center italic dark:text-blue-400">
+                                                    "{t.editor.hoverZoomNote}"
+                                                </p>
+                                            </div>
+                                        )}
                                     </div>
                                 </section>
                             )}
