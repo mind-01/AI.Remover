@@ -12,7 +12,7 @@
   --text-primary: var(--color-slate-900);
 }
 
-
+@custom-variant dark (&:where(.dark, .dark *));
 
 .dark {
   --bg-primary: var(--color-slate-950);
