@@ -21,6 +21,7 @@ interface AuthContextType {
     deleteHistoryItem: (id: string) => Promise<void>;
     deleteAllHistory: () => Promise<void>;
     uploadImage: (blob: Blob, path: string) => Promise<string | null>;
+    updateProfile: (data: { full_name?: string; avatar_url?: string }) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -168,6 +169,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return publicUrl;
     };
 
+    const updateProfile = async (data: { full_name?: string; avatar_url?: string }) => {
+        if (!user || !supabase) return;
+
+        const { error } = await supabase.auth.updateUser({
+            data: data
+        });
+
+        if (error) {
+            console.error('Error updating profile:', error);
+            throw error;
+        }
+
+        // The user state will be updated by onAuthStateChange
+    };
+
     return (
         <AuthContext.Provider value={{
             user,
@@ -179,7 +195,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             addToHistory,
             deleteHistoryItem,
             deleteAllHistory,
-            uploadImage
+            uploadImage,
+            updateProfile
         }}>
             {children}
         </AuthContext.Provider>

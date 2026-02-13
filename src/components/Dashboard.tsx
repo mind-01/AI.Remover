@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Download, Trash2, Clock, Image as ImageIcon, ExternalLink, User, Settings, Database, Sparkles, LogOut, Check, Globe } from 'lucide-react';
+import { ArrowLeft, Download, Trash2, Clock, Image as ImageIcon, ExternalLink, User, Settings, Database, Sparkles, LogOut, Check, Globe, X, Save, ShieldCheck } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useTheme } from '../contexts/ThemeContext';
@@ -12,10 +12,14 @@ interface DashboardProps {
 }
 
 export const Dashboard: React.FC<DashboardProps> = ({ onClose, initialView = 'history' }) => {
-    const { user, history, loading, deleteHistoryItem, deleteAllHistory, signOut } = useAuth();
+    const { user, history, loading, deleteHistoryItem, deleteAllHistory, signOut, updateProfile } = useAuth();
     const { language, setLanguage } = useLanguage();
     const { theme, toggleTheme } = useTheme();
     const [activeTab, setActiveTab] = useState<'history' | 'profile' | 'settings'>(initialView);
+    const [isEditingProfile, setIsEditingProfile] = useState(false);
+    const [fullName, setFullName] = useState(user?.user_metadata?.full_name || '');
+    const [isUpdating, setIsUpdating] = useState(false);
+    const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
     const t = translations[language]?.dashboard || translations.en.dashboard;
 
     const handleDownload = async (url: string, id: string) => {
@@ -32,6 +36,24 @@ export const Dashboard: React.FC<DashboardProps> = ({ onClose, initialView = 'hi
     const handleClearAll = async () => {
         if (window.confirm(t.clearConfirm || 'Are you sure you want to clear all history?')) {
             await deleteAllHistory();
+        }
+    };
+
+    const handleUpdateProfile = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsUpdating(true);
+        setMessage(null);
+        try {
+            await updateProfile({ full_name: fullName });
+            setMessage({ type: 'success', text: language === 'hi' ? 'प्रोफ़ाइल अपडेट हो गई!' : language === 'ur' ? 'پروفائل اپ ڈیٹ ہو گئی!' : 'Profile updated successfully!' });
+            setTimeout(() => {
+                setIsEditingProfile(false);
+                setMessage(null);
+            }, 2000);
+        } catch (err) {
+            setMessage({ type: 'error', text: language === 'hi' ? 'अपडेट करने में विफल।' : language === 'ur' ? 'اپ ڈیٹ کرنے میں ناکام۔' : 'Failed to update profile.' });
+        } finally {
+            setIsUpdating(false);
         }
     };
 
@@ -75,8 +97,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onClose, initialView = 'hi
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
                             className={`flex items-center gap-2 px-6 py-2.5 rounded-2xl text-xs font-black uppercase tracking-widest transition-all ${activeTab === tab.id
-                                    ? 'bg-white text-blue-600 shadow-md dark:bg-slate-700 dark:text-white'
-                                    : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'
+                                ? 'bg-white text-blue-600 shadow-md dark:bg-slate-700 dark:text-white'
+                                : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200'
                                 }`}
                         >
                             <tab.icon className="w-4 h-4" />
@@ -191,28 +213,99 @@ export const Dashboard: React.FC<DashboardProps> = ({ onClose, initialView = 'hi
                                     </div>
 
                                     <div className="flex-1 space-y-6 text-center md:text-left">
-                                        <div>
-                                            <h2 className="text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tight mb-2">Member Account</h2>
-                                            <p className="text-slate-500 dark:text-slate-400 font-bold text-lg">{user?.email}</p>
-                                        </div>
+                                        {!isEditingProfile ? (
+                                            <>
+                                                <div>
+                                                    <h2 className="text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tight mb-2">
+                                                        {user?.user_metadata?.full_name || 'Member Account'}
+                                                    </h2>
+                                                    <p className="text-slate-500 dark:text-slate-400 font-bold text-lg">{user?.email}</p>
+                                                </div>
 
-                                        <div className="grid grid-cols-2 gap-4">
-                                            <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-[2rem] border border-slate-100/50 dark:border-slate-700/50">
-                                                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Total Cutouts</p>
-                                                <p className="text-3xl font-black text-slate-900 dark:text-white">{history.length}</p>
-                                            </div>
-                                            <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-[2rem] border border-slate-100/50 dark:border-slate-700/50">
-                                                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Account Status</p>
-                                                <p className="text-lg font-black text-green-600 dark:text-green-400 uppercase tracking-tight">Active Pro</p>
-                                            </div>
-                                        </div>
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-[2rem] border border-slate-100/50 dark:border-slate-700/50">
+                                                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Total Cutouts</p>
+                                                        <p className="text-3xl font-black text-slate-900 dark:text-white">{history.length}</p>
+                                                    </div>
+                                                    <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-[2rem] border border-slate-100/50 dark:border-slate-700/50">
+                                                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Account Status</p>
+                                                        <p className="text-lg font-black text-green-600 dark:text-green-400 uppercase tracking-tight">Active Pro</p>
+                                                    </div>
+                                                </div>
 
-                                        <div className="pt-4 flex flex-wrap gap-4 justify-center md:justify-start">
-                                            <button className="px-8 py-3 bg-slate-900 dark:bg-blue-600 text-white font-black rounded-2xl text-xs uppercase tracking-widest shadow-xl shadow-slate-200 dark:shadow-none hover:bg-slate-800 transition-all active:scale-95">Edit Profile</button>
-                                            <button onClick={() => signOut()} className="px-8 py-3 bg-red-50 text-red-600 font-black rounded-2xl text-xs uppercase tracking-widest hover:bg-red-100 transition-all active:scale-95 flex items-center gap-2">
-                                                <LogOut className="w-4 h-4" /> Sign Out
-                                            </button>
-                                        </div>
+                                                <div className="pt-4 flex flex-wrap gap-4 justify-center md:justify-start">
+                                                    <button
+                                                        onClick={() => setIsEditingProfile(true)}
+                                                        className="px-8 py-3 bg-slate-900 dark:bg-blue-600 text-white font-black rounded-2xl text-xs uppercase tracking-widest shadow-xl shadow-slate-200 dark:shadow-none hover:bg-slate-800 transition-all active:scale-95"
+                                                    >
+                                                        Edit Profile
+                                                    </button>
+                                                    <button onClick={() => signOut()} className="px-8 py-3 bg-red-50 text-red-600 font-black rounded-2xl text-xs uppercase tracking-widest hover:bg-red-100 transition-all active:scale-95 flex items-center gap-2">
+                                                        <LogOut className="w-4 h-4" /> Sign Out
+                                                    </button>
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <form onSubmit={handleUpdateProfile} className="space-y-6">
+                                                <div>
+                                                    <h2 className="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight mb-6">Edit Your Details</h2>
+
+                                                    <div className="space-y-4">
+                                                        <div className="relative group/field">
+                                                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block ml-2">Display Name</label>
+                                                            <input
+                                                                type="text"
+                                                                value={fullName}
+                                                                onChange={(e) => setFullName(e.target.value)}
+                                                                placeholder="Enter your name"
+                                                                disabled={isUpdating}
+                                                                className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-800 border-2 border-transparent focus:border-blue-600 outline-none rounded-2xl font-bold text-slate-700 dark:text-white transition-all"
+                                                            />
+                                                        </div>
+                                                        <div className="relative group/field opacity-50 cursor-not-allowed">
+                                                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 block ml-2">Email Address (Locked)</label>
+                                                            <input
+                                                                type="email"
+                                                                value={user?.email || ''}
+                                                                disabled
+                                                                className="w-full px-6 py-4 bg-slate-100 dark:bg-slate-900 border-2 border-transparent rounded-2xl font-bold text-slate-400 dark:text-slate-500"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {message && (
+                                                    <motion.div
+                                                        initial={{ opacity: 0, scale: 0.95 }}
+                                                        animate={{ opacity: 1, scale: 1 }}
+                                                        className={`p-4 rounded-xl font-bold text-sm flex items-center gap-2 ${message.type === 'success' ? 'bg-green-50 text-green-600 border border-green-100 dark:bg-green-900/20 dark:border-green-800 dark:text-green-400' : 'bg-red-50 text-red-600 border border-red-100 dark:bg-red-900/20 dark:border-red-800 dark:text-red-400'
+                                                            }`}
+                                                    >
+                                                        {message.type === 'success' ? <Check className="w-4 h-4" /> : <X className="w-4 h-4" />}
+                                                        {message.text}
+                                                    </motion.div>
+                                                )}
+
+                                                <div className="pt-4 flex flex-wrap gap-4 justify-center md:justify-start">
+                                                    <button
+                                                        type="submit"
+                                                        disabled={isUpdating}
+                                                        className="px-8 py-3.5 bg-blue-600 text-white font-black rounded-2xl text-[11px] uppercase tracking-widest shadow-lg shadow-blue-100 dark:shadow-none hover:bg-blue-700 transition-all active:scale-95 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    >
+                                                        {isUpdating ? <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : <Save className="w-4 h-4" />}
+                                                        Save Changes
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => { setIsEditingProfile(false); setFullName(user?.user_metadata?.full_name || ''); setMessage(null); }}
+                                                        disabled={isUpdating}
+                                                        className="px-8 py-3.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-black rounded-2xl text-[11px] uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 flex items-center gap-2"
+                                                    >
+                                                        <X className="w-4 h-4" /> Cancel
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -257,8 +350,8 @@ export const Dashboard: React.FC<DashboardProps> = ({ onClose, initialView = 'hi
                                                 key={lang}
                                                 onClick={() => setLanguage(lang)}
                                                 className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest border transition-all ${language === lang
-                                                        ? 'bg-blue-600 border-blue-600 text-white shadow-lg'
-                                                        : 'bg-white border-slate-100 text-slate-400 hover:bg-slate-50 dark:bg-slate-800 dark:border-slate-700'
+                                                    ? 'bg-blue-600 border-blue-600 text-white shadow-lg'
+                                                    : 'bg-white border-slate-100 text-slate-400 hover:bg-slate-50 dark:bg-slate-800 dark:border-slate-700'
                                                     }`}
                                             >
                                                 {lang === 'en' ? 'English' : lang === 'hi' ? 'Hindi' : 'Urdu'}
