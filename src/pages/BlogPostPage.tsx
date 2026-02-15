@@ -73,19 +73,19 @@ export const BlogPostPage: React.FC = () => {
                             <h2>How to Remove Background Online (Step-by-Step)</h2>
                             <h3>1. Visit the Homepage & Upload</h3>
                             <p>Start by heading over to the <a href="/" class="text-blue-600 font-bold hover:underline">RemovePro Home Page</a>. You'll see a clean, modern interface where you can immediately begin your project by clicking the prominent 'Upload Image' button.</p>
-                            <img src="/blog/upload-button.jpg" alt="AI Remover PRO Homepage with Upload Image button" class="my-6 rounded-3xl shadow-lg border border-slate-100" loading="lazy" />
+                            <img src="/public/blog/upload-button.webp" alt="AI Remover PRO Homepage with Upload Image button" class="my-6 rounded-3xl shadow-lg border border-slate-100" loading="lazy" />
 
                             <h3>2. Select Your Image</h3>
                             <p>Simply select the image you wish to edit from your device. Whether it's a product shot like a leather handbag or a portrait, our AI handles any subject with ease.</p>
-                            <img src="/blog/select-file.jpg" alt="Selecting an image to remove background" class="my-6 rounded-3xl shadow-lg border border-slate-100" loading="lazy" />
+                            <img src="/public/blog/select-file.webp" alt="Selecting an image to remove background" class="my-6 rounded-3xl shadow-lg border border-slate-100" loading="lazy" />
 
                             <h3>3. Instant AI Processing</h3>
                             <p>Once uploaded, the AI starts instantly. You'll see a 'Zoom' view where you can inspect the quality of the cutout. Our AI preserves even the most subtle reflections and edges.</p>
-                            <img src="/blog/editor-view.jpg" alt="AI Remover PRO Editor Zoom View" class="my-6 rounded-3xl shadow-lg border border-slate-100" loading="lazy" />
+                            <img src="/public/blog/editor-view.webp" alt="AI Remover PRO Editor Zoom View" class="my-6 rounded-3xl shadow-lg border border-slate-100" loading="lazy" />
 
                             <h3>4. Download in High Definition</h3>
                             <p>Finally, click the download button. You can choose from various quality levels: **High Definition** for printing, **Regular Quality** for web, or **Small File** for social sharing.</p>
-                            <img src="/blog/download-options.jpg" alt="Download quality options in AI Remover PRO" class="my-6 rounded-3xl shadow-lg border border-slate-100" loading="lazy" />
+                            <img src="/public/blog/download-options.webp" alt="Download quality options in AI Remover PRO" class="my-6 rounded-3xl shadow-lg border border-slate-100" loading="lazy" />
 
                             <h2>Professional Use Cases & Strategic Value</h2>
                             <p>Background removal isn't just for fun; it's a critical part of modern business workflows that directly impacts conversion rates.</p>
@@ -172,7 +172,7 @@ export const BlogPostPage: React.FC = () => {
                                 <span>Last Updated: Feb 16, 2026</span>
                             </div>
                         `,
-                        cover_image: '/blog/hero-before-after.jpg',
+                        cover_image: '/public/blog/hero-before-after.webp',
                         created_at: new Date().toISOString()
                     });
                 } else if (slug === 'remove-background-like-pro') {
