@@ -8,7 +8,7 @@ interface ProcessingViewProps {
     total?: number;
 }
 
-export const ProcessingView: React.FC<ProcessingViewProps> = ({ progress, current, total }) => {
+export const ProcessingView: React.FC<ProcessingViewProps> = ({ current, total }) => {
     return (
         <div className="flex flex-col items-center justify-center min-h-[75vh] p-4 md:p-8 max-w-4xl mx-auto relative overflow-hidden">
             {/* Deep Background Glows */}
