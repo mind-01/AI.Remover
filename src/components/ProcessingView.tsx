@@ -3,12 +3,12 @@ import { motion } from 'framer-motion';
 import { Sparkles, Zap, Star } from 'lucide-react';
 
 interface ProcessingViewProps {
-    progress?: number;
+    imageUrl?: string;
     current?: number;
     total?: number;
 }
 
-export const ProcessingView: React.FC<ProcessingViewProps> = ({ current, total }) => {
+export const ProcessingView: React.FC<ProcessingViewProps> = ({ imageUrl, current, total }) => {
     return (
         <div className="flex flex-col items-center justify-center min-h-[75vh] p-4 md:p-8 max-w-4xl mx-auto relative overflow-hidden">
             {/* Deep Background Glows */}
@@ -39,18 +39,27 @@ export const ProcessingView: React.FC<ProcessingViewProps> = ({ current, total }
                     />
                 ))}
 
-                {/* Central Ethereal Core */}
+                {/* Central Ethereal Core / Image Preview */}
                 <motion.div
                     animate={{
-                        scale: [1, 1.1, 1],
-                        filter: ["blur(40px) brightness(1)", "blur(60px) brightness(1.3)", "blur(40px) brightness(1)"]
+                        scale: [1, 1.05, 1],
+                        filter: ["blur(40px) brightness(1.2)", "blur(60px) brightness(1.5)", "blur(40px) brightness(1.2)"]
                     }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                    className="w-32 h-32 bg-gradient-to-tr from-blue-600/40 via-indigo-500/40 to-cyan-400/40 rounded-full"
-                />
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="w-40 h-40 bg-gradient-to-tr from-blue-600/30 via-indigo-500/30 to-cyan-400/30 rounded-full flex items-center justify-center relative overflow-hidden"
+                >
+                    {imageUrl && (
+                        <motion.img
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 0.25, scale: 1 }}
+                            src={imageUrl}
+                            className="w-full h-full object-cover filter blur-[2px] contrast-125 saturate-150"
+                        />
+                    )}
+                </motion.div>
 
-                {/* Orbiting Magic Particles */}
-                {[...Array(12)].map((_, i) => {
+                {/* Orbiting Magic Particles - Higher Density */}
+                {[...Array(20)].map((_, i) => {
                     const Icon = i % 3 === 0 ? Sparkles : i % 3 === 1 ? Zap : Star;
                     return (
                         <motion.div
@@ -58,11 +67,11 @@ export const ProcessingView: React.FC<ProcessingViewProps> = ({ current, total }
                             animate={{
                                 rotate: 360,
                                 scale: [0, 1, 0],
-                                opacity: [0, 0.8, 0]
+                                opacity: [0, 1, 0]
                             }}
                             transition={{
-                                duration: 3 + Math.random() * 2,
-                                delay: i * 0.4,
+                                duration: 2 + Math.random() * 1.5,
+                                delay: i * 0.2,
                                 repeat: Infinity,
                                 ease: "linear"
                             }}
@@ -76,10 +85,10 @@ export const ProcessingView: React.FC<ProcessingViewProps> = ({ current, total }
                             <div
                                 className="absolute top-0 left-1/2 -translate-x-1/2"
                                 style={{
-                                    transform: `translateY(${10 + Math.random() * 40}px) rotate(${Math.random() * 360}deg)`
+                                    transform: `translateY(${5 + Math.random() * 60}px) rotate(${Math.random() * 360}deg)`
                                 }}
                             >
-                                <Icon className="w-3 h-3 text-blue-400/60 fill-current" />
+                                <Icon className="w-4 h-4 text-blue-400/80 fill-current drop-shadow-[0_0_8px_rgba(96,165,250,0.8)]" />
                             </div>
                         </motion.div>
                     );

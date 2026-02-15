@@ -256,7 +256,7 @@ export function HomePage() {
                             ) : isAnyProcessing && !activeTask?.processedUrl ? (
                                 <motion.div key="processing" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 1.05 }}>
                                     <ProcessingView
-                                        progress={tasks.reduce((acc, t) => acc + t.progress, 0) / (tasks.length || 1)}
+                                        imageUrl={activeTask?.originalUrl || (tasks.length > 0 ? tasks[0].originalUrl : undefined)}
                                         current={tasks.filter(t => t.status === 'completed').length + 1}
                                         total={tasks.length}
                                     />
