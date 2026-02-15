@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Sparkles, Zap, Star } from 'lucide-react';
 
 interface ProcessingViewProps {
     progress?: number;
@@ -9,82 +10,114 @@ interface ProcessingViewProps {
 
 export const ProcessingView: React.FC<ProcessingViewProps> = ({ progress, current, total }) => {
     return (
-        <div className="flex flex-col items-center justify-center min-h-[70vh] p-4 md:p-8 max-w-4xl mx-auto relative overflow-hidden">
-            {/* Minimal Background Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-blue-500/5 blur-[100px] rounded-full pointer-events-none" />
+        <div className="flex flex-col items-center justify-center min-h-[75vh] p-4 md:p-8 max-w-4xl mx-auto relative overflow-hidden">
+            {/* Deep Background Glows */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/5 blur-[140px] rounded-full pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-indigo-500/5 blur-[100px] rounded-full pointer-events-none animate-pulse" />
 
-            {/* Glassmorphic Container (Minimalist) */}
-            <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="relative bg-white/30 dark:bg-slate-900/30 backdrop-blur-2xl p-12 md:p-20 rounded-[5rem] border border-white/20 dark:border-slate-800/20 w-full max-w-lg flex flex-col items-center shadow-2xl shadow-blue-950/5"
-            >
-                {/* AI Orb Animation - Central Focus */}
-                <div className="relative mb-10">
+            {/* Magic Aura - Central Animation */}
+            <div className="relative w-80 h-80 flex items-center justify-center">
+
+                {/* Layered Pulsing Auras */}
+                {[...Array(3)].map((_, i) => (
                     <motion.div
+                        key={i}
                         animate={{
-                            scale: [1, 1.05, 1],
-                            rotate: 360
+                            scale: [1, 1.2 + i * 0.1, 1],
+                            opacity: [0.3 - i * 0.1, 0.6 - i * 0.1, 0.3 - i * 0.1],
+                            rotate: i % 2 === 0 ? 360 : -360
                         }}
                         transition={{
-                            duration: 10,
+                            duration: 4 + i,
                             repeat: Infinity,
-                            ease: "linear"
+                            ease: "easeInOut"
                         }}
-                        className="w-48 h-48 rounded-full bg-gradient-to-tr from-blue-600 via-indigo-500 to-cyan-400 p-[1.5px] shadow-[0_0_60px_rgba(37,99,235,0.15)]"
-                    >
-                        <div className="w-full h-full rounded-full bg-white dark:bg-slate-950 flex items-center justify-center relative overflow-hidden">
-                            <motion.div
-                                animate={{ opacity: [0.05, 0.15, 0.05] }}
-                                transition={{ duration: 3, repeat: Infinity }}
-                                className="absolute inset-0 bg-blue-500/10"
-                            />
-
-                            {/* Percentage inside Orb */}
-                            {progress !== undefined && (
-                                <div className="text-center relative z-10 flex flex-col items-center">
-                                    <span className="text-5xl font-black text-slate-900 dark:text-white tracking-tighter tabular-nums italic">
-                                        {Math.round(progress)}%
-                                    </span>
-                                    <span className="text-[10px] font-black text-blue-600/60 uppercase tracking-widest mt-1">AI Processing</span>
-                                </div>
-                            )}
-                        </div>
-                    </motion.div>
-
-                    {/* Subtle Pulsing Outer Ring */}
-                    <motion.div
-                        animate={{ scale: [1, 1.3], opacity: [0.2, 0] }}
-                        transition={{ duration: 2.5, repeat: Infinity }}
-                        className="absolute inset-x-[-20px] inset-y-[-20px] border border-blue-500/20 rounded-full"
+                        className="absolute inset-0 border border-blue-500/10 rounded-full blur-[2px]"
+                        style={{
+                            background: `radial-gradient(circle, rgba(59, 130, 246, ${0.05 - i * 0.01}) 0%, transparent 70%)`
+                        }}
                     />
-                </div>
+                ))}
 
-                {/* File Count - Tiny & Subtle */}
-                {total && total > 1 && (
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.4em] text-[10px] mb-6"
-                    >
-                        File {current} / {total}
-                    </motion.p>
-                )}
+                {/* Central Ethereal Core */}
+                <motion.div
+                    animate={{
+                        scale: [1, 1.1, 1],
+                        filter: ["blur(40px) brightness(1)", "blur(60px) brightness(1.3)", "blur(40px) brightness(1)"]
+                    }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                    className="w-32 h-32 bg-gradient-to-tr from-blue-600/40 via-indigo-500/40 to-cyan-400/40 rounded-full"
+                />
 
-                {/* Sleek Minimal Progress Bar */}
-                {progress !== undefined && (
-                    <div className="w-full max-w-[180px]">
-                        <div className="w-full h-1 bg-slate-100 dark:bg-slate-800/60 rounded-full overflow-hidden relative">
-                            <motion.div
-                                initial={{ width: 0 }}
-                                animate={{ width: `${progress}%` }}
-                                transition={{ type: "spring", bounce: 0, duration: 0.5 }}
-                                className="h-full bg-blue-600"
-                            />
-                        </div>
-                    </div>
-                )}
-            </motion.div>
+                {/* Orbiting Magic Particles */}
+                {[...Array(12)].map((_, i) => {
+                    const Icon = i % 3 === 0 ? Sparkles : i % 3 === 1 ? Zap : Star;
+                    return (
+                        <motion.div
+                            key={i}
+                            animate={{
+                                rotate: 360,
+                                scale: [0, 1, 0],
+                                opacity: [0, 0.8, 0]
+                            }}
+                            transition={{
+                                duration: 3 + Math.random() * 2,
+                                delay: i * 0.4,
+                                repeat: Infinity,
+                                ease: "linear"
+                            }}
+                            className="absolute"
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                transformOrigin: 'center center'
+                            }}
+                        >
+                            <div
+                                className="absolute top-0 left-1/2 -translate-x-1/2"
+                                style={{
+                                    transform: `translateY(${10 + Math.random() * 40}px) rotate(${Math.random() * 360}deg)`
+                                }}
+                            >
+                                <Icon className="w-3 h-3 text-blue-400/60 fill-current" />
+                            </div>
+                        </motion.div>
+                    );
+                })}
+
+                {/* Inner Glowing Rings */}
+                <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    className="absolute inset-16 border-[1px] border-dashed border-blue-500/20 rounded-full"
+                />
+                <motion.div
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                    className="absolute inset-24 border-[1px] border-dotted border-indigo-500/20 rounded-full"
+                />
+            </div>
+
+            {/* Tiny File Info - Minimalist */}
+            {(total && total > 1) ? (
+                <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-12 text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.5em] text-[10px] flex items-center gap-4"
+                >
+                    <span className="w-8 h-[1px] bg-slate-200 dark:bg-slate-800" />
+                    MAGIC IN PROGRESS • {current} / {total}
+                    <span className="w-8 h-[1px] bg-slate-200 dark:bg-slate-800" />
+                </motion.div>
+            ) : (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="mt-12 text-blue-600/40 dark:text-blue-400/20 font-bold uppercase tracking-[0.6em] text-[9px] italic"
+                >
+                    AI Performance
+                </motion.div>
+            )}
         </div>
     );
 };
