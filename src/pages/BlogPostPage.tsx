@@ -91,15 +91,19 @@ export const BlogPostPage: React.FC = () => {
         };
 
         fetchPost();
-        window.scrollTo(0, 0);
+    }, [slug]);
 
-        // SEO Optimization: Update Title and Meta Tags
+    // Separate effect for scroll to top on slug change
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [slug]);
+
+    // Separate effect for SEO updates
+    useEffect(() => {
         if (post) {
             document.title = post.title;
-            // Note: In a real production app with SSR, we'd use React Helmet for meta tags.
-            // For this project, we primarily focus on structure and internal linking.
         }
-    }, [slug, post]);
+    }, [post]);
 
     if (loading) {
         return (
