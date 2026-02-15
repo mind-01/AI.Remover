@@ -38,6 +38,15 @@ export const BlogListPage: React.FC = () => {
                 console.error('Error fetching posts:', err);
                 setPosts([
                     {
+                        id: '2',
+                        title: 'Free AI Background Remover Without Watermark (HD Quality) – RemovePro',
+                        slug: 'free-ai-background-remover-without-watermark',
+                        excerpt: 'Looking for a free AI background remover without watermark? Use RemovePro to remove image backgrounds instantly in high quality.',
+                        cover_image: 'https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=800&q=80',
+                        created_at: new Date().toISOString(),
+                        status: 'published'
+                    },
+                    {
                         id: '1',
                         title: 'How to Remove Background Like a Pro',
                         slug: 'remove-background-like-pro',
