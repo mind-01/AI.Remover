@@ -544,23 +544,23 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
             clientY = e.clientY;
         }
 
-        if (activeTab === 'zoom') {
+        // Global Magnifier Loupe Logic (Available in all tabs)
+        if (!isProcessing) {
             const rect = dCanvas.getBoundingClientRect();
             const x = ((clientX - rect.left) / rect.width) * 100;
             const y = ((clientY - rect.top) / rect.height) * 100;
             setZoomPosition({ x, y, clientX, clientY });
 
-            // Update Live Loupe Canvas from displayCanvas (contains all edits like brightness, etc.)
+            // Update Live Loupe Canvas from displayCanvas
             const lCanvas = loupeCanvasRef.current;
             if (lCanvas && dCanvas) {
                 const lCtx = lCanvas.getContext('2d');
                 if (lCtx) {
-                    const zoomLevel = 4;
-                    const loupeSize = 192; // 48 * 4
+                    const zoomLevel = 2.5; // Reduced for better sharpness
+                    const loupeSize = 192;
                     lCanvas.width = loupeSize;
                     lCanvas.height = loupeSize;
 
-                    // Extract from main displayCanvas (sharpest version with all effects)
                     const sourceX = (x / 100) * dCanvas.width;
                     const sourceY = (y / 100) * dCanvas.height;
                     const sourceSize = (loupeSize / zoomLevel);
@@ -1121,8 +1121,8 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                             <canvas ref={maskCanvasRef} className="hidden" />
                             <canvas ref={selectionCanvasRef} className="hidden" />
 
-                            {/* Magnifier Loupe */}
-                            {activeTab === 'zoom' && isHovering && displayCanvasRef.current && (
+                            {/* Magnifier Loupe - Now Global */}
+                            {isHovering && displayCanvasRef.current && (
                                 <div
                                     className="fixed pointer-events-none z-[100] w-48 h-48 border-4 border-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] overflow-hidden bg-slate-900"
                                     style={{
@@ -1146,7 +1146,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                         className="w-full h-full object-contain relative z-10"
                                     />
                                     <div className="absolute inset-x-0 bottom-2 text-center z-20">
-                                        <span className="bg-blue-600/80 text-white text-[8px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter shadow-lg">Live 4.0x Zoom</span>
+                                        <span className="bg-blue-600/80 text-white text-[8px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter shadow-lg">Live 2.5x Zoom</span>
                                     </div>
                                 </div>
                             )}
