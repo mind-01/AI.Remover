@@ -556,19 +556,24 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
             if (lCanvas && dCanvas) {
                 const lCtx = lCanvas.getContext('2d');
                 if (lCtx) {
-                    const zoomLevel = 2.5; // Reduced for better sharpness
-                    const loupeSize = 192;
-                    lCanvas.width = loupeSize;
-                    lCanvas.height = loupeSize;
+                    const zoomLevel = 2.5;
+                    const baseSize = 192; // 48 * 4
+                    const dpr = window.devicePixelRatio || 1;
+
+                    // High-DPI Scaling for ultimate sharpness
+                    lCanvas.width = baseSize * dpr;
+                    lCanvas.height = baseSize * dpr;
 
                     const sourceX = (x / 100) * dCanvas.width;
                     const sourceY = (y / 100) * dCanvas.height;
-                    const sourceSize = (loupeSize / zoomLevel);
+                    const sourceSize = (baseSize / zoomLevel);
 
                     lCtx.imageSmoothingEnabled = true;
                     lCtx.imageSmoothingQuality = 'high';
-                    lCtx.clearRect(0, 0, loupeSize, loupeSize);
+                    lCtx.clearRect(0, 0, lCanvas.width, lCanvas.height);
 
+                    lCtx.save();
+                    lCtx.scale(dpr, dpr);
                     lCtx.drawImage(
                         dCanvas,
                         sourceX - (sourceSize / 2),
@@ -577,9 +582,10 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                         sourceSize,
                         0,
                         0,
-                        loupeSize,
-                        loupeSize
+                        baseSize,
+                        baseSize
                     );
+                    lCtx.restore();
                 }
             }
         }
@@ -1026,7 +1032,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                         onClick={onAddMore}
                         className="w-full h-32 rounded-[2rem] border-2 border-dashed border-slate-200 flex flex-col items-center justify-center gap-2 text-slate-400 hover:border-blue-400 hover:text-blue-500 hover:bg-blue-50/30 transition-all flex-shrink-0 group mt-2"
                     >
-                        <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center group-hover:bg-blue-100 transition-colors">
+                        <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center group-hover:bg-blue-100 transition-colors">
                             <span className="text-2xl font-light group-hover:font-bold">+</span>
                         </div>
                         <span className="text-[9px] font-black uppercase tracking-widest">Add More</span>
@@ -1064,9 +1070,9 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                 <div className="absolute inset-0 opacity-[0.08] pointer-events-none"
                                     style={{
                                         backgroundImage: `
-                                            linear-gradient(45deg, #000 25%, transparent 25%), 
-                                            linear-gradient(-45deg, #000 25%, transparent 25%), 
-                                            linear-gradient(45deg, transparent 75%, #000 75%), 
+                                            linear-gradient(45deg, #000 25%, transparent 25%),
+                                            linear-gradient(-45deg, #000 25%, transparent 25%),
+                                            linear-gradient(45deg, transparent 75%, #000 75%),
                                             linear-gradient(-45deg, transparent 75%, #000 75%)
                                          `,
                                         backgroundSize: '24px 24px',
@@ -1130,9 +1136,9 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                         top: 0,
                                         transform: `translate3d(${zoomPosition.clientX - 96}px, ${zoomPosition.clientY - 96}px, 0)`,
                                         backgroundImage: `
-                                            linear-gradient(45deg, #ccc 25%, transparent 25%), 
-                                            linear-gradient(-45deg, #ccc 25%, transparent 25%), 
-                                            linear-gradient(45deg, transparent 75%, #ccc 75%), 
+                                            linear-gradient(45deg, #ccc 25%, transparent 25%),
+                                            linear-gradient(-45deg, #ccc 25%, transparent 25%),
+                                            linear-gradient(45deg, transparent 75%, #ccc 75%),
                                             linear-gradient(-45deg, transparent 75%, #ccc 75%)
                                         `,
                                         backgroundRepeat: 'repeat',
@@ -1145,9 +1151,6 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                                         ref={loupeCanvasRef}
                                         className="w-full h-full object-contain relative z-10"
                                     />
-                                    <div className="absolute inset-x-0 bottom-2 text-center z-20">
-                                        <span className="bg-blue-600/80 text-white text-[8px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter shadow-lg">Live 2.5x Zoom</span>
-                                    </div>
                                 </div>
                             )}
 
