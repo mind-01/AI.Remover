@@ -544,8 +544,8 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
             clientY = e.clientY;
         }
 
-        // Global Magnifier Loupe Logic (Available in all tabs)
-        if (!isProcessing) {
+        // Magnifier Loupe Logic (Available ONLY in zoom tab)
+        if (!isProcessing && activeTab === 'zoom') {
             const rect = dCanvas.getBoundingClientRect();
             const x = ((clientX - rect.left) / rect.width) * 100;
             const y = ((clientY - rect.top) / rect.height) * 100;
@@ -1127,8 +1127,8 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
                             <canvas ref={maskCanvasRef} className="hidden" />
                             <canvas ref={selectionCanvasRef} className="hidden" />
 
-                            {/* Magnifier Loupe - Now Global */}
-                            {isHovering && displayCanvasRef.current && (
+                            {/* Magnifier Loupe - Zoom Tab Only */}
+                            {isHovering && displayCanvasRef.current && activeTab === 'zoom' && (
                                 <div
                                     className="fixed pointer-events-none z-[100] w-48 h-48 border-4 border-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] overflow-hidden bg-slate-900"
                                     style={{
