@@ -64,28 +64,17 @@ export function HomePage() {
                 const outData = new Uint8ClampedArray(data);
 
                 const strength = 0.8;
-
-                for (let y = 1; y < height - 1; y++) {
-                    for (let x = 1; x < width - 1; x++) {
-                        const idx = (y * width + x) * 4;
-                        if (data[idx + 3] > 10) {
-                            let minAlpha = 255;
-                            for (let dy = -1; dy <= 1; dy++) {
-                                for (let dx = -1; dx <= 1; dx++) {
-                                    const nIdx = ((y + dy) * width + (x + dx)) * 4;
-                                    if (data[nIdx + 3] < minAlpha) minAlpha = data[nIdx + 3];
-                                }
-                            }
-                            if (minAlpha < 220) {
-                                outData[idx + 3] = Math.max(0, data[idx + 3] - (255 - minAlpha) * strength);
-                            }
-                        }
-                    }
-                }
-
+                const threshold = 10;
+                const edgeThreshold = 220;
                 const ghostThreshold = 70;
-                for (let i = 0; i < outData.length; i += 4) {
-                    if (outData[i + 3] < ghostThreshold) outData[i + 3] = 0;
+
+                for (let i = 0; i < data.length; i += 4) {
+                    const alpha = data[i + 3];
+                    if (alpha > threshold && alpha < edgeThreshold) {
+                        outData[i + 3] = Math.max(0, alpha * strength);
+                    } else if (alpha < ghostThreshold) {
+                        outData[i + 3] = 0;
+                    }
                 }
 
                 ctx.putImageData(new ImageData(outData, width, height), 0, 0);

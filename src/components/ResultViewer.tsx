@@ -431,7 +431,7 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
         if (!detectedBgColor || !originalImageRef.current || !maskCanvasRef.current) return;
 
         setIsProcessing(true);
-        await new Promise(r => setTimeout(r, 800));
+        // Removed artificial delay for faster processing
 
         const mCanvas = maskCanvasRef.current;
         const orig = originalImageRef.current;
