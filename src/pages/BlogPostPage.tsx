@@ -184,7 +184,7 @@ export const BlogPostPage: React.FC = () => {
                             <h2>The Rise of AI in Background Removal</h2>
                             <p>Modern machine learning models, like the ones used in <a href="/">RemovePro</a>, can now identify subjects with incredible precision.</p>
                         `,
-                        cover_image: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=1200&q=80',
+                        cover_image: '/blog/ai-background-remover-pro-editor-zoom.webp',
                         created_at: new Date().toISOString()
                     });
                 }

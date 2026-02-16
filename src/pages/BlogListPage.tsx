@@ -42,7 +42,7 @@ export const BlogListPage: React.FC = () => {
                         title: 'Free AI Background Remover Without Watermark (HD Quality) – RemovePro',
                         slug: 'free-ai-background-remover-without-watermark',
                         excerpt: 'Looking for a free AI background remover without watermark? Use RemovePro to remove image backgrounds instantly in high quality.',
-                        cover_image: 'https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=800&q=80',
+                        cover_image: '/blog/free-ai-background-remover-before-after.webp',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     },
@@ -51,7 +51,7 @@ export const BlogListPage: React.FC = () => {
                         title: 'How to Remove Background Like a Pro',
                         slug: 'remove-background-like-pro',
                         excerpt: 'Learn the secrets to achieving pixel-perfect cutouts using our advanced AI technology.',
-                        cover_image: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=800&q=80',
+                        cover_image: '/blog/ai-background-remover-pro-editor-zoom.webp',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     }
