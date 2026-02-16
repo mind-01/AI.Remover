@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, ArrowLeft, Share2, Facebook, Twitter, Linkedin, Loader2 } from 'lucide-react';
+import { Calendar, Clock, ArrowLeft, Share2, Facebook, Twitter, Linkedin, Loader2, Layers, Sparkles } from 'lucide-react';
 import { Header } from '../components/layout/Header';
 import { Footer } from '../components/layout/Footer';
 import { supabase } from '../lib/supabase';
