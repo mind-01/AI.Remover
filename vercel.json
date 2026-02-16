@@ -1,7 +1,7 @@
 {
     "rewrites": [
         {
-            "source": "/((?!api-docs|blog|admin/blog).*\\..*)",
+            "source": "/((?!api-docs|admin/blog).*\\..*)",
             "destination": "/$1"
         },
         {
