@@ -346,17 +346,42 @@ export const BlogPostPage: React.FC = () => {
 
                         {/* Sidebar / Social Share */}
                         <aside className="lg:w-16 space-y-8 flex lg:flex-col items-center">
-                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest hidden lg:block [writing-mode:vertical-rl]">Share This</p>
+                            <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.3em] hidden lg:block [writing-mode:vertical-rl] lg:h-24">Share This Article</p>
                             <div className="flex lg:flex-col gap-4">
                                 {[
-                                    { icon: Facebook, color: 'hover:bg-blue-600' },
-                                    { icon: Twitter, color: 'hover:bg-sky-500' },
-                                    { icon: Linkedin, color: 'hover:bg-blue-700' },
-                                    { icon: Share2, color: 'hover:bg-slate-900' }
+                                    { id: 'facebook', icon: Facebook, color: 'hover:bg-blue-600' },
+                                    { id: 'twitter', icon: Twitter, color: 'hover:bg-slate-900' },
+                                    { id: 'linkedin', icon: Linkedin, color: 'hover:bg-blue-700' },
+                                    { id: 'generic', icon: Share2, color: 'hover:bg-blue-600' }
                                 ].map((item, i) => (
                                     <button
                                         key={i}
-                                        className={`p-3 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl text-slate-400 hover:text-white transition-all shadow-sm ${item.color}`}
+                                        onClick={() => {
+                                            const url = window.location.href;
+                                            const title = post.title;
+                                            let shareUrl = '';
+
+                                            if (item.id === 'facebook') {
+                                                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+                                            } else if (item.id === 'twitter') {
+                                                shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
+                                            } else if (item.id === 'linkedin') {
+                                                shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+                                            } else if (item.id === 'generic') {
+                                                if (navigator.share) {
+                                                    navigator.share({ title, url }).catch(() => { });
+                                                    return;
+                                                }
+                                                navigator.clipboard.writeText(url);
+                                                return;
+                                            }
+
+                                            if (shareUrl) {
+                                                window.open(shareUrl, '_blank', 'width=600,height=400');
+                                            }
+                                        }}
+                                        className={`p-3 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl text-slate-400 hover:text-white transition-all shadow-sm ${item.color} group relative`}
+                                        title={`Share on ${item.id}`}
                                     >
                                         <item.icon className="w-5 h-5" />
                                     </button>
@@ -366,20 +391,23 @@ export const BlogPostPage: React.FC = () => {
                     </div>
 
                     {/* Author Footer */}
-                    <div className="mt-20 p-10 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
-                        <div className="w-20 h-20 rounded-full bg-blue-600 flex items-center justify-center text-white text-3xl font-black shadow-lg shadow-blue-200">
-                            A
-                        </div>
-                        <div className="space-y-2 flex-1">
-                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                                <h4 className="text-xl font-black text-slate-900 dark:text-white">Editorial Team @ RemovePro</h4>
-                                <div className="flex gap-4 text-xs font-bold text-blue-600">
-                                    <span className="cursor-pointer hover:underline">Portfolio</span>
-                                    <span className="cursor-pointer hover:underline">LinkedIn</span>
-                                </div>
+                    <div className="mt-20 p-10 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] flex flex-col md:flex-row items-center gap-8 text-center md:text-left relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-blue-600/10 transition-colors" />
+
+                        <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 flex flex-col items-center justify-center text-white shadow-2xl shadow-blue-500/20 relative">
+                            <Layers className="w-10 h-10 mb-1" />
+                            <div className="flex items-center gap-1">
+                                <span className="text-[10px] font-black tracking-tighter uppercase italic">Remove</span>
+                                <Sparkles className="w-2 h-2 text-amber-400 fill-amber-400" />
                             </div>
-                            <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
-                                Our editorial team consists of expert photographers and AI researchers dedicated to making professional-grade image editing accessible to everyone. We research and test the latest machine learning models to ensure that <a href="/" className="font-bold hover:underline">RemovePro</a> remains the world's fastest and most accurate background remover.
+                        </div>
+
+                        <div className="space-y-4 flex-1">
+                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                                <h4 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Editorial Team @ RemovePro</h4>
+                            </div>
+                            <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed max-w-2xl">
+                                Our editorial team consists of expert photographers and AI researchers dedicated to making professional-grade image editing accessible to everyone. We research and test the latest machine learning models to ensure that <a href="/" className="font-bold text-blue-600 hover:underline">RemovePro</a> remains the world's fastest and most accurate background remover.
                             </p>
                         </div>
                     </div>
