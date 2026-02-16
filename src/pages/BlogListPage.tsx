@@ -38,6 +38,15 @@ export const BlogListPage: React.FC = () => {
                 console.error('Error fetching posts:', err);
                 setPosts([
                     {
+                        id: '3',
+                        title: 'Best Free Remove.bg Alternative (No Upload, No Watermark) – RemovePro',
+                        slug: 'best-free-remove-bg-alternative',
+                        excerpt: 'Are you tired of paying for Remove.bg credits? Discover the best free Remove.bg alternative that requires no signup, no upload, and provides watermark-free HD downloads.',
+                        cover_image: '/blog/free-ai-background-remover-before-after.webp',
+                        created_at: new Date().toISOString(),
+                        status: 'published'
+                    },
+                    {
                         id: '2',
                         title: 'Free AI Background Remover Without Watermark (HD Quality) – RemovePro',
                         slug: 'free-ai-background-remover-without-watermark',
