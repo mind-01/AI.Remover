@@ -194,7 +194,7 @@ export function HomePage() {
     }
 
     return (
-        <div className="min-h-screen text-slate-900 dark:text-slate-50 overflow-x-hidden font-sans bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+        <div className="min-h-screen text-slate-900 dark:text-slate-50 overflow-x-hidden font-sans bg-slate-50 dark:bg-slate-950 transition-colors duration-300 gradient-bg">
             <Header
                 setShowDashboard={(show, view) => {
                     setShowDashboard(show);

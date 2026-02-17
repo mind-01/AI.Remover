@@ -48,54 +48,61 @@ export const BlogPostPage: React.FC = () => {
 
                             <p class="text-lg leading-relaxed mb-8">Don’t want to install heavy, space-consuming apps just to edit one photo? You’re not alone. Most mobile users in India are tired of "garbage" apps that promise freedom but deliver watermarks, ads, and privacy risks. If you are looking for a way to <strong>remove background on mobile</strong> without downloading any third-party app, you are in the right place.</p>
 
-                            <p class="mb-8">With the advancement of AI technology, you no longer need complex software like Photoshop or specialized mobile apps to isolate your subjects. Whether you are using an iPhone or an Android device, <strong>RemovePro AI</strong> allows you to achieve professional-grade results directly from your mobile browser. It is fast, free, and keeps your data 100% private.</p>
-
-                            <img src="/blog/remove-background-on-mobile-pro-banner.webp" width="1200" height="630" alt="Remove background on mobile using RemovePro interface" class="my-10 rounded-[3rem] shadow-2xl border border-slate-100 dark:border-slate-800" loading="lazy" />
+                            <div class="flex justify-center">
+                                <img src="/blog/remove-background-on-mobile-pro-banner.webp" width="1200" height="630" alt="Remove background on mobile using RemovePro interface" class="my-10 rounded-[3rem] shadow-2xl border border-slate-100 dark:border-slate-800 max-w-2xl" loading="lazy" />
+                            </div>
 
                             <h2>Can You Remove Background on Mobile Without an App?</h2>
                             <p>The short answer is: <strong>Yes!</strong> In fact, using a browser-based tool is often superior to using a mobile app. Modern mobile browsers like Google Chrome and Apple Safari now support high-performance computing through technologies like WebAssembly (WASM).</p>
 
                             <p>This means the heavy "AI thinking" happens right inside your browser window. You don't need to visit the Play Store or App Store. Simply navigate to a website that offers an <strong>AI background remover online mobile</strong> service, and you can process your photos in seconds. This saves storage space on your phone and avoids the annoying trackers common in "free" apps.</p>
 
-                            <div class="my-10 grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <img src="/blog/mobile-background-remover-upload-screen.webp" alt="RemovePro Mobile Upload Interface" class="rounded-[2.5rem] shadow-xl" />
+                            <div class="my-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-slate-50 dark:bg-slate-900/50 p-8 rounded-[3rem] border border-slate-100 dark:border-slate-800">
+                                <div class="flex justify-center">
+                                    <img src="/blog/mobile-background-remover-upload-screen.webp" alt="RemovePro Mobile Upload Interface" class="rounded-[2.5rem] shadow-xl max-w-[280px]" />
+                                </div>
                                 <div class="flex flex-col justify-center">
-                                    <h3 class="text-2xl font-black mb-4">User-Friendly Mobile Interface</h3>
-                                    <p class="text-slate-600 dark:text-slate-400 font-medium">Our tool is designed for precision on small screens. With a clean upload button and instant feedback, you can start removing backgrounds with a single tap.</p>
+                                    <h3 class="text-2xl font-black mb-4 mt-0">User-Friendly Mobile Interface</h3>
+                                    <p class="text-slate-600 dark:text-slate-400 font-medium leading-relaxed">Our tool is designed for precision on small screens. With a clean upload button and instant feedback, you can start removing backgrounds with a single tap. No cluttered menus—just high-performance AI at your fingertips.</p>
                                 </div>
                             </div>
 
                             <h2>Step-by-Step Guide to Remove Background on Mobile</h2>
                             <p>Achieving a clean, transparent PNG on your phone is easier than ordering food online. Here are the 4 simple steps to <strong>remove background without app</strong> using RemovePro:</p>
                             
-                            <div class="space-y-8 my-12">
-                                <div class="flex gap-6 items-start">
-                                    <div class="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center text-white font-black text-xl shrink-0 shadow-lg shadow-blue-600/20">1</div>
-                                    <div>
-                                        <h3 class="text-xl font-black mb-2 mt-0">Open RemovePro.com</h3>
-                                        <p class="text-slate-600 dark:text-slate-400">Launch Chrome (Android) or Safari (iPhone) and go to <a href="/" class="text-blue-600 font-bold">RemovePro.com</a>.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-12">
+                                <div class="space-y-6">
+                                    <div class="flex gap-6 items-start">
+                                        <div class="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center text-white font-black text-xl shrink-0 shadow-lg shadow-blue-600/20">1</div>
+                                        <div>
+                                            <h3 class="text-xl font-black mb-2 mt-0">Open RemovePro.com</h3>
+                                            <p class="text-slate-600 dark:text-slate-400">Launch Chrome (Android) or Safari (iPhone) and go to <a href="/" class="text-blue-600 font-bold">RemovePro.com</a>.</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-6 items-start">
+                                        <div class="w-12 h-12 rounded-2xl bg-blue-800 flex items-center justify-center text-white font-black text-xl shrink-0">2</div>
+                                        <div>
+                                            <h3 class="text-xl font-black mb-2 mt-0">Tap 'Upload Image'</h3>
+                                            <p class="text-slate-600 dark:text-slate-400">Select a photo from your gallery or use your mobile camera to take a fresh shot.</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-6 items-start">
+                                        <div class="w-12 h-12 rounded-2xl bg-blue-900 flex items-center justify-center text-white font-black text-xl shrink-0">3</div>
+                                        <div>
+                                            <h3 class="text-xl font-black mb-2 mt-0">Wait for AI Processing</h3>
+                                            <p class="text-slate-600 dark:text-slate-400">Our neural network works locally. The background will vanish automatically in just 2-3 seconds.</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-6 items-start">
+                                        <div class="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-black text-xl shrink-0 shadow-lg shadow-indigo-600/20">4</div>
+                                        <div>
+                                            <h3 class="text-xl font-black mb-2 mt-0">Download HD PNG</h3>
+                                            <p class="text-slate-600 dark:text-slate-400">Tap the download button to save the 100% <strong>remove background without watermark mobile</strong> result.</p>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="flex gap-6 items-start">
-                                    <div class="w-12 h-12 rounded-2xl bg-blue-800 flex items-center justify-center text-white font-black text-xl shrink-0">2</div>
-                                    <div>
-                                        <h3 class="text-xl font-black mb-2 mt-0">Tap 'Upload Image'</h3>
-                                        <p class="text-slate-600 dark:text-slate-400">You can either select a photo from your gallery or use your mobile camera to take a fresh shot of a product or person.</p>
-                                    </div>
-                                </div>
-                                <div class="flex gap-6 items-start">
-                                    <div class="w-12 h-12 rounded-2xl bg-blue-900 flex items-center justify-center text-white font-black text-xl shrink-0">3</div>
-                                    <div>
-                                        <h3 class="text-xl font-black mb-2 mt-0">Wait for AI Processing</h3>
-                                        <p class="text-slate-600 dark:text-slate-400">Our neural network works locally on your device. The background will vanish automatically in just 2-3 seconds.</p>
-                                    </div>
-                                </div>
-                                <div class="flex gap-6 items-start">
-                                    <div class="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-black text-xl shrink-0 shadow-lg shadow-indigo-600/20">4</div>
-                                    <div>
-                                        <h3 class="text-xl font-black mb-2 mt-0">Download HD PNG</h3>
-                                        <p class="text-slate-600 dark:text-slate-400">Tap the download button to save the 100% <strong>remove background without watermark mobile</strong> result to your device.</p>
-                                    </div>
+                                <div class="flex justify-center items-center">
+                                    <img src="/blog/mobile-ai-background-remover-zoom-precision.webp" alt="Step by step mobile guidance" class="rounded-[2.5rem] shadow-2xl max-w-[320px]" />
                                 </div>
                             </div>
 
@@ -110,7 +117,9 @@ export const BlogPostPage: React.FC = () => {
                                 <li><strong>High Definition (HD):</strong> While apps often downgrade quality to "preview" size, we offer high-resolution downloads for free.</li>
                             </ul>
 
-                            <img src="/blog/mobile-background-remover-presets.webp" width="1200" height="800" alt="Mobile background presets and templates" class="my-10 rounded-[3rem] shadow-xl" />
+                            <div class="flex justify-center">
+                                <img src="/blog/mobile-background-remover-presets.webp" width="600" height="400" alt="Mobile background presets and templates" class="my-10 rounded-[3rem] shadow-xl max-w-xl" />
+                            </div>
 
                             <div class="bg-blue-600/5 dark:bg-blue-900/10 p-10 rounded-[3rem] border border-blue-600/20 my-16 text-center">
                                 <h4 class="text-blue-600 font-black mb-4 uppercase tracking-widest text-sm">Real Privacy Fact</h4>
@@ -163,25 +172,33 @@ export const BlogPostPage: React.FC = () => {
                             <p>Who says you can't edit like a pro on a smartphone? RemovePro brings a full suite of professional tools to your mobile browser:</p>
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 my-16">
-                                <div class="space-y-4">
-                                    <img src="/blog/mobile-background-remover-effects-editor.webp" alt="Mobile Effects and Reflection Section" class="rounded-3xl shadow-lg" />
-                                    <h4 class="text-xl font-black">AI Effects & Reflections</h4>
-                                    <p class="text-slate-500 font-medium">Add stunning mirror reflections and realistic shadows to your objects with a single slide gesture.</p>
+                                <div class="space-y-4 flex flex-col items-center text-center">
+                                    <img src="/blog/mobile-background-remover-effects-editor.webp" alt="Mobile Effects and Reflection Section" class="rounded-3xl shadow-lg max-w-[280px]" />
+                                    <div class="px-4">
+                                        <h4 class="text-xl font-black mt-4 mb-2">AI Effects & Reflections</h4>
+                                        <p class="text-slate-500 font-medium text-sm">Add stunning mirror reflections and realistic shadows with a single slide.</p>
+                                    </div>
                                 </div>
-                                <div class="space-y-4">
-                                    <img src="/blog/mobile-background-remover-cutout-refinement.webp" alt="Mobile Precision Cutout Refinement" class="rounded-3xl shadow-lg" />
-                                    <h4 class="text-xl font-black">Touch-Optimized Precision</h4>
-                                    <p class="text-slate-500 font-medium">Our 'Cutout' tool is specifically tuned for fingers, making manual refinement easy even on smaller mobile screens.</p>
+                                <div class="space-y-4 flex flex-col items-center text-center">
+                                    <img src="/blog/mobile-background-remover-cutout-refinement.webp" alt="Mobile Precision Cutout Refinement" class="rounded-3xl shadow-lg max-w-[280px]" />
+                                    <div class="px-4">
+                                        <h4 class="text-xl font-black mt-4 mb-2">Touch-Optimized Precision</h4>
+                                        <p class="text-slate-500 font-medium text-sm">Manual refinement tools tuned for fingers, easy even on small screens.</p>
+                                    </div>
                                 </div>
-                                <div class="space-y-4">
-                                    <img src="/blog/mobile-background-color-changer-interface.webp" alt="Mobile Background Color Changer" class="rounded-3xl shadow-lg" />
-                                    <h4 class="text-xl font-black">Instant Color Swap</h4>
-                                    <p class="text-slate-500 font-medium">Choose from millions of colors or use our beautiful gradients to replace your background instantly.</p>
+                                <div class="space-y-4 flex flex-col items-center text-center">
+                                    <img src="/blog/mobile-background-color-changer-interface.webp" alt="Mobile Background Color Changer" class="rounded-3xl shadow-lg max-w-[280px]" />
+                                    <div class="px-4">
+                                        <h4 class="text-xl font-black mt-4 mb-2">Instant Color Swap</h4>
+                                        <p class="text-slate-500 font-medium text-sm">Choose from millions of colors or beautiful gradients to replace backgrounds.</p>
+                                    </div>
                                 </div>
-                                <div class="space-y-4">
-                                    <img src="/blog/mobile-background-remover-adjust-tool.webp" alt="Mobile Image Adjustment Tools" class="rounded-3xl shadow-lg" />
-                                    <h4 class="text-xl font-black">Fine Tuning (Adjust)</h4>
-                                    <p class="text-slate-500 font-medium">Manually sync your subject with the new background by adjusting brightness and contrast on the fly.</p>
+                                <div class="space-y-4 flex flex-col items-center text-center">
+                                    <img src="/blog/mobile-background-remover-adjust-tool.webp" alt="Mobile Image Adjustment Tools" class="rounded-3xl shadow-lg max-w-[280px]" />
+                                    <div class="px-4">
+                                        <h4 class="text-xl font-black mt-4 mb-2">Fine Tuning (Adjust)</h4>
+                                        <p class="text-slate-500 font-medium text-sm">Sync subject with background by adjusting brightness and contrast.</p>
+                                    </div>
                                 </div>
                             </div>
 
@@ -420,7 +437,7 @@ export const BlogPostPage: React.FC = () => {
     }
 
     return (
-        <div className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-300">
+        <div className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-300 relative z-10">
             <Header setShowDashboard={() => { }} />
 
             <main className="pt-32 pb-20">
