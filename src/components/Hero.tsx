@@ -121,7 +121,7 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
                     >
                         <div className="absolute inset-0 bg-blue-600 blur-[100px] opacity-10" />
                         <img
-                            src="/blog/free-ai-background-remover-before-after.webp"
+                            src="/blog/nike-shoe-background-removal.webp"
                             alt="Professional Background Removal Result"
                             className="w-full h-auto rounded-3xl shadow-2xl transition-transform duration-700"
                         />
