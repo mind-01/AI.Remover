@@ -208,7 +208,7 @@ export const BlogPostPage: React.FC = () => {
                                 <span>Last Updated: Feb 16, 2026</span>
                             </div>
                         `,
-                        cover_image: '/blog/free-ai-background-remover-before-after.webp',
+                        cover_image: '/blog/ai-background-remover-homepage-hero.webp',
                         created_at: new Date().toISOString()
                     });
                 } else if (slug === 'best-free-remove-bg-alternative') {
@@ -362,7 +362,7 @@ export const BlogPostPage: React.FC = () => {
                                 <span class="block mt-2 italic">[1] Best free remove.bg alternative dashboard interface, [2] Professional HD background removal comparison table, [3] AI transparent PNG generator results, [4] Device-local privacy-first background remover processing.</span>
                             </div>
                         `,
-                        cover_image: '/blog/free-ai-background-remover-before-after.webp',
+                        cover_image: '/blog/ai-background-remover-upload-interface.webp',
                         created_at: new Date().toISOString()
                     });
                 } else if (slug === 'remove-background-like-pro') {
@@ -375,7 +375,7 @@ export const BlogPostPage: React.FC = () => {
                             <h2>The Rise of AI in Background Removal</h2>
                             <p>Modern machine learning models, like the ones used in <a href="/">RemovePro</a>, can now identify subjects with incredible precision.</p>
                         `,
-                        cover_image: '/blog/ai-background-remover-pro-editor-zoom.webp',
+                        cover_image: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=1200',
                         created_at: new Date().toISOString()
                     });
                 }

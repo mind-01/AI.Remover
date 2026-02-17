@@ -42,7 +42,7 @@ export const BlogListPage: React.FC = () => {
                         title: 'Best Free Remove.bg Alternative (No Upload, No Watermark) – RemovePro',
                         slug: 'best-free-remove-bg-alternative',
                         excerpt: 'Are you tired of paying for Remove.bg credits? Discover the best free Remove.bg alternative that requires no signup, no upload, and provides watermark-free HD downloads.',
-                        cover_image: '/blog/free-ai-background-remover-before-after.webp',
+                        cover_image: '/blog/ai-background-remover-upload-interface.webp',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     },
@@ -60,7 +60,7 @@ export const BlogListPage: React.FC = () => {
                         title: 'How to Remove Background Like a Pro',
                         slug: 'remove-background-like-pro',
                         excerpt: 'Learn the secrets to achieving pixel-perfect cutouts using our advanced AI technology.',
-                        cover_image: '/blog/ai-background-remover-pro-editor-zoom.webp',
+                        cover_image: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=1200',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     }
