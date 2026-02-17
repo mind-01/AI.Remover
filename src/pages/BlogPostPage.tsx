@@ -48,9 +48,6 @@ export const BlogPostPage: React.FC = () => {
 
                             <p class="text-lg leading-relaxed mb-8">Don’t want to install heavy, space-consuming apps just to edit one photo? You’re not alone. Most mobile users in India are tired of "garbage" apps that promise freedom but deliver watermarks, ads, and privacy risks. If you are looking for a way to <strong>remove background on mobile</strong> without downloading any third-party app, you are in the right place.</p>
 
-                            <div class="flex justify-center">
-                                <img src="/blog/remove-background-on-mobile-pro-banner.webp" width="1200" height="630" alt="Remove background on mobile using RemovePro interface" class="my-10 rounded-[3rem] shadow-2xl border border-slate-100 dark:border-slate-800 max-w-2xl" loading="lazy" />
-                            </div>
 
                             <h2>Can You Remove Background on Mobile Without an App?</h2>
                             <p>The short answer is: <strong>Yes!</strong> In fact, using a browser-based tool is often superior to using a mobile app. Modern mobile browsers like Google Chrome and Apple Safari now support high-performance computing through technologies like WebAssembly (WASM).</p>
