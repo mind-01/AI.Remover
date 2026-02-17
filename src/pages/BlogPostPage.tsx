@@ -46,7 +46,11 @@ export const BlogPostPage: React.FC = () => {
                                 <p class="text-slate-400 font-bold text-sm">Instant • 100% Private • No Watermark • No App Needed</p>
                             </div>
 
-                            <p class="text-lg leading-relaxed mb-8">Don’t want to install heavy, space-consuming apps just to edit one photo? You’re not alone. Most mobile users in India are tired of "garbage" apps that promise freedom but deliver watermarks, ads, and privacy risks. If you are looking for a way to <strong>remove background on mobile</strong> without downloading any third-party app, you are in the right place.</p>
+                             <p class="text-lg leading-relaxed mb-8">Don’t want to install heavy, space-consuming apps just to edit one photo? You’re not alone. Most mobile users in India are tired of "garbage" apps that promise freedom but deliver watermarks, ads, and privacy risks. If you are looking for a way to <strong>remove background on mobile</strong> without downloading any third-party app, you are in the right place.</p>
+ 
+                            <div class="flex justify-center">
+                                <img src="/blog/remove-background-on-your-phone-free-ai-tool.webp" width="1200" height="630" alt="Remove background on mobile using RemovePro interface" class="my-10 rounded-[3rem] shadow-2xl border border-slate-100 dark:border-slate-800 max-w-2xl" loading="lazy" />
+                            </div>
 
 
                             <h2>Can You Remove Background on Mobile Without an App?</h2>
@@ -114,8 +118,8 @@ export const BlogPostPage: React.FC = () => {
                                 <li><strong>High Definition (HD):</strong> While apps often downgrade quality to "preview" size, we offer high-resolution downloads for free.</li>
                             </ul>
 
-                            <div class="flex justify-center">
-                                <img src="/blog/mobile-background-remover-presets.webp" width="600" height="400" alt="Mobile background presets and templates" class="my-10 rounded-[3rem] shadow-xl max-w-xl" />
+                             <div class="flex justify-center">
+                                <img src="/blog/mobile-image-background-remover-presets.webp" width="600" height="400" alt="Mobile background presets and templates" class="my-10 rounded-[3rem] shadow-xl max-w-xl" />
                             </div>
 
                             <div class="bg-blue-600/5 dark:bg-blue-900/10 p-10 rounded-[3rem] border border-blue-600/20 my-16 text-center">

@@ -42,7 +42,7 @@ export const BlogListPage: React.FC = () => {
                         title: 'How to Remove Image Background on Mobile (No App Required!)',
                         slug: 'how-to-remove-background-on-mobile',
                         excerpt: 'Learn how to use RemovePro AI locally on your mobile browser for instant, private background removal without downloading any apps.',
-                        cover_image: '/blog/ai-background-remover-upload-interface.webp',
+                        cover_image: '/blog/remove-background-on-your-phone-free-ai-tool.webp',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     },
