@@ -38,6 +38,15 @@ export const BlogListPage: React.FC = () => {
                 console.error('Error fetching posts:', err);
                 setPosts([
                     {
+                        id: '4',
+                        title: 'How to Remove Image Background on Mobile (No App Required!)',
+                        slug: 'how-to-remove-background-on-mobile',
+                        excerpt: 'Learn how to use RemovePro AI locally on your mobile browser for instant, private background removal without downloading any apps.',
+                        cover_image: '/blog/ai-background-remover-upload-interface.webp',
+                        created_at: new Date().toISOString(),
+                        status: 'published'
+                    },
+                    {
                         id: '3',
                         title: 'Best Free Remove.bg Alternative (No Upload, No Watermark) – RemovePro',
                         slug: 'best-free-remove-bg-alternative',
