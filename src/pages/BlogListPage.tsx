@@ -51,7 +51,7 @@ export const BlogListPage: React.FC = () => {
                         title: 'Free AI Background Remover Without Watermark (HD Quality) – RemovePro',
                         slug: 'free-ai-background-remover-without-watermark',
                         excerpt: 'Looking for a free AI background remover without watermark? Use RemovePro to remove image backgrounds instantly in high quality.',
-                        cover_image: '/blog/ai-background-remover-select-image.webp',
+                        cover_image: '/blog/ai-background-remover-homepage-hero.webp',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     },
@@ -131,13 +131,11 @@ export const BlogListPage: React.FC = () => {
                                     className="bg-white dark:bg-slate-900 rounded-[2.5rem] overflow-hidden border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none group hover:scale-[1.02] transition-all duration-500"
                                 >
                                     <Link to={`/blog/${post.slug}`} className="block relative h-64 overflow-hidden">
-                                        <div className="relative bg-white dark:bg-slate-900 p-4 rounded-[4rem] shadow-2xl border-8 border-white dark:border-slate-800 overflow-hidden">
-                                            <img
-                                                src={post.cover_image}
-                                                alt={post.title}
-                                                className="w-full h-auto rounded-[3.5rem] transform group-hover:scale-105 transition-transform duration-700"
-                                            />
-                                        </div>
+                                        <img
+                                            src={post.cover_image}
+                                            alt={post.title}
+                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                        />
                                         <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/10 transition-colors" />
                                     </Link>
 

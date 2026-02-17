@@ -117,30 +117,14 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
                         initial={{ opacity: 0, x: 50 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="relative group hidden lg:block"
+                        className="relative hidden lg:block"
                     >
-                        <div className="absolute inset-0 bg-blue-600 blur-[100px] opacity-10 group-hover:opacity-20 transition-opacity" />
-                        <div className="relative bg-white dark:bg-slate-900 p-4 rounded-[4rem] shadow-2xl border-8 border-white dark:border-slate-800 overflow-hidden">
-                            <img
-                                src="/blog/free-ai-background-remover-before-after.webp"
-                                alt="Professional Nike Shoe Background Removal Result"
-                                className="w-full h-auto rounded-[3.5rem] transform group-hover:scale-105 transition-transform duration-700"
-                            />
-                        </div>
-
-                        {/* Floating Badges */}
-                        <div className="absolute -top-6 -right-6 bg-green-500 text-white px-6 py-2 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-green-200 dark:shadow-none animate-bounce">
-                            Pixel Perfect
-                        </div>
-                        <div className="absolute -bottom-6 -left-6 bg-white dark:bg-slate-800 p-4 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-700 flex items-center gap-3 animate-pulse">
-                            <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center text-blue-600">
-                                <Sparkles className="w-5 h-5" />
-                            </div>
-                            <div>
-                                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Processed in</p>
-                                <p className="text-lg font-black text-slate-800 dark:text-white mt-[-2px]">1.8s</p>
-                            </div>
-                        </div>
+                        <div className="absolute inset-0 bg-blue-600 blur-[100px] opacity-10" />
+                        <img
+                            src="/blog/free-ai-background-remover-before-after.webp"
+                            alt="Professional Background Removal Result"
+                            className="w-full h-auto rounded-3xl shadow-2xl transition-transform duration-700"
+                        />
                     </motion.div>
                 </div>
             </div>
