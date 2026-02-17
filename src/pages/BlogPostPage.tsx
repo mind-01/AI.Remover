@@ -362,7 +362,7 @@ export const BlogPostPage: React.FC = () => {
                                 <span class="block mt-2 italic">[1] Best free remove.bg alternative dashboard interface, [2] Professional HD background removal comparison table, [3] AI transparent PNG generator results, [4] Device-local privacy-first background remover processing.</span>
                             </div>
                         `,
-                        cover_image: '/blog/ai-background-remover-upload-interface.webp',
+                        cover_image: '/blog/free-ai-background-remover-before-after.webp',
                         created_at: new Date().toISOString()
                     });
                 } else if (slug === 'remove-background-like-pro') {
