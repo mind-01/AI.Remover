@@ -516,7 +516,7 @@ export const BlogPostPage: React.FC = () => {
                             <h3 class="text-2xl font-black mb-6 mt-12">High Definition Output for Every Design</h3>
                             <div class="my-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-slate-50 dark:bg-slate-900/50 p-8 rounded-[3rem] border border-slate-100 dark:border-slate-800">
                                 <div class="flex flex-col items-center">
-                                    <img src="/blog/remove-background-without-watermark-hd-preview.webp" alt="HD background removal output quality comparison" class="rounded-[2.5rem] shadow-xl max-w-[320px]" />
+                                    <img src="/blog/best-removebg-alternative-before-after.webp" alt="HD background removal output quality comparison" class="rounded-[2.5rem] shadow-xl max-w-[320px]" />
                                     <p class="mt-6 text-slate-500 text-xs font-bold italic">— Pixel-perfect edges and HD clarity on every export —</p>
                                 </div>
                                 <div class="flex flex-col justify-center">
@@ -537,7 +537,7 @@ export const BlogPostPage: React.FC = () => {
 
                             <h3 class="text-2xl font-black mb-6 mt-12">Bulk Processing for Industrial Workflows</h3>
                             <div class="flex flex-col items-center mb-10">
-                                <img src="/blog/multiple-image-background-remover-bulk.webp" width="1200" height="800" alt="Bulk background removal dashboard for multiple images" class="my-10 rounded-[3rem] shadow-xl border border-slate-100 dark:border-slate-800" />
+                                <img src="/blog/ai-background-remover-bulk-download-sidebar.webp" width="1200" height="800" alt="Bulk background removal dashboard for multiple images" class="my-10 rounded-[3rem] shadow-xl border border-slate-100 dark:border-slate-800" />
                                 <p class="text-slate-500 text-xs font-bold italic">— Process dozens of images in parallel without breaking a sweat —</p>
                             </div>
 
