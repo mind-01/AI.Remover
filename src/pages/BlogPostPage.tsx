@@ -693,8 +693,8 @@ export const BlogPostPage: React.FC = () => {
                         </Link>
                     </nav>
 
-                    <div className="space-y-8 mb-16">
-                        <div className="flex items-center gap-6 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    <div className="space-y-8 mb-16 text-center">
+                        <div className="flex items-center justify-center gap-6 text-[10px] font-black uppercase tracking-widest text-slate-400">
                             <span className="flex items-center gap-1.5 px-4 py-1.5 bg-slate-100 dark:bg-slate-900 rounded-full border border-slate-100 dark:border-slate-800">
                                 <Calendar className="w-3 h-3 text-blue-600" />
                                 {new Date(post.created_at).toLocaleDateString()}
@@ -723,7 +723,7 @@ export const BlogPostPage: React.FC = () => {
                         />
                     </motion.div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-16">
+                    <div className="max-w-3xl mx-auto">
                         <div
                             className="prose prose-lg dark:prose-invert prose-slate max-w-none 
                                      prose-headings:font-black prose-headings:tracking-tight
@@ -734,49 +734,50 @@ export const BlogPostPage: React.FC = () => {
                             dangerouslySetInnerHTML={{ __html: post.content }}
                         />
 
-                        <aside className="lg:w-16 space-y-8 flex lg:flex-col items-center">
-                            <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.3em] hidden lg:block [writing-mode:vertical-rl] lg:h-24">Share This Article</p>
-                            <div className="flex lg:flex-col gap-4">
-                                {[
-                                    { id: 'facebook', icon: Facebook, color: 'hover:bg-blue-600' },
-                                    { id: 'twitter', icon: Twitter, color: 'hover:bg-slate-900' },
-                                    { id: 'linkedin', icon: Linkedin, color: 'hover:bg-blue-700' },
-                                    { id: 'generic', icon: Share2, color: 'hover:bg-blue-600' }
-                                ].map((item, i) => (
-                                    <button
-                                        key={i}
-                                        onClick={() => {
-                                            const url = window.location.href;
-                                            const title = post.title;
-                                            let shareUrl = '';
+                        <div className="mt-20 pt-10 border-t border-slate-100 dark:border-slate-800">
+                            <div className="flex flex-col items-center gap-6">
+                                <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.3em]">Share This Article</p>
+                                <div className="flex gap-4">
+                                    {[
+                                        { id: 'facebook', icon: Facebook, color: 'hover:bg-blue-600' },
+                                        { id: 'twitter', icon: Twitter, color: 'hover:bg-slate-900' },
+                                        { id: 'linkedin', icon: Linkedin, color: 'hover:bg-blue-700' },
+                                        { id: 'generic', icon: Share2, color: 'hover:bg-blue-600' }
+                                    ].map((item, i) => (
+                                        <button
+                                            key={i}
+                                            onClick={() => {
+                                                const url = window.location.href;
+                                                const title = post.title;
+                                                let shareUrl = '';
 
-                                            if (item.id === 'facebook') {
-                                                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-                                            } else if (item.id === 'twitter') {
-                                                shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
-                                            } else if (item.id === 'linkedin') {
-                                                shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
-                                            } else if (item.id === 'generic') {
-                                                if (navigator.share) {
-                                                    navigator.share({ title, url }).catch(() => { });
+                                                if (item.id === 'facebook') {
+                                                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+                                                } else if (item.id === 'twitter') {
+                                                    shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
+                                                } else if (item.id === 'linkedin') {
+                                                    shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+                                                } else if (item.id === 'generic') {
+                                                    if (navigator.share) {
+                                                        navigator.share({ title, url }).catch(() => { });
+                                                        return;
+                                                    }
+                                                    navigator.clipboard.writeText(url);
                                                     return;
                                                 }
-                                                navigator.clipboard.writeText(url);
-                                                return;
-                                            }
 
-                                            if (shareUrl) {
-                                                window.open(shareUrl, '_blank', 'width=600,height=400');
-                                            }
-                                        }}
-                                        className={`p-3 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl text-slate-400 hover:text-white transition-all shadow-sm ${item.color} group relative`}
-                                        title={`Share on ${item.id}`}
-                                    >
-                                        <item.icon className="w-5 h-5" />
-                                    </button>
-                                ))}
+                                                if (shareUrl) {
+                                                    window.open(shareUrl, '_blank', 'width=600,height=400');
+                                                }
+                                            }}
+                                            className={`p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 text-slate-400 ${item.color} hover:text-white transition-all transform hover:scale-110 border border-slate-100 dark:border-slate-800`}
+                                        >
+                                            <item.icon className="w-5 h-5" />
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
-                        </aside>
+                        </div>
                     </div>
 
                     <div className="mt-32 pt-20 border-t border-slate-100 dark:border-slate-800">
