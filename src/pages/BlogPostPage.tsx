@@ -780,6 +780,27 @@ export const BlogPostPage: React.FC = () => {
                         </div>
                     </div>
 
+                    <div className="max-w-3xl mx-auto mt-20 pt-20 border-t border-slate-100 dark:border-slate-800">
+                        <div className="space-y-12">
+                            <div className="space-y-4">
+                                <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Comments</h3>
+                                <p className="text-slate-500 font-medium">No comments so far.</p>
+                            </div>
+
+                            <div className="bg-slate-50 dark:bg-slate-900/50 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800">
+                                <textarea
+                                    placeholder="Start writing your comment here"
+                                    className="w-full h-32 bg-transparent border-none focus:ring-0 text-slate-900 dark:text-white font-medium placeholder:text-slate-400 resize-none"
+                                />
+                                <div className="flex justify-end mt-4">
+                                    <button className="bg-blue-600 hover:bg-blue-700 text-white font-black uppercase tracking-widest text-[10px] px-8 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg shadow-blue-600/20">
+                                        Post Comment
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div className="mt-32 pt-20 border-t border-slate-100 dark:border-slate-800">
                         <div className="flex items-center justify-between mb-12">
                             <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Related Articles</h3>
