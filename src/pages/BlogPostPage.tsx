@@ -35,13 +35,36 @@ export const BlogPostPage: React.FC = () => {
                 text: newComment.trim(),
                 date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
             };
-            setComments([comment, ...comments]);
+            const updatedComments = [comment, ...comments];
+            setComments(updatedComments);
+
+            // Persist to localStorage
+            if (slug) {
+                localStorage.setItem(`comments_${slug}`, JSON.stringify(updatedComments));
+            }
+
             setNewComment('');
             setIsPosting(false);
             setShowSuccess(true);
             setTimeout(() => setShowSuccess(false), 3000);
         }, 800);
     };
+
+    // Load comments from localStorage
+    useEffect(() => {
+        if (slug) {
+            const savedComments = localStorage.getItem(`comments_${slug}`);
+            if (savedComments) {
+                try {
+                    setComments(JSON.parse(savedComments));
+                } catch (e) {
+                    console.error('Error parsing saved comments:', e);
+                }
+            } else {
+                setComments([]);
+            }
+        }
+    }, [slug]);
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -807,10 +830,52 @@ export const BlogPostPage: React.FC = () => {
                         <div className="space-y-12">
                             <div className="space-y-6">
                                 <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Comments</h3>
+
+                                {/* Comment Input Box First */}
+                                <div className="bg-slate-50 dark:bg-slate-900/50 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 relative group overflow-hidden">
+                                    {showSuccess && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            className="absolute inset-0 bg-blue-600 flex items-center justify-center z-20"
+                                        >
+                                            <div className="flex items-center gap-3 text-white">
+                                                <Sparkles className="w-6 h-6 animate-pulse" />
+                                                <p className="font-black uppercase tracking-widest text-sm">Comment Posted Successfully!</p>
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                    <textarea
+                                        value={newComment}
+                                        onChange={(e) => setNewComment(e.target.value)}
+                                        placeholder="Start writing your comment here"
+                                        className="w-full h-32 bg-transparent border-none focus:ring-0 text-slate-900 dark:text-white font-medium placeholder:text-slate-400 resize-none"
+                                    />
+                                    <div className="flex justify-end mt-4">
+                                        <button
+                                            onClick={handlePostComment}
+                                            disabled={isPosting || !newComment.trim()}
+                                            className={`bg-blue-600 hover:bg-blue-700 text-white font-black uppercase tracking-widest text-[10px] px-8 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg shadow-blue-600/20 flex items-center gap-2 ${isPosting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                        >
+                                            {isPosting ? (
+                                                <>
+                                                    <Loader2 className="w-3 h-3 animate-spin" />
+                                                    Posting...
+                                                </>
+                                            ) : (
+                                                'Post Comment'
+                                            )}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* Comments List Second */}
                                 {comments.length === 0 ? (
-                                    <p className="text-slate-500 font-medium">No comments so far.</p>
+                                    <div className="pt-6">
+                                        <p className="text-slate-500 font-medium">No comments so far.</p>
+                                    </div>
                                 ) : (
-                                    <div className="space-y-8">
+                                    <div className="space-y-8 pt-6">
                                         {comments.map((comment) => (
                                             <motion.div
                                                 key={comment.id}
@@ -830,43 +895,6 @@ export const BlogPostPage: React.FC = () => {
                                         ))}
                                     </div>
                                 )}
-                            </div>
-
-                            <div className="bg-slate-50 dark:bg-slate-900/50 p-8 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 relative group overflow-hidden">
-                                {showSuccess && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        className="absolute inset-0 bg-blue-600 flex items-center justify-center z-20"
-                                    >
-                                        <div className="flex items-center gap-3 text-white">
-                                            <Sparkles className="w-6 h-6 animate-pulse" />
-                                            <p className="font-black uppercase tracking-widest text-sm">Comment Posted Successfully!</p>
-                                        </div>
-                                    </motion.div>
-                                )}
-                                <textarea
-                                    value={newComment}
-                                    onChange={(e) => setNewComment(e.target.value)}
-                                    placeholder="Start writing your comment here"
-                                    className="w-full h-32 bg-transparent border-none focus:ring-0 text-slate-900 dark:text-white font-medium placeholder:text-slate-400 resize-none"
-                                />
-                                <div className="flex justify-end mt-4">
-                                    <button
-                                        onClick={handlePostComment}
-                                        disabled={isPosting || !newComment.trim()}
-                                        className={`bg-blue-600 hover:bg-blue-700 text-white font-black uppercase tracking-widest text-[10px] px-8 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg shadow-blue-600/20 flex items-center gap-2 ${isPosting ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                    >
-                                        {isPosting ? (
-                                            <>
-                                                <Loader2 className="w-3 h-3 animate-spin" />
-                                                Posting...
-                                            </>
-                                        ) : (
-                                            'Post Comment'
-                                        )}
-                                    </button>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -935,10 +963,10 @@ export const BlogPostPage: React.FC = () => {
                             </p>
                         </div>
                     </div>
-                </article>
-            </main>
+                </article >
+            </main >
 
             <Footer />
-        </div>
+        </div >
     );
 };
