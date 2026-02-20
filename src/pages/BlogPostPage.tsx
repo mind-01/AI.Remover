@@ -306,7 +306,7 @@ export const BlogPostPage: React.FC = () => {
                                         <div class="absolute -left-7 top-0 w-14 h-14 bg-red-500 rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-lg">2</div>
                                         <h3 class="text-3xl font-black mb-6 uppercase">Step 2 – Upload Your Photo</h3>
                                         <p class="text-lg mb-10 font-medium text-slate-600 dark:text-slate-400 leading-relaxed">Tap the big "Upload Image" button. Your phone will ask if you want to take a new photo or choose one from your Photo Library. This is the safest way to edit because the browser only gains access to the specific photo you choose, unlike apps that often demand access to your entire camera roll. Once selected, the image begins to load in your browser's local memory.</p>
-                                        <img src="/blog/ai-background-remover-upload-interface.webp" alt="Selecting a photo from the mobile gallery to upload" class="rounded-[2.5rem] shadow-2xl border border-slate-100 dark:border-slate-800" />
+                                        <img src="/blog/mobile-background-remover-upload-screen.webp" alt="Selecting a photo from the mobile gallery to upload" class="rounded-[2.5rem] shadow-2xl border border-slate-100 dark:border-slate-800" />
                                     </div>
 
                                     <div class="relative pl-12 border-l-2 border-slate-100 dark:border-slate-800">
@@ -320,7 +320,7 @@ export const BlogPostPage: React.FC = () => {
                                         <div class="absolute -left-7 top-0 w-14 h-14 bg-red-800 rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-lg">4</div>
                                         <h3 class="text-3xl font-black mb-6 uppercase">Step 4 – Download the Image</h3>
                                         <p class="text-lg mb-10 font-medium text-slate-600 dark:text-slate-400 leading-relaxed">Once you’re happy with the preview, tap the Download button. You can choose a high-definition (HD) transparent PNG if you want to place the subject onto another background later, or you can use our built-in editor to add a white background or a gradient before saving. Your phone will save the file directly to your "Downloads" or "Photos" app. It’s that simple!</p>
-                                        <img src="/blog/mobile-background-remover-effects-editor.webp" alt="Downloading the final transparent PNG on a smartphone" class="rounded-[2.5rem] shadow-2xl border border-slate-100 dark:border-slate-800" />
+                                        <img src="/blog/ai-background-remover-hd-download-one click.webp" alt="Downloading HD image with one click on mobile" class="rounded-[2.5rem] shadow-2xl border border-slate-100 dark:border-slate-800" />
                                     </div>
                                 </div>
 
@@ -386,11 +386,11 @@ export const BlogPostPage: React.FC = () => {
                                     </div>
                                 </div>
 
-                                <div class="mt-32 p-16 bg-orange-600 rounded-[4rem] text-center text-white shadow-3xl relative overflow-hidden">
+                                <div class="mt-32 p-16 bg-gradient-to-br from-blue-600 to-indigo-900 rounded-[4rem] text-center text-white shadow-3xl relative overflow-hidden">
                                      <div class="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white/20 via-transparent to-transparent"></div>
                                     <h2 class="text-4xl md:text-7xl font-black text-white m-0 mb-8 leading-tight tracking-tighter uppercase relative z-10 italic">Edit Anywhere</h2>
-                                    <p class="text-orange-50 text-xl mb-12 max-w-2xl mx-auto font-medium relative z-10 opacity-90">Experience the world's most powerful browser-based AI tool on your smartphone. HD, Private, and 100% Free.</p>
-                                    <a href="/" class="relative z-10 inline-block bg-white text-orange-600 py-6 px-16 rounded-2xl font-black uppercase tracking-widest hover:scale-105 transition-transform shadow-2xl">Start Editing Now</a>
+                                    <p class="text-blue-50 text-xl mb-12 max-w-2xl mx-auto font-medium relative z-10 opacity-90">Experience the world's most powerful browser-based AI tool on your smartphone. HD, Private, and 100% Free.</p>
+                                    <a href="/" class="relative z-10 inline-block bg-white text-blue-600 py-6 px-16 rounded-2xl font-black uppercase tracking-widest hover:scale-105 transition-transform shadow-2xl">Start Editing Now</a>
                                 </div>
                             </div>
                         `,
