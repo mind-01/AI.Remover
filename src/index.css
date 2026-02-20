@@ -4,6 +4,7 @@
   --font-sans: "Inter", "system-ui", "Avenir", "Helvetica", "Arial", "sans-serif";
   --background-image-hero-pattern: url('/grid.svg');
   --animate-spin-slow: spin 3s linear infinite;
+  --shadow-3xl: 0 32px 64px -12px rgba(0, 0, 0, 0.2);
 }
 
 :root {

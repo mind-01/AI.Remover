@@ -75,10 +75,10 @@ export const BlogListPage: React.FC = () => {
                     },
                     {
                         id: '1',
-                        title: 'How to Remove Background Like a Pro',
+                        title: 'How to Remove Background Like a Pro (2026)',
                         slug: 'remove-background-like-pro',
-                        excerpt: 'Learn the secrets to achieving pixel-perfect cutouts using our advanced AI technology.',
-                        cover_image: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=1200',
+                        excerpt: 'Achieve pixel-perfect cutouts with studio-quality precision. Learn the advanced techniques for handling complex hair, tough shadows, and lighting matches.',
+                        cover_image: '/blog/ai-background-remover-pro-editor-zoom.webp',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     }
