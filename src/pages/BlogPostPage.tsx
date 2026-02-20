@@ -94,101 +94,154 @@ export const BlogPostPage: React.FC = () => {
                             <div class="blog-content-wrapper">
                                 <p class="text-xl leading-relaxed text-slate-600 dark:text-slate-400 mb-10 font-medium font-serif italic text-center">"Your main image is your most important salesperson on Amazon."</p>
                                 
-                                <p class="text-lg leading-relaxed mb-10">Selling on Amazon is one of the fastest ways to grow an e-commerce business, but it comes with a strict set of rules. One of the most important rules is the "Main Image" requirement. If you want to list a product, your primary image must have a pure white background. This isn't just a suggestion; it is a requirement that can make or break your success. When you <strong>remove background for Amazon product photos</strong>, you are optimizing your listing for maximum conversion.</p>
+                                <p class="text-lg leading-relaxed mb-10">Selling on Amazon is one of the fastest ways to grow an e-commerce business, but it comes with a strict set of rules. One of the most important rules is the "Main Image" requirement. If you want to list a product, your primary image must have a pure white background. This isn't just a suggestion; it is a requirement that can make or break your success. When you <strong>remove background for Amazon product photos</strong>, you are doing more than just following rules—you are optimizing your listing for maximum conversion and sales.</p>
                                 
+                                <p class="text-lg leading-relaxed mb-10">Statistics show that high-quality images with clean backgrounds can increase conversion rates by up to 30%. Customers scrolling through thousands of search results are naturally drawn to images that look professional, clear, and trustworthy. A cluttered background distracts the eye, while a white background keeps the focus entirely on the product you are selling. In this guide, we will show you exactly how to achieve that "pro" look in seconds using AI technology.</p>
+
                                 <div class="blog-image-container my-16 text-center">
                                     <div class="inline-block relative p-1 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-[3rem] shadow-2xl">
                                         <div class="relative overflow-hidden rounded-[2.9rem]">
-                                            <img src="/blog/nike-shoe-background-removal.webp" alt="Nike shoe with background removed for Amazon" loading="lazy" class="block m-0 hover:scale-105 transition-transform duration-500" />
+                                            <img src="/blog/nike-shoe-background-removal.webp" alt="Nike shoe before and after background removal for Amazon" loading="lazy" class="block m-0 hover:scale-105 transition-transform duration-500" />
                                             <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent"></div>
                                         </div>
                                     </div>
                                     <p class="text-center text-slate-500 text-sm font-bold italic mt-8">— Compliant #FFFFFF white background generated in 3 seconds —</p>
                                 </div>
 
-                                <h2 class="text-3xl font-black text-slate-900 dark:text-white mt-12 mb-6">Why Amazon Compliance Matters</h2>
-                                <p class="text-lg leading-relaxed mb-10">By mandating a pure white background, Amazon creates a clean shopping experience. A white background keeps the focus entirely on the product, ensuring it "pops" on small mobile screens. Listings that comply with <strong>Amazon white background</strong> standards typically see higher visibility in search results.</p>
+                                <h2 class="text-4xl font-black text-slate-900 dark:text-white mt-12 mb-6 uppercase tracking-tight">Why Amazon Requires a Pure White Background</h2>
+                                <p class="text-lg leading-relaxed mb-10">Amazon’s philosophy is simple: clarity leads to sales. By mandating a pure white background (RGB 255, 255, 255 or Hex #FFFFFF), Amazon creates a consistent and clean shopping experience across its entire platform. When every product looks like it was shot in the same professional studio, the customer focuses on the features of the item rather than the quality of the photography.</p>
+                                
+                                <p class="text-lg leading-relaxed mb-10">Using a white background also reduces "visual noise." In mobile shopping, where screens are small, a busy background makes it difficult for customers to see details. By choosing to <strong>remove background for Amazon product photos</strong>, you ensure that your product "pops" on the screen. Furthermore, Amazon's algorithm rewards listings that comply with their technical standards, potentially giving you better visibility in search results.</p>
+
+                                <h2 class="text-4xl font-black text-slate-900 dark:text-white mt-24 mb-6 uppercase tracking-tight">Amazon Product Image Background Requirements</h2>
+                                <p class="text-lg leading-relaxed mb-6">Before you start editing, you need to know the specific technical standards set by the Amazon Seller Central team. Failure to meet these could result in your listing being suppressed or your account being flagged.</p>
                                 
                                 <div class="my-10 p-10 bg-slate-50 dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-xl">
-                                    <h3 class="text-2xl font-black mb-6">Seller Central Photography Standards</h3>
-                                    <ul class="space-y-4 list-none p-0 m-0">
-                                        <li class="flex items-start gap-4 p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm">
-                                            <span class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white font-black text-xs shrink-0">✓</span>
+                                    <ul class="space-y-6 list-none p-0 m-0">
+                                        <li class="flex items-start gap-4 p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm">
+                                            <span class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-xs shrink-0">01</span>
                                             <div>
-                                                <p class="font-black mb-1">Pure White Backdrop</p>
-                                                <p class="text-sm opacity-70">Strict RGB 255, 255, 255 or #FFFFFF compliance.</p>
+                                                <p class="font-black text-lg mb-1">Background Color</p>
+                                                <p class="text-slate-600 dark:text-slate-400">The background must be pure white (RGB 255, 255, 255 or #FFFFFF).</p>
                                             </div>
                                         </li>
-                                        <li class="flex items-start gap-4 p-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm">
-                                            <span class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white font-black text-xs shrink-0">✓</span>
+                                        <li class="flex items-start gap-4 p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm">
+                                            <span class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-xs shrink-0">02</span>
                                             <div>
-                                                <p class="font-black mb-1">85% Frame Fill</p>
-                                                <p class="text-sm opacity-70">The product must dominate the image area.</p>
+                                                <p class="font-black text-lg mb-1">Product Coverage</p>
+                                                <p class="text-slate-600 dark:text-slate-400">The product should occupy at least 85% of the total image frame.</p>
+                                            </div>
+                                        </li>
+                                        <li class="flex items-start gap-4 p-5 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm">
+                                            <span class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-xs shrink-0">03</span>
+                                            <div>
+                                                <p class="font-black text-lg mb-1">No Non-Selling Items</p>
+                                                <p class="text-slate-600 dark:text-slate-400">The image must not contain props, watermarks, or text that is not part of the product.</p>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
 
-                                <h2 class="text-3xl font-black text-slate-900 dark:text-white mt-24 mb-10 uppercase tracking-tighter">4-Step Workflow for Professional Sellers</h2>
-                                
-                                <div class="space-y-20 my-16">
-                                    <div class="relative pl-12 border-l-2 border-slate-100 dark:border-slate-800 pb-12">
+                                <h2 class="text-4xl font-black text-slate-900 dark:text-white mt-24 mb-6 uppercase tracking-tight text-center">Step-by-Step Guide to Remove Background for Amazon Product Photos</h2>
+                                <p class="text-lg leading-relaxed mb-10 text-center">Creating professional cutouts used to require expensive software like Photoshop and hours of manual work. Now, using an <strong>AI background remover for Amazon</strong> like RemovePro, you can do it in four simple steps for free.</p>
+
+                                <div class="space-y-24 my-20">
+                                    <div class="relative pl-12 border-l-2 border-slate-100 dark:border-slate-800">
                                         <div class="absolute -left-7 top-0 w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-lg">1</div>
-                                        <h3 class="text-2xl font-black mb-4 uppercase">Capture & Upload</h3>
-                                        <p class="text-lg mb-8 font-medium text-slate-600 dark:text-slate-400">Take a high-res photo. Drag it into the RemovePro dashboard. Our AI works locally in your RAM.</p>
-                                        <img src="/blog/ai-background-remover-upload-interface.webp" alt="Amazon product photo upload interface" class="rounded-[2rem] shadow-2xl max-w-full h-auto mb-10 border border-slate-100 dark:border-slate-800" />
-                                    </div>
-
-                                    <div class="relative pl-12 border-l-2 border-slate-100 dark:border-slate-800 pb-12">
-                                        <div class="absolute -left-7 top-0 w-14 h-14 bg-blue-800 rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-lg">2</div>
-                                        <h3 class="text-2xl font-black mb-4 uppercase">AI Extraction</h3>
-                                        <p class="text-lg mb-8 font-medium text-slate-600 dark:text-slate-400">The neural network isolates the product instantly. It handles complex textures and fine edges automatically.</p>
-                                        <img src="/blog/ai-processing-step.webp" alt="AI background removal for e-commerce products" class="rounded-[2rem] shadow-2xl max-w-full h-auto mb-10 border border-slate-100 dark:border-slate-800" />
-                                    </div>
-
-                                    <div class="relative pl-12 border-l-2 border-slate-100 dark:border-slate-800 pb-12">
-                                        <div class="absolute -left-7 top-0 w-14 h-14 bg-blue-900 rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-lg">3</div>
-                                        <h3 class="text-2xl font-black mb-4 uppercase">Edge Refinement</h3>
-                                        <p class="text-lg mb-8 font-medium text-slate-600 dark:text-slate-400">Review the cutout. Our tool ensures a studio-grade finish with no jagged artifacts or blurry halos.</p>
-                                        <img src="/blog/ai-background-remover-pro-editor-cutout.webp" alt="Quality check for product photo cutouts" class="rounded-[2rem] shadow-2xl max-w-full h-auto mb-10 border border-slate-100 dark:border-slate-800" />
+                                        <h3 class="text-3xl font-black mb-6 uppercase">Step 1 – Upload Your Product Image</h3>
+                                        <p class="text-lg mb-10 font-medium text-slate-600 dark:text-slate-400 leading-relaxed">Start by taking a clear photo of your product. Even though the AI is powerful, a photo taken in good lighting will always yield better results. Once you have your file ready (JPG or PNG), simply drag and drop it into the RemovePro upload zone. Our system handles high-resolution files, so don't worry about losing quality during the process.</p>
+                                        <img src="/blog/ai-background-remover-upload-interface.webp" alt="Uploading a product photo to RemovePro AI background remover" class="rounded-[2.5rem] shadow-2xl border border-slate-100 dark:border-slate-800" />
                                     </div>
 
                                     <div class="relative pl-12 border-l-2 border-slate-100 dark:border-slate-800">
-                                        <div class="absolute -left-7 top-0 w-14 h-14 bg-indigo-600 rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-lg">4</div>
-                                        <h3 class="text-2xl font-black mb-4 uppercase">White Background Export</h3>
-                                        <p class="text-lg mb-8 font-medium text-slate-600 dark:text-slate-400">Apply the official Amazon preset and download. Your photo is now ready for Seller Central.</p>
-                                        <img src="/blog/ai-background-remover-change-background-color.webp" alt="Final Amazon compliant white background export" class="rounded-[2rem] shadow-2xl max-w-full h-auto border border-slate-100 dark:border-slate-800" />
+                                        <div class="absolute -left-7 top-0 w-14 h-14 bg-indigo-600 rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-lg">2</div>
+                                        <h3 class="text-3xl font-black mb-6 uppercase">Step 2 – Let AI Remove the Background</h3>
+                                        <p class="text-lg mb-10 font-medium text-slate-600 dark:text-slate-400 leading-relaxed">Once your image is uploaded, the neural network takes over. Our <strong>AI background remover for Amazon</strong> analyzes the pixels to distinguish between the foreground (your product) and the background. It uses advanced edge-detection to handle tricky areas like shoe laces, hair, or complex textures. This process happens locally in your browser, meaning your data stays private and the speed is nearly instant.</p>
+                                        <img src="/blog/ai-processing-step.webp" alt="AI technology scanning a product to isolate the background" class="rounded-[2.5rem] shadow-2xl border border-slate-100 dark:border-slate-800" />
+                                    </div>
+
+                                    <div class="relative pl-12 border-l-2 border-slate-100 dark:border-slate-800">
+                                        <div class="absolute -left-7 top-0 w-14 h-14 bg-blue-800 rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-lg">3</div>
+                                        <h3 class="text-3xl font-black mb-6 uppercase">Step 3 – Download Transparent PNG</h3>
+                                        <p class="text-lg mb-10 font-medium text-slate-600 dark:text-slate-400 leading-relaxed">After the AI finishes, you will see a preview of your product on a transparent checkerboard background. Check the edges and details to ensure everything looks sharp. If you are satisfied, you can download the high-definition (HD) transparent PNG. This file is your "master cutout" which you can use for various marketing materials beyond just Amazon.</p>
+                                        <img src="/blog/download-png-step.webp" alt="Reviewing the transparent PNG preview before final export" class="rounded-[2.5rem] shadow-2xl border border-slate-100 dark:border-slate-800" />
+                                    </div>
+
+                                    <div class="relative pl-12 border-l-2 border-slate-100 dark:border-slate-800">
+                                        <div class="absolute -left-7 top-0 w-14 h-14 bg-blue-900 rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-lg">4</div>
+                                        <h3 class="text-3xl font-black mb-6 uppercase">Step 4 – Export with Pure White Background</h3>
+                                        <p class="text-lg mb-10 font-medium text-slate-600 dark:text-slate-400 leading-relaxed">The final step to <strong>remove background for Amazon product photos</strong> is to place your transparent cutout onto a pure #FFFFFF background. You can do this within the RemovePro editor by selecting the "Background" tool and choosing the white preset. Once applied, export the image as a high-quality JPG. Your photo is now fully compliant with Amazon’s Main Image requirements.</p>
+                                        <img src="/blog/ai-background-remover-change-background-color.webp" alt="Final Amazon-ready product photo on a pure white background" class="rounded-[2.5rem] shadow-2xl border border-slate-100 dark:border-slate-800" />
                                     </div>
                                 </div>
 
-                                <div class="my-24 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                                    <div>
-                                        <h2 class="text-3xl font-black mb-6">Power Seller: Bulk Processing</h2>
-                                        <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed font-medium">Processing 100+ items? Our industrial dashboard allows for rapid bulk background removal. Save hours of manual labor and maintain consistent quality across your entire catalog.</p>
-                                    </div>
-                                    <div class="relative p-1 bg-gradient-to-tr from-slate-200 to-slate-400 dark:from-slate-800 dark:to-slate-700 rounded-[2.5rem] shadow-2xl overflow-hidden">
-                                        <img src="/blog/ai-background-remover-bulk-download-sidebar.webp" alt="Bulk background removal for Amazon catalog" class="max-w-full h-auto" />
-                                    </div>
-                                </div>
-
-                                <div class="my-24 bg-slate-900 rounded-[3.5rem] p-12 text-white relative overflow-hidden text-center md:text-left">
-                                    <div class="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 blur-[100px] rounded-full"></div>
-                                    <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                                        <div class="order-2 md:order-1 relative rounded-3xl overflow-hidden shadow-2xl">
-                                            <img src="/blog/ai-background-remover-editor-zoom-view.webp" alt="Technical edge analysis" class="w-full" />
+                                <div class="my-24 p-12 bg-slate-900 rounded-[3.5rem] border border-white/10 shadow-3xl overflow-hidden relative group">
+                                    <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-transparent to-transparent"></div>
+                                    <h2 class="text-3xl font-black text-white mb-8 uppercase tracking-tight relative z-10">Common Mistakes to Avoid</h2>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+                                        <div class="p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                                            <p class="font-black text-blue-400 mb-2">Off-White Colors</p>
+                                            <p class="text-slate-400 text-sm">Using grey or "almost white" results in suppressed listings. Stick to #FFFFFF.</p>
                                         </div>
-                                        <div class="order-1 md:order-2">
-                                            <h2 class="text-3xl font-black mb-6 uppercase tracking-tighter">Technical Edge Check</h2>
-                                            <p class="text-slate-400 text-lg leading-relaxed font-medium">Amazon’s algorithms detect jagged edges. Use our Pro-Zoom view to inspect transitions at 400% magnification, ensuring a pixel-perfect isolation for high-ticket items.</p>
+                                        <div class="p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                                            <p class="font-black text-indigo-400 mb-2">Jagged Edges</p>
+                                            <p class="text-slate-400 text-sm">Low-quality tools leave pixelated halos. Professional sellers need sub-pixel accuracy.</p>
+                                        </div>
+                                        <div class="p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                                            <p class="font-black text-purple-400 mb-2">Heavy Shadows</p>
+                                            <p class="text-slate-400 text-sm">Dark, thick shadows look unnatural and can violate Amazon policy. Keep it soft.</p>
+                                        </div>
+                                        <div class="p-6 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                                            <p class="font-black text-teal-400 mb-2">Props in Main Image</p>
+                                            <p class="text-slate-400 text-sm">Main images must only show the product for sale. No extra items or backgrounds.</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="mt-32 p-16 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[4rem] text-center text-white shadow-3xl border border-white/10 relative overflow-hidden">
-                                    <div class="absolute -top-24 -right-24 w-64 h-64 bg-white/10 blur-[60px] rounded-full animate-pulse"></div>
-                                    <h2 class="text-4xl md:text-6xl font-black mb-8 leading-tight tracking-tighter uppercase font-serif italic relative z-10">Scale Your Sales</h2>
-                                    <p class="text-blue-100 text-xl mb-12 max-w-2xl mx-auto font-medium relative z-10">Join thousands of sellers using the world's fastest on-device AI for Amazon listing optimization.</p>
-                                    <a href="/" class="relative z-10 inline-block bg-white text-blue-600 py-6 px-16 rounded-2xl font-black uppercase tracking-widest hover:scale-105 transition-transform shadow-2xl">Optimize My Listings</a>
+                                <h2 class="text-4xl font-black text-slate-900 dark:text-white mt-24 mb-6 uppercase tracking-tight">Amazon Product Photography Tips for Higher Conversions</h2>
+                                <p class="text-lg leading-relaxed mb-6">Beyond the background, the quality of the photography itself determines your click-through rate. Use soft, diffused lighting to avoid harsh reflections. Hard shadows create a "DIY" look that lacks professionalism.</p>
+                                <p class="text-lg leading-relaxed mb-10">Use a tripod to ensure there is zero motion blur. Shoot from the product's best angle—usually a 3/4 view that shows both the front and the side, giving a 3D feel. Finally, ensure the color in the photo matches the real-life product exactly; high return rates are often caused by "color mismatch" in photos.</p>
+
+                                <div class="my-20 p-12 bg-blue-50 dark:bg-blue-900/10 rounded-[3rem] border border-blue-100 dark:border-blue-800">
+                                    <h2 class="text-3xl font-black text-blue-600 mb-8 uppercase tracking-tight">Why Use RemovePro for Amazon Images?</h2>
+                                    <p class="text-slate-700 dark:text-slate-300 text-lg leading-relaxed mb-8 italic">"RemovePro is specifically optimized for e-commerce workflows. Unlike other tools that limit resolution or add watermarks, we provide 100% free HD exports."</p>
+                                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 list-none p-0">
+                                        <li class="flex items-center gap-3 font-bold text-slate-900 dark:text-white"><div class="w-2 h-2 rounded-full bg-blue-600"></div> Zero Upload Wait Time</li>
+                                        <li class="flex items-center gap-3 font-bold text-slate-900 dark:text-white"><div class="w-2 h-2 rounded-full bg-blue-600"></div> SOC-2 Data Privacy</li>
+                                        <li class="flex items-center gap-3 font-bold text-slate-900 dark:text-white"><div class="w-2 h-2 rounded-full bg-blue-600"></div> No PNG Artifacts</li>
+                                        <li class="flex items-center gap-3 font-bold text-slate-900 dark:text-white"><div class="w-2 h-2 rounded-full bg-blue-600"></div> 50MP Support</li>
+                                    </ul>
+                                </div>
+
+                                <h2 class="text-4xl font-black text-slate-900 dark:text-white mt-24 mb-10 uppercase tracking-tighter">Frequently Asked Questions</h2>
+                                <div class="space-y-6">
+                                    <div class="p-8 bg-slate-50 dark:bg-slate-900/50 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm">
+                                        <h4 class="text-xl font-black text-slate-900 dark:text-white mb-4">1. Can I use a background that is almost white?</h4>
+                                        <p class="text-slate-600 dark:text-slate-400 font-medium">No. Amazon specifically requires pure white (RGB 255, 255, 255). Using even a slight off-white color can lead to your listing being suppressed from search results.</p>
+                                    </div>
+                                    <div class="p-8 bg-slate-50 dark:bg-slate-900/50 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm">
+                                        <h4 class="text-xl font-black text-slate-900 dark:text-white mb-4">2. Does RemovePro reduce the quality of my HD photos?</h4>
+                                        <p class="text-slate-600 dark:text-slate-400 font-medium">No. RemovePro is designed to maintain the original resolution of your images. While many other tools force you to pay for HD, we offer it for free.</p>
+                                    </div>
+                                    <div class="p-8 bg-slate-50 dark:bg-slate-900/50 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm">
+                                        <h4 class="text-xl font-black text-slate-900 dark:text-white mb-4">3. Do I need an account to use the AI?</h4>
+                                        <p class="text-slate-600 dark:text-slate-400 font-medium">No signup is required. You can simply visit our homepage and start editing immediately. We believe in removing friction for creators.</p>
+                                    </div>
+                                    <div class="p-8 bg-slate-50 dark:bg-slate-900/50 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm">
+                                        <h4 class="text-xl font-black text-slate-900 dark:text-white mb-4">4. Can I remove backgrounds from multiple photos?</h4>
+                                        <p class="text-slate-600 dark:text-slate-400 font-medium">Yes. You can use our bulk processing feature to upload several images at the same time, saving hours of work during large catalog updates.</p>
+                                    </div>
+                                    <div class="p-8 bg-slate-50 dark:bg-slate-900/50 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm">
+                                        <h4 class="text-xl font-black text-slate-900 dark:text-white mb-4">5. Are these images suitable for Shopify?</h4>
+                                        <p class="text-slate-600 dark:text-slate-400 font-medium">Absolutely. While Amazon has the strictest requirements, these high-quality white background images are perfect for Shopify, eBay, and Etsy.</p>
+                                    </div>
+                                </div>
+
+                                <div class="mt-32 p-16 bg-blue-600 rounded-[4rem] text-center text-white shadow-3xl relative overflow-hidden">
+                                    <div class="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white/20 via-transparent to-transparent"></div>
+                                    <h2 class="text-4xl md:text-7xl font-black text-white m-0 mb-8 leading-tight tracking-tighter uppercase relative z-10 italic">Dominate Amazon 2026</h2>
+                                    <p class="text-blue-50 text-xl mb-12 max-w-2xl mx-auto font-medium relative z-10 opacity-90">Get the only tool that guarantees 100% Amazon compliance with zero credits and total privacy.</p>
+                                    <a href="/" class="relative z-10 inline-block bg-white text-blue-600 py-6 px-16 rounded-2xl font-black uppercase tracking-widest hover:scale-105 transition-all shadow-2xl">Start Selling Smarter</a>
                                 </div>
                             </div>
                         `,
