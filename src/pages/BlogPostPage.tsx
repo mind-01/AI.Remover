@@ -98,16 +98,6 @@ export const BlogPostPage: React.FC = () => {
                                 
                                 <p class="text-lg leading-relaxed mb-10">Statistics show that high-quality images with clean backgrounds can increase conversion rates by up to 30%. Customers scrolling through thousands of search results are naturally drawn to images that look professional, clear, and trustworthy. A cluttered background distracts the eye, while a white background keeps the focus entirely on the product you are selling. In this guide, we will show you exactly how to achieve that "pro" look in seconds using AI technology.</p>
 
-                                <div class="blog-image-container my-16 text-center">
-                                    <div class="inline-block relative p-1 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-[3rem] shadow-2xl">
-                                        <div class="relative overflow-hidden rounded-[2.9rem]">
-                                            <img src="/blog/nike-shoe-background-removal.webp" alt="Nike shoe before and after background removal for Amazon" loading="lazy" class="block m-0 hover:scale-105 transition-transform duration-500" />
-                                            <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent"></div>
-                                        </div>
-                                    </div>
-                                    <p class="text-center text-slate-500 text-sm font-bold italic mt-8">— Compliant #FFFFFF white background generated in 3 seconds —</p>
-                                </div>
-
                                 <h2 class="text-4xl font-black text-slate-900 dark:text-white mt-12 mb-6 uppercase tracking-tight">Why Amazon Requires a Pure White Background</h2>
                                 <p class="text-lg leading-relaxed mb-10">Amazon’s philosophy is simple: clarity leads to sales. By mandating a pure white background (RGB 255, 255, 255 or Hex #FFFFFF), Amazon creates a consistent and clean shopping experience across its entire platform. When every product looks like it was shot in the same professional studio, the customer focuses on the features of the item rather than the quality of the photography.</p>
                                 
@@ -162,9 +152,9 @@ export const BlogPostPage: React.FC = () => {
 
                                     <div class="relative pl-12 border-l-2 border-slate-100 dark:border-slate-800">
                                         <div class="absolute -left-7 top-0 w-14 h-14 bg-blue-800 rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-lg">3</div>
-                                        <h3 class="text-3xl font-black mb-6 uppercase">Step 3 – Download Transparent PNG</h3>
-                                        <p class="text-lg mb-10 font-medium text-slate-600 dark:text-slate-400 leading-relaxed">After the AI finishes, you will see a preview of your product on a transparent checkerboard background. Check the edges and details to ensure everything looks sharp. If you are satisfied, you can download the high-definition (HD) transparent PNG. This file is your "master cutout" which you can use for various marketing materials beyond just Amazon.</p>
-                                        <img src="/blog/download-png-step.webp" alt="Reviewing the transparent PNG preview before final export" class="rounded-[2.5rem] shadow-2xl border border-slate-100 dark:border-slate-800" />
+                                        <h3 class="text-3xl font-black mb-6 uppercase">Step 3 – Bulk Download in ZIP (Up to 20 Images)</h3>
+                                        <p class="text-lg mb-10 font-medium text-slate-600 dark:text-slate-400 leading-relaxed">Efficiency is key for Amazon sellers. RemovePro allows you to download up to 20 processed images all at once in a single, organized ZIP file. This "Bulk Download" feature saves you from the tedious task of individual exports, making it the perfect tool for large catalog updates while maintaining 100% HD quality for every single unit.</p>
+                                        <img src="/blog/ai-background-remover-bulk-download-sidebar.webp" alt="Bulk download processed Amazon images as a ZIP file" class="rounded-[2.5rem] shadow-2xl border border-slate-100 dark:border-slate-800" />
                                     </div>
 
                                     <div class="relative pl-12 border-l-2 border-slate-100 dark:border-slate-800">

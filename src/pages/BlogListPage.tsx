@@ -42,7 +42,7 @@ export const BlogListPage: React.FC = () => {
                         title: 'How to Remove Background for Amazon Product Photos (2026 Seller Guide)',
                         slug: 'how-to-remove-background-for-amazon-product-photos',
                         excerpt: 'Master the art of Amazon product photography. Learn exactly how to remove backgrounds and create pure white #FFFFFF background images that meet Amazon\'s strictest standards instantly.',
-                        cover_image: '/blog/remove-background-amazon-product-photos-guide.webp',
+                        cover_image: '/blog/nike-shoe-background-removal.webp',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     },
@@ -60,7 +60,7 @@ export const BlogListPage: React.FC = () => {
                         title: 'Best Free Remove.bg Alternative (No Upload, No Watermark)',
                         slug: 'best-free-remove-bg-alternative',
                         excerpt: 'Stop paying for credits. Discover why RemovePro is the best free alternative to Remove.bg for professional HD downloads with zero costs.',
-                        cover_image: '/blog/best-remove-bg-alternative-no-watermark.webp',
+                        cover_image: '/blog/best-removebg-alternative-before-after.webp',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     },
@@ -69,7 +69,7 @@ export const BlogListPage: React.FC = () => {
                         title: 'Free AI Background Remover Without Watermark (HD Quality)',
                         slug: 'free-ai-background-remover-without-watermark',
                         excerpt: 'Experience studio-quality background removal with zero watermarks and 100% on-device privacy. Professional results, completely free.',
-                        cover_image: '/blog/free-ai-background-remover-no-watermark-hd.webp',
+                        cover_image: '/blog/free-ai-background-remover-before-after.webp',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     },
@@ -78,7 +78,7 @@ export const BlogListPage: React.FC = () => {
                         title: 'How to Remove Background Like a Pro (2026)',
                         slug: 'remove-background-like-pro',
                         excerpt: 'Learn secret industry tips for handling complex hair, tough shadows, and lighting matches to achieve commercial-grade results every time.',
-                        cover_image: '/blog/remove-background-like-pro-advanced-ai-guide.webp',
+                        cover_image: '/blog/ai-background-remover-pro-editor-background.webp',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     }
