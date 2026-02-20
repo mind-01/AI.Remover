@@ -42,7 +42,7 @@ export const BlogListPage: React.FC = () => {
                         title: 'How to Remove Background for Amazon Product Photos (2026 Seller Guide)',
                         slug: 'how-to-remove-background-for-amazon-product-photos',
                         excerpt: 'Master the art of Amazon product photography. Learn exactly how to remove backgrounds and create pure white #FFFFFF background images that meet Amazon\'s strictest standards instantly.',
-                        cover_image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=1200',
+                        cover_image: '/blog/remove-background-amazon-product-photos-guide.webp',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     },
@@ -51,7 +51,7 @@ export const BlogListPage: React.FC = () => {
                         title: 'How to Remove Background from Image on Mobile (Free & No App Required)',
                         slug: 'how-to-remove-background-on-mobile',
                         excerpt: 'Desktop-grade AI in your mobile browser. Learn how to remove backgrounds on the go without downloading any apps or sacrificing your privacy.',
-                        cover_image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=1200',
+                        cover_image: '/blog/remove-background-on-your-phone-free-ai-tool.webp',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     },
@@ -60,7 +60,7 @@ export const BlogListPage: React.FC = () => {
                         title: 'Best Free Remove.bg Alternative (No Upload, No Watermark)',
                         slug: 'best-free-remove-bg-alternative',
                         excerpt: 'Stop paying for credits. Discover why RemovePro is the best free alternative to Remove.bg for professional HD downloads with zero costs.',
-                        cover_image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&q=80&w=1200',
+                        cover_image: '/blog/best-remove-bg-alternative-no-watermark.webp',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     },
@@ -69,7 +69,7 @@ export const BlogListPage: React.FC = () => {
                         title: 'Free AI Background Remover Without Watermark (HD Quality)',
                         slug: 'free-ai-background-remover-without-watermark',
                         excerpt: 'Experience studio-quality background removal with zero watermarks and 100% on-device privacy. Professional results, completely free.',
-                        cover_image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&q=80&w=1200',
+                        cover_image: '/blog/free-ai-background-remover-no-watermark-hd.webp',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     },
@@ -78,7 +78,7 @@ export const BlogListPage: React.FC = () => {
                         title: 'How to Remove Background Like a Pro (2026)',
                         slug: 'remove-background-like-pro',
                         excerpt: 'Learn secret industry tips for handling complex hair, tough shadows, and lighting matches to achieve commercial-grade results every time.',
-                        cover_image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1200',
+                        cover_image: '/blog/remove-background-like-pro-advanced-ai-guide.webp',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     }
