@@ -39,37 +39,37 @@ export const BlogListPage: React.FC = () => {
                 setPosts([
                     {
                         id: '5',
-                        title: 'How to Remove Background for Amazon Product Photos (Step-by-Step Guide)',
+                        title: 'How to Remove Background for Amazon Product Photos (2026 Seller Guide)',
                         slug: 'how-to-remove-background-for-amazon-product-photos',
-                        excerpt: 'Master the art of Amazon product photography. Learn exactly how to remove backgrounds and create pure white #FFFFFF background images that convert.',
-                        cover_image: '/blog/nike-shoe-background-removal.webp',
+                        excerpt: 'Master the art of Amazon product photography. Learn exactly how to remove backgrounds and create pure white #FFFFFF background images that meet Amazon\'s strictest standards instantly.',
+                        cover_image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=1200',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     },
                     {
                         id: '4',
-                        title: 'How to Remove Image Background on Mobile (No App Required!)',
+                        title: 'How to Remove Background from Image on Mobile (Free & No App Required)',
                         slug: 'how-to-remove-background-on-mobile',
-                        excerpt: 'Learn how to use RemovePro AI locally on your mobile browser for instant, private background removal without downloading any apps.',
-                        cover_image: '/blog/remove-background-on-your-phone-free-ai-tool.webp',
+                        excerpt: 'Desktop-grade AI in your mobile browser. Learn how to remove backgrounds on the go without downloading any apps or sacrificing your privacy.',
+                        cover_image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=1200',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     },
                     {
                         id: '3',
-                        title: 'Best Free Remove.bg Alternative (No Upload, No Watermark) – RemovePro',
+                        title: 'Best Free Remove.bg Alternative (No Upload, No Watermark)',
                         slug: 'best-free-remove-bg-alternative',
-                        excerpt: 'Are you tired of paying for Remove.bg credits? Discover the best free Remove.bg alternative that requires no signup, no upload, and provides watermark-free HD downloads.',
-                        cover_image: '/blog/nike-shoe-background-removal.webp',
+                        excerpt: 'Stop paying for credits. Discover why RemovePro is the best free alternative to Remove.bg for professional HD downloads with zero costs.',
+                        cover_image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&q=80&w=1200',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     },
                     {
                         id: '2',
-                        title: 'Free AI Background Remover Without Watermark (HD Quality) – RemovePro',
+                        title: 'Free AI Background Remover Without Watermark (HD Quality)',
                         slug: 'free-ai-background-remover-without-watermark',
-                        excerpt: 'Looking for a free AI background remover without watermark? Use RemovePro to remove image backgrounds instantly in high quality.',
-                        cover_image: '/blog/ai-background-remover-upload-interface.webp',
+                        excerpt: 'Experience studio-quality background removal with zero watermarks and 100% on-device privacy. Professional results, completely free.',
+                        cover_image: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&q=80&w=1200',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     },
@@ -77,8 +77,8 @@ export const BlogListPage: React.FC = () => {
                         id: '1',
                         title: 'How to Remove Background Like a Pro (2026)',
                         slug: 'remove-background-like-pro',
-                        excerpt: 'Achieve pixel-perfect cutouts with studio-quality precision. Learn the advanced techniques for handling complex hair, tough shadows, and lighting matches.',
-                        cover_image: '/blog/ai-background-remover-pro-editor-zoom.webp',
+                        excerpt: 'Learn secret industry tips for handling complex hair, tough shadows, and lighting matches to achieve commercial-grade results every time.',
+                        cover_image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1200',
                         created_at: new Date().toISOString(),
                         status: 'published'
                     }
