@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -p tsconfig.app.json && vite build",
-    "postbuild": "node scripts/generate-sitemap.js",
+    "build": "tsc -p tsconfig.app.json && vite build && node scripts/generate-sitemap.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },
