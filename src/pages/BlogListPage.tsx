@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
-import { Calendar, Clock, ArrowRight, Search, Loader2 } from 'lucide-react';
+import { Search, Loader2 } from 'lucide-react';
 import { Header } from '../components/layout/Header';
 import { Footer } from '../components/layout/Footer';
 import { supabase } from '../lib/supabase';
@@ -139,53 +139,42 @@ export const BlogListPage: React.FC = () => {
                             <p className="text-slate-500 font-black uppercase tracking-widest text-sm">Loading articles...</p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
                             {filteredPosts.map((post, idx) => (
                                 <motion.div
                                     key={post.id}
                                     initial={{ opacity: 0, y: 30 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: idx * 0.1 }}
-                                    className="bg-white dark:bg-slate-900 rounded-[2.5rem] overflow-hidden border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none group hover:scale-[1.02] transition-all duration-500"
+                                    className="bg-[#f2f4f7] dark:bg-slate-900 rounded-[2rem] overflow-hidden group hover:shadow-2xl transition-all duration-500 flex flex-col"
                                 >
-                                    <Link to={`/blog/${post.slug}`} className="block relative h-64 overflow-hidden">
+                                    <Link to={`/blog/${post.slug}`} className="block relative aspect-[16/9] overflow-hidden">
                                         <img
                                             src={post.cover_image}
                                             alt={post.title}
-                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                         />
-                                        <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/10 transition-colors" />
+                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
                                     </Link>
 
-                                    <div className="p-8 space-y-4">
-                                        <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                                            <span className="flex items-center gap-1.5 px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full">
-                                                <Calendar className="w-3 h-3 text-blue-600" />
-                                                {new Date(post.created_at).toLocaleDateString()}
-                                            </span>
-                                            <span className="flex items-center gap-1.5 px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full">
-                                                <Clock className="w-3 h-3 text-amber-500" />
-                                                5 min read
-                                            </span>
-                                        </div>
+                                    <div className="p-10 flex flex-col flex-grow">
+                                        <p className="text-[#8e5297] font-black uppercase tracking-[0.2em] text-[10px] mb-4">
+                                            Product Updates
+                                        </p>
 
-                                        <Link to={`/blog/${post.slug}`}>
-                                            <h2 className="text-2xl font-black text-slate-900 dark:text-white leading-tight hover:text-blue-600 transition-colors line-clamp-2">
-                                                {post.title}
+                                        <Link to={`/blog/${post.slug}`} className="mb-6">
+                                            <h2 className="text-3xl font-black text-[#2d333a] dark:text-white leading-[1.1] hover:text-blue-600 transition-colors line-clamp-3">
+                                                {post.title} <span className="inline-block transform group-hover:translate-x-1 transition-transform">→</span>
                                             </h2>
                                         </Link>
 
-                                        <p className="text-slate-500 dark:text-slate-400 font-medium line-clamp-3 leading-relaxed">
-                                            {post.excerpt}
-                                        </p>
-
-                                        <Link
-                                            to={`/blog/${post.slug}`}
-                                            className="inline-flex items-center gap-2 text-blue-600 font-black uppercase tracking-widest text-xs group/link pt-2"
-                                        >
-                                            Read More
-                                            <ArrowRight className="w-4 h-4 group-hover/link:translate-x-2 transition-transform" />
-                                        </Link>
+                                        <div className="mt-auto text-sm font-bold text-slate-400">
+                                            {new Date(post.created_at).toLocaleDateString('en-US', {
+                                                month: 'short',
+                                                day: 'numeric',
+                                                year: 'numeric'
+                                            })}
+                                        </div>
                                     </div>
                                 </motion.div>
                             ))}
