@@ -38,6 +38,15 @@ export const BlogListPage: React.FC = () => {
                 console.error('Error fetching posts:', err);
                 setPosts([
                     {
+                        id: '5',
+                        title: 'How to Remove Background for Amazon Product Photos (Step-by-Step Guide)',
+                        slug: 'how-to-remove-background-for-amazon-product-photos',
+                        excerpt: 'Master the art of Amazon product photography. Learn exactly how to remove backgrounds and create pure white #FFFFFF background images that convert.',
+                        cover_image: '/blog/nike-shoe-background-removal.webp',
+                        created_at: new Date().toISOString(),
+                        status: 'published'
+                    },
+                    {
                         id: '4',
                         title: 'How to Remove Image Background on Mobile (No App Required!)',
                         slug: 'how-to-remove-background-on-mobile',
