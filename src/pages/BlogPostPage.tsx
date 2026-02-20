@@ -97,77 +97,79 @@ export const BlogPostPage: React.FC = () => {
                                 <p class="text-lg leading-relaxed mb-10">Selling on Amazon is a game of visual trust. The platform's <strong>"Main Image"</strong> requirement—a pure white background—isn't just a hurdle; it's a proven conversion tool. In this guide, we'll show you how to leverage <strong>RemovePro's local AI</strong> to create #FFFFFF background images that meet Amazon's strictest standards instantly.</p>
 
                                 <div class="blog-image-container my-16 text-center">
-                                    <div class="inline-block relative p-1 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-[3rem] shadow-2xl">
-                                        <div class="relative overflow-hidden rounded-[2.9rem]">
-                                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=1200" alt="Professional Amazon Sneaker Shot" loading="lazy" class="block m-0 hover:scale-110 transition-transform duration-700">
-                                            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                                        </div>
-                                    </div>
-                                    <p class="mt-8 text-slate-400 font-bold italic text-sm">Case Study: Nike Runner processed to 100% white background perfection.</p>
+                                    <img src="/blog/amazon_before_after_comparison.webp" alt="Amazon product photo comparison" class="rounded-[2rem] shadow-xl max-w-full h-auto mx-auto" style={{borderRadius: '24px'}} />
+                                    <p class="mt-4 text-slate-400 font-bold italic text-sm">The difference between a raw photo and an Amazon-ready image is clarity.</p>
                                 </div>
 
-                                <h2 class="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mt-24 mb-10 tracking-tighter border-l-8 border-blue-600 pl-8">The Alchemy of the Pure White Background</h2>
-                                <p class="text-lg leading-relaxed mb-10">Amazon mandates an RGB (255, 255, 255) background. Why? Consistency. When every product in search results shares the same infinite white space, customers can compare specs and aesthetics without being distracted by varied lighting or messy studio setups.</p>
+                                <h2 class="text-3xl font-black text-slate-900 dark:text-white mt-12 mb-6">Why Amazon Requires a Pure White Background</h2>
+                                <p class="text-lg leading-relaxed mb-10">Amazon mandates an RGB (255, 255, 255) background to create a consistent and clean shopping experience across its entire platform. By choosing to <strong>remove background for Amazon product photos</strong>, you ensure that your product "pops" on the screen.</p>
                                 
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-16">
-                                    <div class="p-10 bg-slate-50 dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none">
-                                        <h3 class="text-2xl font-black mb-4">Mobile Optimization</h3>
-                                        <p class="text-slate-600 dark:text-slate-400 mb-0 font-medium">Over 70% of Amazon traffic is mobile. On a small screen, a white background makes the subject appear 20% larger and significantly sharper.</p>
+                                <div class="my-10 p-10 bg-slate-50 dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800">
+                                    <h3 class="text-2xl font-black mb-6">Amazon Technical Standards</h3>
+                                    <ul class="space-y-4 list-none p-0 m-0">
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-blue-600 font-black">✓</span>
+                                            <span>Background must be pure white (RGB 255, 255, 255).</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-blue-600 font-black">✓</span>
+                                            <span>Product should occupy at least 85% of the image frame.</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-blue-600 font-black">✓</span>
+                                            <span>No extra items, props, watermarks, or text.</span>
+                                        </li>
+                                        <li class="flex items-start gap-3">
+                                            <span class="text-blue-600 font-black">✓</span>
+                                            <span>Smooth, sharp edges without "halos" or leftover pixels.</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <h2 class="text-3xl font-black text-slate-900 dark:text-white mt-12 mb-10">4-Step Guide to Amazon-Ready Photos</h2>
+
+                                <div class="space-y-20 my-16">
+                                    <div>
+                                        <h3 class="text-2xl font-black mb-4">Step 1 – Capture and Upload</h3>
+                                        <p class="text-lg mb-8 font-medium text-slate-600 dark:text-slate-400">Take a clear photo with good lighting. Drag and drop it into RemovePro dashboard. Our system handles high-resolution files perfectly.</p>
+                                        <img src="/blog/amazon_upload_interface_mockup.webp" alt="Upload interface" class="rounded-[2rem] shadow-xl max-w-full h-auto mb-10" />
                                     </div>
-                                    <div class="p-10 bg-slate-50 dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none">
-                                        <h3 class="text-2xl font-black mb-4">Trust Factor</h3>
-                                        <p class="text-slate-600 dark:text-slate-400 mb-0 font-medium">A standardized background signals to the customer that they are buying from a professional, verified seller rather than a casual marketplace listing.</p>
+
+                                    <div>
+                                        <h3 class="text-2xl font-black mb-4">Step 2 – AI Background Removal</h3>
+                                        <p class="text-lg mb-8 font-medium text-slate-600 dark:text-slate-400">Our neural network uses advanced edge-detection for complex textures. This happens locally in your browser for total privacy.</p>
+                                        <img src="/blog/ai_processing_visualization.webp" alt="AI processing" class="rounded-[2rem] shadow-xl max-w-full h-auto mb-10" />
+                                    </div>
+
+                                    <div>
+                                        <h3 class="text-2xl font-black mb-4">Step 3 – Quality Verification</h3>
+                                        <p class="text-lg mb-8 font-medium text-slate-600 dark:text-slate-400">Download the HD transparent PNG. Check the edges in the preview to ensure a professional-grade cutout.</p>
+                                        <img src="/blog/transparent_png_preview_checkerboard.webp" alt="Transparent preview" class="rounded-[2rem] shadow-xl max-w-full h-auto mb-10" />
+                                    </div>
+
+                                    <div>
+                                        <h3 class="text-2xl font-black mb-4">Step 4 – Final White Background Export</h3>
+                                        <p class="text-lg mb-8 font-medium text-slate-600 dark:text-slate-400">Apply the white preset and export as high-quality JPG. Your photo is now fully compliant with Amazon standards.</p>
+                                        <img src="/blog/final_amazon_product_white_bg.webp" alt="Final Amazon photo" class="rounded-[2rem] shadow-xl max-w-full h-auto" />
                                     </div>
                                 </div>
 
-                                <h2 class="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mt-24 mb-10 tracking-tighter border-l-8 border-blue-600 pl-8">The 4-Step Professional Workflow</h2>
-                                <p class="text-lg leading-relaxed mb-12">You don't need a $10,000 studio. You only need good lighting and the right AI pipeline.</p>
-
-                                <div class="space-y-32 my-24">
-                                    <div class="relative pl-12 border-l-2 border-slate-100 dark:border-slate-800 pb-10">
-                                        <div class="absolute -left-6 top-0 w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg animate-pulse">1</div>
-                                        <h3 class="text-3xl font-black mb-6 text-slate-900 dark:text-white">Capture and Upload</h3>
-                                        <p class="text-lg mb-10 font-medium text-slate-600 dark:text-slate-400">Use any natural light source. Drag your product image into the <strong>RemovePro</strong> dashboard. Our AI is trained on millions of e-commerce datasets to handle complex shadows.</p>
-                                        <div class="rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800">
-                                            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=1200" alt="Step 1: Upload" class="w-full">
-                                        </div>
-                                    </div>
-
-                                    <div class="relative pl-12 border-l-2 border-slate-100 dark:border-slate-800 pb-10">
-                                        <div class="absolute -left-6 top-0 w-12 h-12 bg-blue-800 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg">2</div>
-                                        <h3 class="text-3xl font-black mb-6 text-slate-900 dark:text-white">Edge Detection Precision</h3>
-                                        <p class="text-lg mb-10 font-medium text-slate-600 dark:text-slate-400">Our local AI engine performs a sub-pixel analysis to ensure even fine textures—like camera lens reflections or fabric weaves—are perfectly cut out.</p>
-                                        <div class="rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800">
-                                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=1200" alt="Step 2: Analysis" class="w-full">
-                                        </div>
-                                    </div>
-
-                                    <div class="relative pl-12 border-l-2 border-slate-100 dark:border-slate-800">
-                                        <div class="absolute -left-6 top-0 w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg">3</div>
-                                        <h3 class="text-3xl font-black mb-6 text-slate-900 dark:text-white">Export for Seller Central</h3>
-                                        <p class="text-lg mb-10 font-medium text-slate-600 dark:text-slate-400">Select the 'Amazon White' preset. This automatically sets the background to hex #FFFFFF and exports a high-resolution JPG that meets the 10:1 compression limit.</p>
-                                        <div class="rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800">
-                                            <img src="/blog/ai-background-remover-hd-download-options.webp" alt="Step 3: Export" class="w-full">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="mt-32 p-16 bg-slate-900 rounded-[4rem] text-center text-white shadow-3xl relative overflow-hidden">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-transparent"></div>
-                                    <h2 class="text-4xl md:text-6xl font-black text-white m-0 mb-8 leading-tight tracking-tighter uppercase">Skyrocket Your Sales</h2>
-                                    <p class="text-slate-400 text-xl mb-12 max-w-2xl mx-auto font-medium">Join 50,000+ Amazon sellers who have ditched expensive subscriptions for the speed of RemovePro.</p>
-                                    <a href="/" class="relative z-10 inline-block bg-white text-blue-600 py-6 px-16 rounded-2xl font-black uppercase tracking-[0.3em] text-sm hover:scale-105 transition-transform shadow-2xl">Start Free Bulk Upload</a>
+                                <div class="mt-20 p-12 bg-slate-900 rounded-[3rem] text-center text-white">
+                                    <h2 class="text-3xl md:text-5xl font-black mb-8">Ready to Boost Your Sales?</h2>
+                                    <p class="text-slate-400 text-xl mb-10 max-w-2xl mx-auto">Get studio-quality Amazon product photos in seconds, completely free.</p>
+                                    <a href="/" class="inline-block bg-white text-blue-600 py-5 px-12 rounded-2xl font-black uppercase tracking-widest hover:scale-105 transition-transform">Start Free Upload</a>
                                 </div>
 
                                 <div class="mt-16 text-center">
-                                    <p class="text-slate-400 font-bold">Need help? Read our <a href="/faq" class="text-blue-600 no-underline hover:underline">Seller FAQ</a></p>
+                                    <p class="text-slate-400 font-bold">Have questions? Check our <a href="/help" class="text-blue-600 hover:underline">Seller FAQ</a></p>
                                 </div>
                             </div>
                         `,
                         cover_image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=1200',
                         created_at: new Date().toISOString()
                     });
-                } else if (slug === 'how-to-remove-background-on-mobile') {
+                }
+                else if (slug === 'how-to-remove-background-on-mobile') {
                     setPost({
                         id: '4',
                         title: 'How to Remove Background from Image on Mobile<br />(Free & No App Required)',
@@ -179,37 +181,31 @@ export const BlogPostPage: React.FC = () => {
                                 <p class="text-lg leading-relaxed mb-10">We live in a mobile-first world. Whether you're a social media influencer, an e-commerce seller capturing inventory on the go, or just someone looking to create a cool profile picture, you need a way to <strong>remove image backgrounds on mobile</strong> without the bloat of specialized apps. <strong>RemovePro</strong> brings desktop-grade AI to your mobile browser—for free.</p>
 
                                 <div class="blog-image-container my-16 text-center">
-                                    <div class="inline-block relative p-1 bg-gradient-to-tr from-orange-400 to-red-500 rounded-[3rem] shadow-2xl">
-                                        <div class="relative overflow-hidden rounded-[2.9rem]">
-                                            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80&w=1200" alt="Person using smartphone outside" loading="lazy" class="block m-0 hover:scale-105 transition-transform duration-500">
-                                            <div class="absolute inset-0 bg-orange-500/10"></div>
-                                        </div>
-                                    </div>
-                                    <p class="mt-8 text-slate-400 font-bold italic text-sm">Professional editing on the go: No downloads, no subscriptions, no compromises.</p>
+                                    <img src="/blog/remove-background-on-your-phone-free-ai-tool.webp" alt="Mobile editing" class="rounded-[2rem] shadow-xl max-w-full h-auto mx-auto" />
+                                    <p class="mt-4 text-slate-400 font-bold italic text-sm">Professional editing on the go: No downloads, no subscriptions.</p>
                                 </div>
 
-                                <h2 class="text-3xl md:text-5xl font-black text-slate-900 dark:text-white mt-24 mb-10 tracking-tighter border-l-8 border-orange-500 pl-8">Universal Browser Compatibility</h2>
-                                <p class="text-lg leading-relaxed mb-10">You don't need a high-end iPhone or the latest Samsung Galaxy to run RemovePro. Our <strong>local AI engine</strong> is optimized for mobile Safari, Chrome, and Firefox, utilizing your device's hardware acceleration directly in the browser tab.</p>
-
-                                <div class="bg-indigo-900 text-white p-12 rounded-[4rem] my-16 shadow-2xl relative overflow-hidden">
-                                    <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 blur-3xl rounded-full translate-x-32 -translate-y-32"></div>
-                                    <h2 class="text-3xl font-black mb-10 text-white mt-0">Mobile Advantage Checklist</h2>
-                                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-8 p-0 list-none m-0">
-                                        <li class="flex items-start gap-4 m-0 text-indigo-50">
-                                            <span class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center shrink-0 font-black text-sm">✓</span>
-                                            <span><strong>Zero Data Usage:</strong> AI runs locally, saving your mobile data plan.</span>
+                                <h2 class="text-3xl font-black text-slate-900 dark:text-white mt-12 mb-6">Edit Anywhere with Browser AI</h2>
+                                <p class="text-lg leading-relaxed mb-10">You don't need a high-end device or complex apps. RemovePro brings studio-grade background removal directly to your mobile browser, utilizing hardware acceleration for instant results.</p>
+                                
+                                <div class="my-10 p-10 bg-indigo-900 text-white rounded-[2.5rem]">
+                                    <h2 class="text-2xl font-black mb-8 text-white">Mobile Advantage Checklist</h2>
+                                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-6 p-0 list-none m-0">
+                                        <li class="flex items-center gap-3">
+                                            <span class="text-orange-400 font-black">✓</span>
+                                            <span><strong>Zero Data:</strong> Runs locally on your device.</span>
                                         </li>
-                                        <li class="flex items-start gap-4 m-0 text-indigo-50">
-                                            <span class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center shrink-0 font-black text-sm">✓</span>
-                                            <span><strong>Save Storage:</strong> No app means more room for your photos.</span>
+                                        <li class="flex items-center gap-3">
+                                            <span class="text-orange-400 font-black">✓</span>
+                                            <span><strong>Save Room:</strong> No bulky apps to download.</span>
                                         </li>
-                                        <li class="flex items-start gap-4 m-0 text-indigo-50">
-                                            <span class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center shrink-0 font-black text-sm">✓</span>
-                                            <span><strong>Unlimited HD:</strong> No "Credits" required for your high-res shots.</span>
+                                        <li class="flex items-center gap-3">
+                                            <span class="text-orange-400 font-black">✓</span>
+                                            <span><strong>Free Forever:</strong> No "HD" fees or credits.</span>
                                         </li>
-                                        <li class="flex items-start gap-4 m-0 text-indigo-50">
-                                            <span class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center shrink-0 font-black text-sm">✓</span>
-                                            <span><strong>Instant Speed:</strong> No waiting for server uploads or queues.</span>
+                                        <li class="flex items-center gap-3">
+                                            <span class="text-orange-400 font-black">✓</span>
+                                            <span><strong>Safe & Private:</strong> Photos never leave your phone.</span>
                                         </li>
                                     </ul>
                                 </div>
