@@ -17,6 +17,7 @@ import { useAuth } from '../contexts/AuthContext';
 import Dashboard from '../components/Dashboard';
 import { APISection } from '../components/APISection';
 import { ComparisonSection } from '../components/ComparisonSection';
+import { EcommerceSection } from '../components/EcommerceSection';
 
 interface ProcessingTask {
     id: string;
@@ -250,6 +251,7 @@ export function HomePage() {
                                     </section>
 
                                     <ComparisonSection />
+                                    <EcommerceSection />
                                     <APISection />
                                 </motion.div>
 

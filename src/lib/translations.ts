@@ -235,6 +235,17 @@ export const translations: Record<string, any> = {
             placeholder: 'Enter your email',
             subscribe: 'Subscribe',
             privacyNote: 'To learn more about how AI Remover PRO handles your personal data, check our Privacy Policy.'
+        },
+        ecommerce: {
+            title: 'Built for E-commerce',
+            subtitle: 'Scale your online business with high-quality product images optimized for every marketplace.',
+            bulkTitle: 'Bulk Processing',
+            bulkDesc: 'Upload hundreds of product photos and get transparent backgrounds in minutes.',
+            marketplaceTitle: 'Marketplace Ready',
+            marketplaceDesc: 'Perfect results for Amazon, Shopify, Etsy, and eBay, following all image requirements.',
+            studioTitle: 'Studio Quality',
+            studioDesc: 'Save thousands on professional photography. Our AI delivers studio-grade cutouts instantly.',
+            cta: 'Boost Your Sales'
         }
     },
     hi: {
@@ -433,6 +444,17 @@ export const translations: Record<string, any> = {
             placeholder: 'अपना ईमेल दर्ज करें',
             subscribe: 'सब्सक्राइब करें',
             privacyNote: 'AI Remover PRO आपके व्यक्तिगत डेटा को कैसे संभालता है, इसके बारे में अधिक जानने के लिए हमारी गोपनीयता नीति देखें।'
+        },
+        ecommerce: {
+            title: 'ई-कॉमर्स के लिए निर्मित',
+            subtitle: 'हर मार्केटप्लेस के लिए अनुकूलित उच्च गुणवत्ता वाले प्रोडक्ट इमेज के साथ अपने ऑनलाइन बिजनेस को बढ़ाएं।',
+            bulkTitle: 'बल्क प्रोसेसिंग',
+            bulkDesc: 'सैकड़ों प्रोडक्ट फोटो अपलोड करें और मिनटों में पारदर्शी बैकग्राउंड प्राप्त करें।',
+            marketplaceTitle: 'मार्केटप्लेस के लिए तैयार',
+            marketplaceDesc: 'Amazon, Shopify, Etsy और eBay के लिए सटीक परिणाम, सभी इमेज आवश्यकताओं का पालन करते हुए।',
+            studioTitle: 'स्टूडियो गुणवत्ता',
+            studioDesc: 'प्रोफेशनल फोटोग्राफी पर हजारों बचाएं। हमारा एआई तुरंत स्टूडियो-ग्रेड कटआउट प्रदान करता है।',
+            cta: 'अपनी बिक्री बढ़ाएं'
         }
     },
     es: {
