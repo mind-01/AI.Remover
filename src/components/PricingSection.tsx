@@ -1,6 +1,6 @@
 import React from 'react';
 import { Check, Sparkles, Shield, Zap, Crown } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 
 export const PricingSection: React.FC = () => {
     const plans = [
