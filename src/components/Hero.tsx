@@ -15,6 +15,7 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
 
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [isDragging, setIsDragging] = useState(false);
+    const [activeCategory, setActiveCategory] = useState('products');
 
     const handleDragOver = (e: React.DragEvent) => {
         e.preventDefault();
@@ -40,6 +41,37 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
             if (files.length > 0) {
                 onFilesSelect(files);
             }
+        }
+    };
+
+    const categories = [
+        { id: 'products', label: 'Products' },
+        { id: 'people', label: 'People' },
+        { id: 'animals', label: 'Animals' },
+        { id: 'cars', label: 'Cars' },
+        { id: 'graphics', label: 'Graphics' }
+    ];
+
+    const categoryImages: Record<string, { before: string; after: string }> = {
+        products: {
+            before: '/demo/shoe-original.webp',
+            after: '/demo/shoe-result.png'
+        },
+        people: {
+            before: '/demo/People-original.webp',
+            after: '/demo/People-result.webp'
+        },
+        animals: {
+            before: 'https://images.unsplash.com/photo-1543946207-39bd91e70ca7?q=80&w=1200',
+            after: 'https://images.unsplash.com/photo-1543946207-39bd91e70ca7?q=80&w=1200'
+        },
+        cars: {
+            before: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200',
+            after: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200'
+        },
+        graphics: {
+            before: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200',
+            after: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200'
         }
     };
 
@@ -134,19 +166,51 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
                         </div>
                     </motion.div>
 
-                    {/* Comparison Slider - Below and Centered */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="relative w-full max-w-4xl"
-                    >
-                        <div className="absolute inset-0 bg-blue-600 blur-[120px] opacity-10" />
-                        <ComparisonSlider
-                            beforeImage="/demo/shoe-original.webp"
-                            afterImage="/demo/shoe-result.png"
-                        />
-                    </motion.div>
+                    {/* Stunning Quality Section */}
+                    <div className="w-full max-w-5xl space-y-8 py-12">
+                        <div className="text-center space-y-6">
+                            <h2 className="text-4xl md:text-5xl font-black text-slate-800 dark:text-white tracking-tight leading-tight">
+                                Stunning quality
+                            </h2>
+                            <div className="flex flex-wrap justify-center gap-2 md:gap-4 p-1.5 bg-slate-100/50 dark:bg-slate-900/50 backdrop-blur-md rounded-2xl w-fit mx-auto border border-slate-200/50 dark:border-slate-800/50">
+                                {categories.map((cat) => (
+                                    <button
+                                        key={cat.id}
+                                        onClick={() => setActiveCategory(cat.id)}
+                                        className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${activeCategory === cat.id
+                                            ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-lg'
+                                            : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
+                                            }`}
+                                    >
+                                        {cat.label}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        <motion.div
+                            key={activeCategory}
+                            initial={{ opacity: 0, scale: 0.98 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.4 }}
+                            className="relative w-full"
+                        >
+                            <div className="absolute inset-0 bg-blue-600 blur-[120px] opacity-10" />
+                            <ComparisonSlider
+                                beforeImage={categoryImages[activeCategory].before}
+                                afterImage={categoryImages[activeCategory].after}
+                            />
+                        </motion.div>
+
+                        <div className="text-center">
+                            <button
+                                onClick={() => document.getElementById('samples')?.scrollIntoView({ behavior: 'smooth' })}
+                                className="text-blue-600 dark:text-blue-400 font-bold flex items-center gap-2 mx-auto hover:gap-3 transition-all group"
+                            >
+                                See more samples <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -157,4 +221,3 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
         </div>
     );
 };
-

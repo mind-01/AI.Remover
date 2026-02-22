@@ -1,164 +1,218 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Layers, Github, Twitter, Mail, Sparkles } from 'lucide-react';
+import { Layers, Github, Twitter, Mail, Sparkles, Send, ShieldCheck, Zap } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../lib/translations';
 import { LanguageSelector } from '../LanguageSelector';
 
-interface FooterProps {
-}
-
-export const Footer: React.FC<FooterProps> = () => {
+export const Footer: React.FC = () => {
     const { language } = useLanguage();
     const t = translations[language]?.common || translations.en.common;
+    const [email, setEmail] = useState('');
+    const [subscribed, setSubscribed] = useState(false);
+
+    const handleSubscribe = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (email) {
+            setSubscribed(true);
+            setTimeout(() => {
+                setSubscribed(false);
+                setEmail('');
+            }, 3000);
+        }
+    };
+
+    const footerLinks = {
+        tools: [
+            { name: t.bgRemover, available: true, to: '/' },
+            { name: t.pngMaker, available: false },
+            { name: t.objectEraser, available: false },
+            { name: "Batch Editor", available: false }
+        ],
+        resources: [
+            { name: t.apiDoc, to: "/api-docs", available: true },
+            { name: t.blog, to: "/blog", available: true },
+            { name: "Support Center", to: "/help", available: true },
+            { name: "Community", available: false }
+        ],
+        legal: [
+            { name: "Privacy Policy", to: "/privacy" },
+            { name: "Terms of Service", to: "/terms" },
+            { name: "Cookie Policy", to: "/cookies" },
+            { name: "Refund Policy", to: "/refund" }
+        ]
+    };
 
     return (
-        <footer className="bg-slate-50 border-t border-slate-200 pt-20 pb-10 dark:bg-slate-900 dark:border-slate-800">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-                    {/* Brand Section */}
-                    <div className="space-y-6">
-                        <div className="flex items-center space-x-2.5">
-                            <div className="p-2 bg-blue-600 rounded-lg shadow-lg shadow-blue-200 dark:shadow-blue-900/20">
-                                <Layers className="w-4 h-4 text-white" aria-label="AI Remover PRO logo" />
+        <footer className="relative bg-white dark:bg-slate-950 pt-24 pb-12 border-t border-slate-100 dark:border-slate-800/50 transition-colors duration-300 overflow-hidden">
+            {/* Mesh Gradients */}
+            <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-40 dark:opacity-20 transition-opacity">
+                <div className="absolute -top-24 left-1/4 w-96 h-96 bg-blue-400/20 rounded-full blur-[100px] animate-pulse" />
+                <div className="absolute top-1/2 -right-24 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[120px]" />
+            </div>
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-20">
+                    {/* Brand & Newsletter Column */}
+                    <div className="lg:col-span-5 space-y-10">
+                        <div className="space-y-6">
+                            <Link to="/" className="flex items-center space-x-3 group">
+                                <div className="p-2.5 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform">
+                                    <Layers className="w-5 h-5 text-white" />
+                                </div>
+                                <span className="text-2xl font-black text-slate-800 dark:text-white tracking-tight">
+                                    AI Remover <span className="text-blue-600">PRO</span>
+                                </span>
+                            </Link>
+                            <p className="text-lg text-slate-500 dark:text-slate-400 font-medium leading-relaxed max-w-md">
+                                {t.footerDesc || "Professional background removal for photographers, e-commerce, and creators. Studio quality results in seconds."}
+                            </p>
+                        </div>
+
+                        {/* Newsletter Block */}
+                        <div className="p-8 rounded-[2rem] bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800/80 backdrop-blur-xl relative overflow-hidden group/news">
+                            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover/news:opacity-30 transition-opacity">
+                                <Mail className="w-12 h-12 text-blue-600" />
                             </div>
-                            <span className="text-lg font-black text-slate-800 tracking-tight dark:text-white">
-                                AI Remover <span className="text-blue-600 dark:text-blue-400">PRO</span>
-                            </span>
-                        </div>
-                        <p className="text-sm text-slate-500 leading-relaxed font-medium dark:text-slate-400">
-                            {t.footerDesc}
-                        </p>
-                        <div className="flex items-center space-x-4">
-                            {/* ✅ FIXED: Added aria-label and proper href */}
-                            <a
-                                href="https://twitter.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label="Follow us on Twitter"
-                                className="p-2 bg-white rounded-lg text-slate-400 hover:text-blue-600 transition-all border border-slate-200 hover:border-blue-200 shadow-sm dark:bg-slate-800 dark:border-slate-700 dark:hover:bg-slate-700 dark:hover:text-blue-400"
-                            >
-                                <Twitter className="w-4 h-4" />
-                            </a>
-                            {/* ✅ FIXED: Changed to # or your actual repo */}
-                            <a
-                                href="#"
-                                onClick={(e) => { e.preventDefault(); alert('GitHub repository coming soon!') }}
-                                aria-label="View our GitHub"
-                                className="p-2 bg-white rounded-lg text-slate-400 hover:text-slate-900 transition-all border border-slate-200 hover:border-slate-300 shadow-sm dark:bg-slate-800 dark:border-slate-700 dark:hover:bg-slate-700 dark:hover:text-white"
-                            >
-                                <Github className="w-4 h-4" />
-                            </a>
-                            {/* ✅ FIXED: Added aria-label */}
-                            <a
-                                href="mailto:support@airemover.pro"
-                                aria-label="Email us at support@airemover.pro"
-                                className="p-2 bg-white rounded-lg text-slate-400 hover:text-red-500 transition-all border border-slate-200 hover:border-red-200 shadow-sm dark:bg-slate-800 dark:border-slate-700 dark:hover:bg-slate-700 dark:hover:text-red-400"
-                            >
-                                <Mail className="w-4 h-4" />
-                            </a>
-                        </div>
-                    </div>
+                            <h4 className="text-xl font-black text-slate-800 dark:text-white mb-2">Join the newsletter</h4>
+                            <p className="text-sm text-slate-500 dark:text-slate-400 font-bold mb-6">Get tips, updates, and exclusive creator offers.</p>
 
-                    {/* Quick Tools */}
-                    <div>
-                        <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest mb-6 dark:text-white">{t.onlineTools}</h4>
-                        <ul className="space-y-4">
+                            <form onSubmit={handleSubscribe} className="relative flex items-center">
+                                <input
+                                    type="email"
+                                    required
+                                    placeholder="Enter your email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className="w-full px-6 py-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-bold text-sm dark:text-white placeholder:text-slate-400"
+                                />
+                                <button
+                                    type="submit"
+                                    disabled={subscribed}
+                                    className="absolute right-2 p-3 bg-slate-900 dark:bg-blue-600 text-white rounded-xl hover:scale-105 active:scale-95 transition-all shadow-lg"
+                                >
+                                    <AnimatePresence mode="wait">
+                                        {subscribed ? (
+                                            <motion.div key="success" initial={{ scale: 0.5 }} animate={{ scale: 1 }} exit={{ scale: 0.5 }}>
+                                                <ShieldCheck className="w-5 h-5 text-emerald-400" />
+                                            </motion.div>
+                                        ) : (
+                                            <motion.div key="arrow" initial={{ scale: 0.5 }} animate={{ scale: 1 }} exit={{ scale: 0.5 }}>
+                                                <Send className="w-5 h-5" />
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </button>
+                            </form>
+                        </div>
+
+                        {/* Social Links */}
+                        <div className="flex items-center gap-4">
                             {[
-                                { name: t.bgRemover, available: true },
-                                { name: t.pngMaker, available: false },
-                                { name: t.objectEraser, available: false }
-                            ].map((item) => (
-                                <li key={item.name}>
-                                    <a
-                                        href={item.available ? "#" : "#"}
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            if (!item.available) {
-                                                alert(`${item.name} - Coming soon!`);
-                                            }
-                                        }}
-                                        aria-label={item.name}
-                                        className="text-sm text-slate-500 hover:text-blue-600 font-bold transition-colors flex items-center gap-2 group cursor-pointer dark:text-slate-400 dark:hover:text-blue-400"
-                                    >
-                                        <div className="w-1 h-1 bg-slate-300 rounded-full group-hover:bg-blue-600 transition-colors dark:bg-slate-600 dark:group-hover:bg-blue-400" />
-                                        {item.name}
-                                    </a>
-                                </li>
+                                { icon: <Twitter className="w-5 h-5" />, href: "#", color: "hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20" },
+                                { icon: <Github className="w-5 h-5" />, href: "#", color: "hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800" },
+                                { icon: <Mail className="w-5 h-5" />, href: "mailto:hello@airemover.pro", color: "hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20" }
+                            ].map((social, i) => (
+                                <a
+                                    key={i}
+                                    href={social.href}
+                                    className={`w-12 h-12 flex items-center justify-center rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-slate-400 transition-all duration-300 shadow-sm ${social.color}`}
+                                >
+                                    {social.icon}
+                                </a>
                             ))}
-                        </ul>
+                        </div>
                     </div>
 
-                    {/* Resources */}
-                    <div>
-                        <h4 className="text-xs font-black text-slate-900 uppercase tracking-widest mb-6 dark:text-white">{t.resources}</h4>
-                        <ul className="space-y-4">
-                            {[
-                                { name: t.apiDoc, to: "/api-docs", available: true },
-                                { name: t.devTools, href: "#", available: false },
-                                { name: t.blog, to: "/blog", available: true }
-                            ].map((item) => (
-                                <li key={item.name}>
-                                    {item.to ? (
+                    {/* Links Columns */}
+                    <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-12">
+                        {/* Tools Column */}
+                        <div className="space-y-8">
+                            <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-[0.2em]">Tools</h4>
+                            <ul className="space-y-5">
+                                {footerLinks.tools.map((link, i) => (
+                                    <li key={i}>
+                                        <button
+                                            disabled={!link.available}
+                                            className={`group flex items-center gap-2 text-sm font-bold transition-all ${link.available
+                                                ? 'text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400'
+                                                : 'text-slate-300 dark:text-slate-600 cursor-not-allowed'
+                                                }`}
+                                        >
+                                            <div className="w-1.5 h-1.5 rounded-full bg-slate-200 group-hover:bg-blue-500 transition-colors" />
+                                            {link.name}
+                                            {!link.available && <span className="text-[10px] font-black uppercase text-slate-300 dark:text-slate-700 ml-1">Soon</span>}
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        {/* Resources Column */}
+                        <div className="space-y-8">
+                            <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-[0.2em]">Resources</h4>
+                            <ul className="space-y-5">
+                                {footerLinks.resources.map((link, i) => (
+                                    <li key={i}>
                                         <Link
-                                            to={item.to}
-                                            className="text-sm text-slate-500 hover:text-blue-600 font-bold transition-colors flex items-center gap-2 group dark:text-slate-400 dark:hover:text-blue-400"
+                                            to={link.to || "#"}
+                                            className={`group flex items-center gap-2 text-sm font-bold transition-all ${link.available
+                                                ? 'text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400'
+                                                : 'text-slate-300 dark:text-slate-600 cursor-not-allowed'
+                                                }`}
                                         >
-                                            <div className="w-1 h-1 bg-slate-300 rounded-full group-hover:bg-blue-600 transition-colors dark:bg-slate-600 dark:group-hover:bg-blue-400" />
-                                            {item.name}
+                                            <div className="w-1.5 h-1.5 rounded-full bg-slate-200 group-hover:bg-blue-500 transition-colors" />
+                                            {link.name}
                                         </Link>
-                                    ) : (
-                                        <a
-                                            href={item.href}
-                                            onClick={!item.available ? (e) => { e.preventDefault(); alert(`${item.name} - Coming soon!`) } : undefined}
-                                            aria-label={item.name}
-                                            className="text-sm text-slate-500 hover:text-blue-600 font-bold transition-colors flex items-center gap-2 group dark:text-slate-400 dark:hover:text-blue-400"
-                                        >
-                                            <div className="w-1 h-1 bg-slate-300 rounded-full group-hover:bg-blue-600 transition-colors dark:bg-slate-600 dark:group-hover:bg-blue-400" />
-                                            {item.name}
-                                        </a>
-                                    )}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
 
-                    {/* Support & Legal */}
-                    <div>
-                        <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-6 dark:text-white">Support</h3>
-                        <ul className="space-y-4">
-                            <li><Link to="/help" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Help & FAQs</Link></li>
-                            <li><Link to="/contact" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Contact us</Link></li>
-                            <li><Link to="/refund" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Refunds</Link></li>
-                            <li><Link to="/status" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Platform Status</Link></li>
-                            <li><Link to="/resources" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Resources</Link></li>
-                            <li><Link to="/privacy" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Privacy Policy</Link></li>
-                            <li><Link to="/terms" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Terms of Service</Link></li>
-                            <li><a href="#" className="text-slate-600 hover:text-blue-600 font-medium transition-colors dark:text-slate-400 dark:hover:text-blue-400">Cookie Policy</a></li>
-                        </ul>
+                        {/* Legal Column */}
+                        <div className="space-y-8">
+                            <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-[0.2em]">Legal</h4>
+                            <ul className="space-y-5">
+                                {footerLinks.legal.map((link, i) => (
+                                    <li key={i}>
+                                        <Link to={link.to} className="group flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-all">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-slate-200 group-hover:bg-blue-500 transition-colors" />
+                                            {link.name}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
-                <div className="pt-10 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-6 dark:border-slate-800">
-                    <div className="flex items-center gap-4">
-                        <p className="text-[13px] text-slate-400 font-bold tracking-tight dark:text-slate-500">
-                            © {new Date().getFullYear()} {t.allRightsReserved}
+                {/* Bottom Bar */}
+                <div className="pt-12 border-t border-slate-100 dark:border-slate-800/80 flex flex-col md:flex-row justify-between items-center gap-8">
+                    <div className="flex flex-col md:flex-row items-center gap-6">
+                        <p className="text-sm text-slate-400 dark:text-slate-500 font-bold tracking-tight">
+                            © {new Date().getFullYear()} AI Remover PRO. All rights reserved.
                         </p>
-                        <div className="hidden sm:flex items-center gap-2 px-3 py-1 bg-blue-50 dark:bg-blue-900/20 rounded-full border border-blue-100 dark:border-blue-900/30">
-                            <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
-                            <span className="text-[10px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest">Real-time AI Engine Active</span>
+                        <div className="flex items-center gap-2 px-4 py-1.5 bg-blue-50 dark:bg-blue-900/20 rounded-full border border-blue-100 dark:border-blue-900/30">
+                            <Zap className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                            <span className="text-[10px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest">
+                                Processing 1.2M+ Images Monthly
+                            </span>
                         </div>
                     </div>
 
-                    <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
+                    <div className="flex flex-wrap items-center justify-center gap-8">
                         <LanguageSelector />
 
-                        <span className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 px-3 py-1 bg-slate-100 rounded-full border border-slate-200 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-500">
-                            <div className="w-1.5 h-1.5 bg-green-500 rounded-full shadow-[0_0_8px_rgba(34,197,94,0.5)] animate-pulse" />
-                            {t.operational}
-                        </span>
-                        <div className="flex items-center gap-2 text-[13px] text-slate-400 font-bold dark:text-slate-500">
-                            {t.madeWith} <Sparkles className="w-3.5 h-3.5 text-amber-400" aria-label="sparkles" /> {t.forCreators}
+                        <div className="flex items-center gap-2 group cursor-help">
+                            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.4)]" />
+                            <span className="text-[11px] font-black text-slate-500 uppercase tracking-widest">{t.operational || "Systems Operational"}</span>
+                        </div>
+
+                        <div className="flex items-center gap-1.5 text-sm font-black text-slate-400 dark:text-slate-500">
+                            <span>Made with</span>
+                            <Sparkles className="w-4 h-4 text-amber-400" />
+                            <span>for the next generation</span>
                         </div>
                     </div>
                 </div>

@@ -41,7 +41,7 @@ export const SamplesSection: React.FC = () => {
     };
 
     return (
-        <div className="w-full max-w-6xl mx-auto px-4 space-y-32 py-24 border-t border-slate-100">
+        <div id="samples" className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-40 py-32 border-t border-slate-100 dark:border-slate-800 scroll-mt-24 transition-colors duration-300">
 
             {/* 1. Stunning Quality Section */}
             <section className="text-center space-y-12">
@@ -157,7 +157,7 @@ export const SamplesSection: React.FC = () => {
                     ].map((item, i) => (
                         <div key={i} className="space-y-3">
                             <div className={cn(
-                                "aspect-[3/4] rounded-3xl overflow-hidden border-4 border-white shadow-xl bg-slate-100",
+                                "aspect-[3/4] rounded-3xl overflow-hidden border-4 border-white dark:border-slate-800 shadow-xl bg-slate-100 dark:bg-slate-800",
                                 item.transparent && "checkered-bg"
                             )}>
                                 {item.grid ? (
@@ -188,9 +188,9 @@ export const SamplesSection: React.FC = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {(t.blog.posts || translations.en.blog.posts).map((blog: any, i: number) => (
-                        <div key={i} className="p-8 bg-white border border-slate-100 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all group cursor-pointer">
+                        <div key={i} className="p-8 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all group cursor-pointer">
                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">{blog.date}</p>
-                            <h3 className="text-lg font-bold text-slate-800 group-hover:text-blue-600 transition-colors leading-tight">{blog.title}</h3>
+                            <h3 className="text-lg font-bold text-slate-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-tight">{blog.title}</h3>
                         </div>
                     ))}
                 </div>
@@ -229,17 +229,17 @@ export const SamplesSection: React.FC = () => {
 
             {/* Footer Credits */}
             <div className="pt-24 flex flex-col items-center gap-8 opacity-50">
-                <div className="bg-white px-6 py-3 rounded-2xl border border-slate-200 flex items-center gap-4 shadow-sm">
+                <div className="bg-white dark:bg-slate-800 px-6 py-3 rounded-2xl border border-slate-200 dark:border-slate-700 flex items-center gap-4 shadow-sm">
                     <div className="flex items-center gap-1 text-xs font-black">
                         <span className="text-slate-400">P</span>
-                        <span className="text-slate-800">PRODUCT HUNT</span>
+                        <span className="text-slate-800 dark:text-white">PRODUCT HUNT</span>
                     </div>
                     <div className="flex gap-0.5">
-                        {[1, 2, 3, 4, 5].map(s => <span key={s} className={cn("text-xs", s < 5 ? "text-orange-400" : "text-slate-200")}>★</span>)}
+                        {[1, 2, 3, 4, 5].map(s => <span key={s} className={cn("text-xs", s < 5 ? "text-orange-400" : "text-slate-600")}>★</span>)}
                     </div>
-                    <span className="text-[10px] font-bold text-slate-400">{t.common.reviews}</span>
+                    <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500">{t.common.reviews}</span>
                 </div>
-                <div className="h-0.5 w-1/4 bg-slate-100" />
+                <div className="h-0.5 w-1/4 bg-slate-100 dark:bg-slate-800" />
             </div>
 
         </div>

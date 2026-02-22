@@ -18,6 +18,8 @@ import Dashboard from '../components/Dashboard';
 import { APISection } from '../components/APISection';
 import { ComparisonSection } from '../components/ComparisonSection';
 import { EcommerceSection } from '../components/EcommerceSection';
+import { PricingSection } from '../components/PricingSection';
+import { SamplesSection } from '../components/SamplesSection';
 
 interface ProcessingTask {
     id: string;
@@ -251,7 +253,9 @@ export function HomePage() {
                                     </section>
 
                                     <ComparisonSection />
+                                    <SamplesSection />
                                     <EcommerceSection onCtaClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
+                                    <PricingSection />
                                     <APISection />
                                 </motion.div>
 
