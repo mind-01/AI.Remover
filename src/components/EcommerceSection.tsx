@@ -68,16 +68,12 @@ export const EcommerceSection: React.FC<EcommerceSectionProps> = ({ onCtaClick }
                                     className="bg-blue-600 rounded-2xl p-4 shadow-xl shadow-blue-500/20 pt-8"
                                 >
                                     <div className="aspect-square rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm mb-3 overflow-hidden relative flex items-center justify-center border border-white/10">
-                                        <div className="absolute inset-0 opacity-10" style={{
-                                            backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 0h10v10H0V0zm10 10h10v10H10V10z'/%3E%3C/g%3E%3C/svg%3E")`,
-                                            backgroundSize: '10px 10px'
-                                        }} />
                                         <img
                                             src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=800&auto=format&fit=crop"
                                             alt="Camera Processed"
-                                            className="w-[90%] h-[90%] object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)] relative z-10"
+                                            className="w-full h-full object-cover relative z-10"
                                         />
-                                        <div className="absolute top-2 left-2 px-2 py-0.5 bg-white text-[8px] text-blue-600 font-bold uppercase rounded-full shadow-sm">Camera</div>
+                                        <div className="absolute top-2 left-2 px-2 py-0.5 bg-white text-[8px] text-blue-600 font-bold uppercase rounded-full shadow-sm z-20">Camera</div>
                                     </div>
                                     <div className="h-1.5 w-2/3 bg-white/30 rounded-full mb-1.5" />
                                     <div className="h-1.5 w-1/2 bg-white/10 rounded-full" />
