@@ -46,41 +46,65 @@ export const EcommerceSection: React.FC = () => {
                         <div className="absolute -inset-4 bg-gradient-to-tr from-blue-600/10 to-transparent blur-3xl rounded-full" />
                         <div className="relative bg-slate-100 dark:bg-slate-900 rounded-[3rem] p-8 shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800">
                             <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-4">
-                                    <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700">
-                                        <div className="aspect-square rounded-xl bg-slate-50 dark:bg-slate-950 mb-3 overflow-hidden relative">
-                                            <img src="/demo/shoe-original.jpg" alt="Original Product" className="w-full h-full object-cover" />
-                                            <div className="absolute top-2 left-2 px-2 py-0.5 bg-slate-900/50 backdrop-blur-md text-[8px] text-white font-black uppercase rounded-full">Before</div>
+                                {/* Row 1: Shoe Comparison */}
+                                <motion.div
+                                    whileHover={{ scale: 1.02 }}
+                                    className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700"
+                                >
+                                    <div className="aspect-square rounded-xl bg-slate-50 dark:bg-slate-950 mb-3 overflow-hidden relative group">
+                                        <img src="/demo/shoe-original.jpg" alt="Original Product" className="w-full h-full object-cover" />
+                                        <div className="absolute top-2 left-2 px-2 py-0.5 bg-slate-900/50 backdrop-blur-md text-[8px] text-white font-bold uppercase rounded-full">Source</div>
+                                    </div>
+                                    <div className="h-1.5 w-2/3 bg-slate-200 dark:bg-slate-700 rounded-full mb-1.5" />
+                                    <div className="h-1.5 w-1/2 bg-slate-100 dark:bg-slate-800 rounded-full" />
+                                </motion.div>
+
+                                <motion.div
+                                    whileHover={{ scale: 1.02 }}
+                                    className="bg-blue-600 rounded-2xl p-4 shadow-xl shadow-blue-500/20 pt-8"
+                                >
+                                    <div className="aspect-square rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm mb-3 overflow-hidden relative flex items-center justify-center border border-white/10">
+                                        <div className="absolute inset-0 opacity-10" style={{
+                                            backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 0h10v10H0V0zm10 10h10v10H10V10z'/%3E%3C/g%3E%3C/svg%3E")`,
+                                            backgroundSize: '10px 10px'
+                                        }} />
+                                        <img src="/demo/shoe-result.png" alt="Processed Product" className="w-[90%] h-[90%] object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)] relative z-10" />
+                                        <div className="absolute top-2 left-2 px-2 py-0.5 bg-white text-[8px] text-blue-600 font-bold uppercase rounded-full shadow-sm">White BG</div>
+                                    </div>
+                                    <div className="h-1.5 w-2/3 bg-white/30 rounded-full mb-1.5" />
+                                    <div className="h-1.5 w-1/2 bg-white/10 rounded-full" />
+                                </motion.div>
+
+                                {/* Row 2: Secondary Products */}
+                                <motion.div
+                                    whileHover={{ scale: 1.02 }}
+                                    className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700 mt-[-1rem]"
+                                >
+                                    <div className="aspect-square rounded-xl bg-slate-100 dark:bg-slate-900 mb-3 overflow-hidden relative flex items-center justify-center">
+                                        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent" />
+                                        <div className="bg-white dark:bg-slate-800 p-4 rounded-full shadow-2xl relative z-10">
+                                            <Zap className="w-8 h-8 text-amber-500" />
                                         </div>
-                                        <div className="h-2 w-2/3 bg-slate-200 dark:bg-slate-700 rounded-full mb-2" />
-                                        <div className="h-2 w-1/2 bg-slate-100 dark:bg-slate-800 rounded-full" />
+                                        <div className="absolute top-2 left-2 px-2 py-0.5 bg-slate-900/50 backdrop-blur-md text-[8px] text-white font-bold uppercase rounded-full">Watch</div>
                                     </div>
-                                    <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700 opacity-50">
-                                        <div className="aspect-square rounded-xl bg-slate-50 dark:bg-slate-950 mb-3" />
-                                        <div className="h-2 w-3/4 bg-slate-200 dark:bg-slate-700 rounded-full mb-2" />
-                                    </div>
-                                </div>
-                                <div className="space-y-4 pt-8">
-                                    <div className="bg-blue-600 rounded-2xl p-4 shadow-xl shadow-blue-500/20 translate-x-4">
-                                        <div className="aspect-square rounded-xl bg-blue-500/20 mb-3 overflow-hidden relative flex items-center justify-center">
-                                            <div className="absolute inset-0" style={{
-                                                backgroundImage: `linear-gradient(45deg, #ffffff 25%, transparent 25%), linear-gradient(-45deg, #ffffff 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ffffff 75%), linear-gradient(-45deg, transparent 75%, #ffffff 75%)`,
-                                                backgroundSize: '10px 10px',
-                                                backgroundPosition: '0 0, 0 5px, 5px -5px, -5px 0px',
-                                                backgroundColor: '#f1f5f9',
-                                                opacity: 0.2
-                                            }} />
-                                            <img src="/demo/shoe-result.png" alt="Processed Product" className="w-[85%] h-[85%] object-contain drop-shadow-2xl relative z-10" />
-                                            <div className="absolute top-2 left-2 px-2 py-0.5 bg-white text-[8px] text-blue-600 font-black uppercase rounded-full">After</div>
+                                    <div className="h-1.5 w-3/4 bg-slate-200 dark:bg-slate-700 rounded-full mb-1.5" />
+                                    <div className="h-1.5 w-1/2 bg-slate-100 dark:bg-slate-800 rounded-full" />
+                                </motion.div>
+
+                                <motion.div
+                                    whileHover={{ scale: 1.02 }}
+                                    className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700"
+                                >
+                                    <div className="aspect-square rounded-xl bg-slate-100 dark:bg-slate-900 mb-3 overflow-hidden relative flex items-center justify-center">
+                                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent" />
+                                        <div className="bg-white dark:bg-slate-800 p-4 rounded-full shadow-2xl relative z-10">
+                                            <ShoppingBag className="w-8 h-8 text-blue-500" />
                                         </div>
-                                        <div className="h-2 w-2/3 bg-white/30 rounded-full mb-2" />
-                                        <div className="h-2 w-1/2 bg-white/10 rounded-full" />
+                                        <div className="absolute top-2 left-2 px-2 py-0.5 bg-slate-900/50 backdrop-blur-md text-[8px] text-white font-bold uppercase rounded-full">Apparel</div>
                                     </div>
-                                    <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700">
-                                        <div className="aspect-square rounded-xl bg-slate-50 dark:bg-slate-950 mb-3" />
-                                        <div className="h-2 w-2/3 bg-slate-200 dark:bg-slate-700 rounded-full mb-2" />
-                                    </div>
-                                </div>
+                                    <div className="h-1.5 w-2/3 bg-slate-200 dark:bg-slate-700 rounded-full mb-1.5" />
+                                    <div className="h-1.5 w-1/2 bg-slate-100 dark:bg-slate-800 rounded-full" />
+                                </motion.div>
                             </div>
 
                             {/* Floating Platform Badges */}
