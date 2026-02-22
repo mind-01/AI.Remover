@@ -69,14 +69,20 @@ export const ComparisonSlider: React.FC<ComparisonSliderProps> = ({ beforeImage,
 
             {/* After Image (Overlaid with clip-path) */}
             <motion.div
-                className="absolute inset-0 z-10 bg-slate-100"
-                style={{ clipPath }}
+                className="absolute inset-0 z-10"
+                style={{
+                    clipPath,
+                    backgroundColor: '#fff',
+                    backgroundImage: `
+                        linear-gradient(45deg, #f0f0f0 25%, transparent 25%), 
+                        linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), 
+                        linear-gradient(45deg, transparent 75%, #f0f0f0 75%), 
+                        linear-gradient(-45deg, transparent 75%, #f0f0f0 75%)
+                    `,
+                    backgroundSize: '20px 20px',
+                    backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px'
+                }}
             >
-                {/* Checkered pattern background for transparent result */}
-                <div className="absolute inset-0 opacity-10" style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 0h10v10H0V0zm10 10h10v10H10V10z'/%3E%3C/g%3E%3C/svg%3E")`,
-                    backgroundSize: '10px 10px'
-                }} />
                 <img
                     src={afterImage}
                     alt="Processed"
