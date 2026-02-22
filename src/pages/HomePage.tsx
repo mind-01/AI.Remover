@@ -251,7 +251,7 @@ export function HomePage() {
                                     </section>
 
                                     <ComparisonSection />
-                                    <EcommerceSection />
+                                    <EcommerceSection onCtaClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
                                     <APISection />
                                 </motion.div>
 

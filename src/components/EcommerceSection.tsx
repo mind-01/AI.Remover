@@ -4,7 +4,11 @@ import { ShoppingBag, Zap, Layers, BarChart3, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../lib/translations';
 
-export const EcommerceSection: React.FC = () => {
+interface EcommerceSectionProps {
+    onCtaClick?: () => void;
+}
+
+export const EcommerceSection: React.FC<EcommerceSectionProps> = ({ onCtaClick }) => {
     const { language } = useLanguage();
     const t = translations[language] || translations.en;
 
@@ -68,8 +72,12 @@ export const EcommerceSection: React.FC = () => {
                                             backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 0h10v10H0V0zm10 10h10v10H10V10z'/%3E%3C/g%3E%3C/svg%3E")`,
                                             backgroundSize: '10px 10px'
                                         }} />
-                                        <img src="/demo/shoe-result.png" alt="Processed Product" className="w-[90%] h-[90%] object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)] relative z-10" />
-                                        <div className="absolute top-2 left-2 px-2 py-0.5 bg-white text-[8px] text-blue-600 font-bold uppercase rounded-full shadow-sm">White BG</div>
+                                        <img
+                                            src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=800&auto=format&fit=crop"
+                                            alt="Camera Processed"
+                                            className="w-[90%] h-[90%] object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)] relative z-10"
+                                        />
+                                        <div className="absolute top-2 left-2 px-2 py-0.5 bg-white text-[8px] text-blue-600 font-bold uppercase rounded-full shadow-sm">Camera</div>
                                     </div>
                                     <div className="h-1.5 w-2/3 bg-white/30 rounded-full mb-1.5" />
                                     <div className="h-1.5 w-1/2 bg-white/10 rounded-full" />
@@ -162,6 +170,7 @@ export const EcommerceSection: React.FC = () => {
                         <motion.button
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
+                            onClick={onCtaClick}
                             className="px-10 py-5 bg-slate-900 text-white dark:bg-white dark:text-slate-900 rounded-2xl text-lg font-black flex items-center gap-3 shadow-xl shadow-slate-200 dark:shadow-none uppercase tracking-wide"
                         >
                             {t.ecommerce.cta} <ArrowRight className="w-5 h-5" />
