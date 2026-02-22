@@ -62,12 +62,12 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
             after: '/demo/People-result.webp'
         },
         animals: {
-            before: 'https://images.unsplash.com/photo-1543946207-39bd91e70ca7?q=80&w=1200',
-            after: 'https://images.unsplash.com/photo-1543946207-39bd91e70ca7?q=80&w=1200'
+            before: '/demo/Animal-original.webp',
+            after: '/demo/Animal-result.webp'
         },
         cars: {
-            before: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200',
-            after: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200'
+            before: '/demo/Car-original.webp',
+            after: '/demo/Car-result.webp'
         },
         graphics: {
             before: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200',
