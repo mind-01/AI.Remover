@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Upload, ArrowRight, Sparkles, Image as ImageIcon } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../lib/translations';
+import { ComparisonSlider } from './ComparisonSlider';
 
 interface HeroProps {
     onFilesSelect: (files: File[]) => void;
@@ -133,18 +134,17 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
                         </div>
                     </motion.div>
 
-                    {/* Comparison Image - Below and Centered */}
+                    {/* Comparison Slider - Below and Centered */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="relative w-full max-w-3xl"
+                        className="relative w-full max-w-4xl"
                     >
-                        <div className="absolute inset-0 bg-blue-600 blur-[100px] opacity-10" />
-                        <img
-                            src="/blog/nike-shoe-background-removal.webp"
-                            alt="Professional Background Removal Result"
-                            className="w-full h-auto rounded-[2.5rem] shadow-2xl border-8 border-white dark:border-slate-800"
+                        <div className="absolute inset-0 bg-blue-600 blur-[120px] opacity-10" />
+                        <ComparisonSlider
+                            beforeImage="/demo/shoe-original.webp"
+                            afterImage="/demo/shoe-result.png"
                         />
                     </motion.div>
                 </div>
