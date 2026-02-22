@@ -80,12 +80,14 @@ export const EcommerceSection: React.FC = () => {
                                     whileHover={{ scale: 1.02 }}
                                     className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700 mt-[-1rem]"
                                 >
-                                    <div className="aspect-square rounded-xl bg-slate-100 dark:bg-slate-900 mb-3 overflow-hidden relative flex items-center justify-center">
-                                        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent" />
-                                        <div className="bg-white dark:bg-slate-800 p-4 rounded-full shadow-2xl relative z-10">
-                                            <Zap className="w-8 h-8 text-amber-500" />
-                                        </div>
-                                        <div className="absolute top-2 left-2 px-2 py-0.5 bg-slate-900/50 backdrop-blur-md text-[8px] text-white font-bold uppercase rounded-full">Watch</div>
+                                    <div className="aspect-square rounded-xl bg-slate-100 dark:bg-slate-900 mb-3 overflow-hidden relative flex items-center justify-center group/item">
+                                        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent z-10" />
+                                        <img
+                                            src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=800&auto=format&fit=crop"
+                                            alt="Watch Example"
+                                            className="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-500"
+                                        />
+                                        <div className="absolute top-2 left-2 px-2 py-0.5 bg-slate-900/50 backdrop-blur-md text-[8px] text-white font-bold uppercase rounded-full z-20">Watch</div>
                                     </div>
                                     <div className="h-1.5 w-3/4 bg-slate-200 dark:bg-slate-700 rounded-full mb-1.5" />
                                     <div className="h-1.5 w-1/2 bg-slate-100 dark:bg-slate-800 rounded-full" />
@@ -95,12 +97,14 @@ export const EcommerceSection: React.FC = () => {
                                     whileHover={{ scale: 1.02 }}
                                     className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700"
                                 >
-                                    <div className="aspect-square rounded-xl bg-slate-100 dark:bg-slate-900 mb-3 overflow-hidden relative flex items-center justify-center">
-                                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent" />
-                                        <div className="bg-white dark:bg-slate-800 p-4 rounded-full shadow-2xl relative z-10">
-                                            <ShoppingBag className="w-8 h-8 text-blue-500" />
-                                        </div>
-                                        <div className="absolute top-2 left-2 px-2 py-0.5 bg-slate-900/50 backdrop-blur-md text-[8px] text-white font-bold uppercase rounded-full">Apparel</div>
+                                    <div className="aspect-square rounded-xl bg-slate-100 dark:bg-slate-900 mb-3 overflow-hidden relative flex items-center justify-center group/item">
+                                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent z-10" />
+                                        <img
+                                            src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=800&auto=format&fit=crop"
+                                            alt="Handbag Example"
+                                            className="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-500"
+                                        />
+                                        <div className="absolute top-2 left-2 px-2 py-0.5 bg-slate-900/50 backdrop-blur-md text-[8px] text-white font-bold uppercase rounded-full z-20">Handbag</div>
                                     </div>
                                     <div className="h-1.5 w-2/3 bg-slate-200 dark:bg-slate-700 rounded-full mb-1.5" />
                                     <div className="h-1.5 w-1/2 bg-slate-100 dark:bg-slate-800 rounded-full" />
