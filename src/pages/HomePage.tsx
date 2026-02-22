@@ -7,19 +7,19 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 import { useLocation } from 'react-router-dom';
 import { Header } from '../components/layout/Header';
 import { Hero } from '../components/Hero';
-import { ProcessingView } from '../components/ProcessingView';
-import { ResultViewer } from '../components/ResultViewer';
 import { FeaturesSection } from '../components/FeaturesSection';
 import { Footer } from '../components/layout/Footer';
-import { useLanguage } from '../contexts/LanguageContext';
-import { translations } from '../lib/translations';
-import { useAuth } from '../contexts/AuthContext';
-import Dashboard from '../components/Dashboard';
-import { APISection } from '../components/APISection';
+import { ProcessingView } from '../components/ProcessingView';
+import { ResultViewer } from '../components/ResultViewer';
 import { ComparisonSection } from '../components/ComparisonSection';
 import { EcommerceSection } from '../components/EcommerceSection';
 import { PricingSection } from '../components/PricingSection';
 import { SamplesSection } from '../components/SamplesSection';
+import { APISection } from '../components/APISection';
+import Dashboard from '../components/Dashboard';
+import { useLanguage } from '../contexts/LanguageContext';
+import { translations } from '../lib/translations';
+import { useAuth } from '../contexts/AuthContext';
 
 interface ProcessingTask {
     id: string;
@@ -176,25 +176,8 @@ export function HomePage() {
         addMoreInputRef.current?.click();
     };
 
-
-    const [activeTask, setActiveTask] = useState<ProcessingTask | undefined>(undefined);
+    const activeTask = activeTaskId ? tasks.find(t => t.id === activeTaskId) : undefined;
     const isAnyProcessing = tasks.some(t => t.status === 'processing' || t.status === 'pending');
-
-    // Sync active task from activeTaskId
-    if (activeTaskId && !activeTask) {
-        const task = tasks.find(t => t.id === activeTaskId);
-        if (task) setActiveTask(task);
-    } else if (!activeTaskId && activeTask) {
-        setActiveTask(undefined);
-    }
-
-    // Update effect to keep activeTask in sync when tasks change
-    if (activeTaskId && activeTask) {
-        const updatedTask = tasks.find(t => t.id === activeTaskId);
-        if (updatedTask && updatedTask !== activeTask) {
-            setActiveTask(updatedTask);
-        }
-    }
 
     return (
         <div className="min-h-screen text-slate-900 dark:text-slate-50 overflow-x-hidden font-sans bg-slate-50 dark:bg-slate-950 transition-colors duration-300 gradient-bg">

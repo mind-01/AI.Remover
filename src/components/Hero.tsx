@@ -70,8 +70,8 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
             after: '/demo/Car-result.webp'
         },
         graphics: {
-            before: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200',
-            after: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=1200'
+            before: '/demo/Graphics-original.webp',
+            after: '/demo/Graphics-result.webp'
         }
     };
 
