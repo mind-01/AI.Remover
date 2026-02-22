@@ -223,9 +223,10 @@ export const translations: Record<string, any> = {
             title: 'Blog',
             seeMore: 'See more articles',
             posts: [
+                { date: 'Feb 21, 2026', title: 'Bulk Background Removal for Etsy & Shopify Sellers' },
+                { date: 'Feb 21, 2026', title: 'How to Remove Background Without Uploading (Privacy Safe)' },
                 { date: 'Nov 25, 2025', title: 'Strava overlay: How to use it for Instagram stories and posts' },
-                { date: 'Nov 17, 2025', title: 'Black Friday offer: 50% off selected yearly plans' },
-                { date: 'Oct 20, 2025', title: 'Remove the background in GIMP' }
+                { date: 'Nov 17, 2025', title: 'Black Friday offer: 50% off selected yearly plans' }
             ]
         },
         newsletter: {
@@ -420,9 +421,10 @@ export const translations: Record<string, any> = {
             title: 'ब्लॉग',
             seeMore: 'अधिक लेख देखें',
             posts: [
+                { date: 'फरवरी 21, 2026', title: 'Etsy और Shopify विक्रेताओं के लिए बल्क बैकग्राउंड रिमूवल' },
+                { date: 'फरवरी 21, 2026', title: 'बिना अपलोड किए बैकग्राउंड कैसे निकालें (गोपनीयता सुरक्षित)' },
                 { date: '25 नवंबर, 2025', title: 'स्ट्रैवा ओवरले: इंस्टाग्राम स्टोरीज और पोस्ट के लिए इसका उपयोग कैसे करें' },
-                { date: '17 नवंबर, 2025', title: 'ब्लैक फ्राइडे ऑफर: चुनिंदा वार्षिक प्लान पर 50% की छूट' },
-                { date: '20 अक्टूबर, 2025', title: 'GIMP में बैकग्राउंड कैसे हटाएं' }
+                { date: '17 नवंबर, 2025', title: 'ब्लैक फ्राइडे ऑफर: चुनिंदा वार्षिक प्लान पर 50% की छूट' }
             ]
         },
         newsletter: {

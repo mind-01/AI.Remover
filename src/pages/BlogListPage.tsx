@@ -38,6 +38,24 @@ export const BlogListPage: React.FC = () => {
                 console.error('Error fetching posts:', err);
                 setPosts([
                     {
+                        id: '7',
+                        title: 'How to Remove Background in Bulk for Etsy & Shopify Sellers',
+                        slug: 'bulk-background-removal-etsy-shopify',
+                        excerpt: 'Learn how to process 50+ product photos at once for Etsy and Shopify with local AI. Professional white backgrounds in one click.',
+                        cover_image: '/blog/nike-shoe-background-removal.webp',
+                        created_at: new Date().toISOString(),
+                        status: 'published'
+                    },
+                    {
+                        id: '6',
+                        title: 'How to Remove Background Without Uploading Your Image (Privacy Safe Method)',
+                        slug: 'remove-background-without-uploading',
+                        excerpt: 'Remove image backgrounds without uploading to any server. Private, local AI processing with full HD download – 100% free.',
+                        cover_image: '/blog/remove-background-no-upload-privacy.webp',
+                        created_at: new Date().toISOString(),
+                        status: 'published'
+                    },
+                    {
                         id: '5',
                         title: 'How to Remove Background for Amazon Product Photos (2026 Seller Guide)',
                         slug: 'how-to-remove-background-for-amazon-product-photos',

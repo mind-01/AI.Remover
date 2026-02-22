@@ -43,10 +43,10 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
     };
 
     return (
-        <div className="relative pt-24 pb-20 overflow-hidden">
+        <div className="relative pt-12 pb-16 overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                    <div className="text-center lg:text-left space-y-10">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                    <div className="text-center lg:text-left space-y-8">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             animate={{ opacity: 1, scale: 1 }}
@@ -65,11 +65,20 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
                             </p>
                         </div>
 
-                        <div
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{
+                                opacity: 1,
+                                y: 0,
+                                transition: { delay: 0.1 }
+                            }}
+                            whileHover={{ y: -5 }}
                             className={`
-                  relative max-w-2xl mx-auto lg:mx-0 p-12 rounded-[3rem] border-4 border-dashed transition-all duration-300
-                  ${isDragging ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' : 'border-slate-200 bg-white hover:border-slate-300 shadow-2xl shadow-slate-200/50 dark:bg-slate-800 dark:border-slate-700 dark:shadow-none'}
-                `}
+                                relative max-w-2xl mx-auto lg:mx-0 p-12 rounded-[3rem] border-4 border-dashed transition-all duration-300
+                                ${isDragging
+                                    ? 'border-blue-500 bg-blue-50/80 dark:bg-blue-900/40 shadow-[0_0_50px_rgba(59,130,246,0.2)]'
+                                    : 'border-blue-200/60 bg-white/80 backdrop-blur-sm hover:border-blue-400 hover:shadow-[0_20px_60px_rgba(59,130,246,0.15)] shadow-2xl shadow-slate-200/50 dark:bg-slate-800/80 dark:border-slate-700/50 dark:shadow-none dark:hover:border-blue-500/50'}
+                            `}
                             onDragOver={handleDragOver}
                             onDragLeave={handleDragLeave}
                             onDrop={handleDrop}
@@ -84,19 +93,29 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
                             />
 
                             <div className="space-y-8 text-center">
-                                <div className="relative inline-flex">
-                                    <div className="absolute inset-0 bg-blue-400 blur-2xl opacity-20 animate-pulse" />
-                                    <div className="relative p-8 bg-blue-600 rounded-3xl shadow-xl shadow-blue-200 dark:shadow-blue-900/20">
+                                <div className="relative inline-flex group/icon">
+                                    <div className="absolute inset-0 bg-blue-500 blur-3xl opacity-20 group-hover/icon:opacity-40 animate-pulse transition-opacity" />
+                                    <motion.div
+                                        animate={{
+                                            y: [0, -8, 0],
+                                        }}
+                                        transition={{
+                                            duration: 4,
+                                            repeat: Infinity,
+                                            ease: "easeInOut"
+                                        }}
+                                        className="relative p-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-3xl shadow-xl shadow-blue-200 dark:shadow-blue-900/40 border border-blue-400/30"
+                                    >
                                         <Upload className="w-10 h-10 text-white" />
-                                    </div>
+                                    </motion.div>
                                 </div>
 
                                 <div className="space-y-4">
                                     <button
                                         onClick={() => fileInputRef.current?.click()}
-                                        className="px-12 py-5 bg-slate-900 text-white rounded-2xl text-lg font-black hover:bg-slate-800 transition-all shadow-2xl shadow-slate-200 hover:scale-105 active:scale-95 flex items-center gap-3 mx-auto uppercase tracking-wide dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 dark:shadow-none"
+                                        className="px-12 py-5 bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-2xl text-lg font-black hover:from-blue-600 hover:to-blue-700 transition-all shadow-2xl shadow-slate-200 hover:shadow-blue-200/50 hover:scale-105 active:scale-95 flex items-center gap-3 mx-auto uppercase tracking-wide dark:from-white dark:to-slate-100 dark:text-slate-900 dark:hover:from-blue-50 dark:hover:to-blue-100 dark:shadow-none"
                                     >
-                                        {t.uploadButton} <ArrowRight className="w-5 h-5" />
+                                        {t.uploadButton} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                     </button>
                                     <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] dark:text-slate-500">
                                         {isDragging ? t.dropImage : t.noRegistration}
@@ -109,7 +128,7 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
                                     </span>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
 
                     {/* Result Visual Prediction */}
@@ -117,7 +136,7 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
                         initial={{ opacity: 0, x: 50 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="relative hidden lg:block"
+                        className="relative hidden lg:block lg:-mt-10"
                     >
                         <div className="absolute inset-0 bg-blue-600 blur-[100px] opacity-10" />
                         <img
