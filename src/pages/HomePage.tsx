@@ -14,6 +14,7 @@ import { ResultViewer } from '../components/ResultViewer';
 import { ComparisonSection } from '../components/ComparisonSection';
 import { APISection } from '../components/APISection';
 import { FAQSection } from '../components/FAQSection';
+import { BlogUpdatesSection } from '../components/BlogUpdatesSection';
 import Dashboard from '../components/Dashboard';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../lib/translations';
@@ -236,6 +237,7 @@ export function HomePage() {
                                     <ComparisonSection />
                                     <APISection />
                                     <FAQSection />
+                                    <BlogUpdatesSection />
                                 </motion.div>
 
                             ) : isAnyProcessing && !activeTask?.processedUrl ? (
