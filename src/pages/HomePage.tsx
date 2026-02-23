@@ -12,9 +12,7 @@ import { Footer } from '../components/layout/Footer';
 import { ProcessingView } from '../components/ProcessingView';
 import { ResultViewer } from '../components/ResultViewer';
 import { ComparisonSection } from '../components/ComparisonSection';
-import { EcommerceSection } from '../components/EcommerceSection';
 import { PricingSection } from '../components/PricingSection';
-import { SamplesSection } from '../components/SamplesSection';
 import { APISection } from '../components/APISection';
 import Dashboard from '../components/Dashboard';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -236,8 +234,6 @@ export function HomePage() {
                                     </section>
 
                                     <ComparisonSection />
-                                    <SamplesSection />
-                                    <EcommerceSection onCtaClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} />
                                     <PricingSection />
                                     <APISection />
                                 </motion.div>
