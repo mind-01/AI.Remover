@@ -250,8 +250,8 @@ export const FeaturesSection: React.FC = () => {
                                         {/* Original */}
                                         <motion.div
                                             className="absolute inset-0 bg-cover bg-center"
-                                            style={{ backgroundImage: `url('/demo/shoe-original.jpg')` }}
-                                            animate={{ opacity: demoStep === 'complete' ? 0.2 : 1 }}
+                                            style={{ backgroundImage: `url('/demo/shoe-original.webp')` }}
+                                            animate={{ opacity: demoStep === 'complete' ? 0 : 1 }}
                                             transition={{ duration: 1 }}
                                         />
 
