@@ -12,8 +12,8 @@ import { Footer } from '../components/layout/Footer';
 import { ProcessingView } from '../components/ProcessingView';
 import { ResultViewer } from '../components/ResultViewer';
 import { ComparisonSection } from '../components/ComparisonSection';
-import { PricingSection } from '../components/PricingSection';
 import { APISection } from '../components/APISection';
+import { FAQSection } from '../components/FAQSection';
 import Dashboard from '../components/Dashboard';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../lib/translations';
@@ -234,8 +234,8 @@ export function HomePage() {
                                     </section>
 
                                     <ComparisonSection />
-                                    <PricingSection />
                                     <APISection />
+                                    <FAQSection />
                                 </motion.div>
 
                             ) : isAnyProcessing && !activeTask?.processedUrl ? (
