@@ -52,10 +52,10 @@ export const Footer: React.FC = () => {
                 <div className="absolute top-1/2 -right-24 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[120px]" />
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-20">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 mb-20">
                     {/* Brand & Newsletter Column */}
-                    <div className="lg:col-span-5 space-y-10">
+                    <div className="lg:col-span-5 space-y-8 flex flex-col items-center lg:items-start text-center lg:text-left">
                         <div className="space-y-6">
                             <Link to="/" className="flex items-center space-x-3 group">
                                 <div className="p-2.5 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform">
@@ -71,12 +71,12 @@ export const Footer: React.FC = () => {
                         </div>
 
                         {/* Newsletter Block */}
-                        <div className="p-8 rounded-[2rem] bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800/80 backdrop-blur-xl relative overflow-hidden group/news">
+                        <div className="p-6 md:p-8 rounded-[2rem] bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800/80 backdrop-blur-xl relative overflow-hidden group/news w-full max-w-md mx-auto lg:mx-0">
                             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover/news:opacity-30 transition-opacity">
-                                <Mail className="w-12 h-12 text-blue-600" />
+                                <Mail className="w-10 h-10 text-blue-600" />
                             </div>
-                            <h4 className="text-xl font-black text-slate-800 dark:text-white mb-2">Join the newsletter</h4>
-                            <p className="text-sm text-slate-500 dark:text-slate-400 font-bold mb-6">Get tips, updates, and exclusive creator offers.</p>
+                            <h4 className="text-lg font-black text-slate-800 dark:text-white mb-2 uppercase tracking-tight">Join the newsletter</h4>
+                            <p className="text-xs text-slate-500 dark:text-slate-400 font-bold mb-6">Get tips, updates, and exclusive creator offers.</p>
 
                             <form onSubmit={handleSubscribe} className="relative flex items-center">
                                 <input
