@@ -13,7 +13,6 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
     const { language } = useLanguage();
     const t = translations[language] || translations.en;
     const heroT = t.hero || translations.en.hero || {};
-    const commonT = t.common || translations.en.common || {};
 
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [isDragging, setIsDragging] = useState(false);
