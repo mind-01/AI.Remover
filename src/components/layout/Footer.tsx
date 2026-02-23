@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Layers, Github, Twitter, Mail, Sparkles, Send, ShieldCheck, Zap } from 'lucide-react';
+import { Layers, Github, Twitter, Mail, Sparkles, Send, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { translations } from '../../lib/translations';
@@ -200,10 +200,10 @@ export const Footer: React.FC = () => {
 
                     {/* Stats & Made With */}
                     <div className="flex flex-wrap items-center justify-center lg:justify-end gap-6 md:gap-8">
-                        <div className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/20 rounded-full border border-blue-100 dark:border-blue-900/30 group">
-                            <Zap className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 group-hover:animate-pulse" />
-                            <span className="text-[10px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest whitespace-nowrap">
-                                1.2M+ Monthly
+                        <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-50 dark:bg-slate-900/50 rounded-full border border-slate-100 dark:border-slate-800/80 group">
+                            <ShieldCheck className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-500 transition-colors" />
+                            <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap">
+                                Privacy First
                             </span>
                         </div>
 

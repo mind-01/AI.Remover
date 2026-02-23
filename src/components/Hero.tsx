@@ -11,7 +11,8 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
     const { language } = useLanguage();
-    const t = translations[language]?.common || translations.en.common;
+    const t = translations[language] || translations.en;
+    const heroT = t.hero || translations.en.hero;
 
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [isDragging, setIsDragging] = useState(false);
@@ -87,15 +88,15 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
                             className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-xs font-black uppercase tracking-widest border border-blue-100 shadow-sm dark:bg-blue-900/20 dark:text-blue-400 dark:border-blue-800/50"
                         >
                             <Sparkles className="w-3.5 h-3.5" />
-                            {t.leadingAi}
+                            {heroT.leadingAi}
                         </motion.div>
 
                         <div className="space-y-6">
                             <h1 className="text-5xl md:text-7xl font-black text-slate-800 tracking-tight leading-[1.1] dark:text-white">
-                                {t.heroTitle}
+                                {heroT.title}
                             </h1>
                             <p className="text-xl text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed dark:text-slate-400">
-                                {t.heroSubtitle}
+                                {heroT.subtitle}
                             </p>
                         </div>
                     </div>
@@ -149,18 +150,18 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
                             <div className="space-y-4">
                                 <button
                                     onClick={() => fileInputRef.current?.click()}
-                                    className="px-12 py-5 bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-2xl text-lg font-black hover:from-blue-600 hover:to-blue-700 transition-all shadow-2xl shadow-slate-200 hover:shadow-blue-200/50 hover:scale-105 active:scale-95 flex items-center gap-3 mx-auto uppercase tracking-wide dark:from-white dark:to-slate-100 dark:text-slate-900 dark:hover:from-blue-50 dark:hover:to-blue-100 dark:shadow-none"
+                                    className="px-12 py-5 bg- gradient-to-r from-slate-900 to-slate-800 text-white rounded-2xl text-lg font-black hover:from-blue-600 hover:to-blue-700 transition-all shadow-2xl shadow-slate-200 hover:shadow-blue-200/50 hover:scale-105 active:scale-95 flex items-center gap-3 mx-auto uppercase tracking-wide dark:from-white dark:to-slate-100 dark:text-slate-900 dark:hover:from-blue-50 dark:hover:to-blue-100 dark:shadow-none"
                                 >
-                                    {t.uploadButton} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                    {heroT.uploadButton} <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </button>
                                 <p className="text-slate-400 font-bold uppercase tracking-widest text-[10px] dark:text-slate-500">
-                                    {isDragging ? t.dropImage : t.noRegistration}
+                                    {isDragging ? heroT.dropImage : heroT.noRegistration}
                                 </p>
                             </div>
 
                             <div className="flex flex-col items-center gap-2 text-[10px] font-bold text-slate-400 mt-4 uppercase tracking-wider dark:text-slate-500">
                                 <span className="flex items-center gap-1.5 bg-slate-50 px-3 py-1 rounded-lg border border-slate-100 dark:bg-slate-700 dark:border-slate-600 dark:text-slate-300">
-                                    <ImageIcon className="w-3 h-3 text-slate-400 dark:text-slate-400" /> {t.formats}
+                                    <ImageIcon className="w-3 h-3 text-slate-400 dark:text-slate-400" /> {heroT.formats}
                                 </span>
                             </div>
                         </div>
@@ -170,7 +171,7 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
                     <div className="w-full max-w-5xl space-y-8 py-12">
                         <div className="text-center space-y-6">
                             <h2 className="text-4xl md:text-5xl font-black text-slate-800 dark:text-white tracking-tight leading-tight">
-                                Stunning quality
+                                {heroT.qualityTitle || 'Stunning quality'}
                             </h2>
                             <div className="flex flex-wrap justify-center gap-2 md:gap-4 p-1.5 bg-slate-100/50 dark:bg-slate-900/50 backdrop-blur-md rounded-2xl w-fit mx-auto border border-slate-200/50 dark:border-slate-800/50">
                                 {categories.map((cat) => (
@@ -207,7 +208,7 @@ export const Hero: React.FC<HeroProps> = ({ onFilesSelect }) => {
                                 onClick={() => document.getElementById('samples')?.scrollIntoView({ behavior: 'smooth' })}
                                 className="text-blue-600 dark:text-blue-400 font-bold flex items-center gap-2 mx-auto hover:gap-3 transition-all group"
                             >
-                                See more samples <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                {heroT.seeSamples || 'See more samples'} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </button>
                         </div>
                     </div>

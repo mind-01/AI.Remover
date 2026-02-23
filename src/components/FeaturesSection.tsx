@@ -7,6 +7,9 @@ import { translations } from '../lib/translations';
 export const FeaturesSection: React.FC = () => {
     const { language } = useLanguage();
     const t = translations[language] || translations.en;
+    const featuresT = t.features || translations.en.features;
+    const commonT = t.common || translations.en.common;
+
     const [demoStep, setDemoStep] = useState<'idle' | 'processing' | 'complete'>('idle');
 
     const runLiveDemo = () => {
@@ -52,7 +55,7 @@ export const FeaturesSection: React.FC = () => {
                         viewport={{ once: true }}
                         className="text-xs font-black text-blue-600 dark:text-blue-400 uppercase tracking-[0.3em] bg-blue-50 dark:bg-blue-900/20 px-4 py-2 rounded-full w-fit mx-auto"
                     >
-                        {t.features.process}
+                        {featuresT.process}
                     </motion.h2>
                     <motion.h3
                         initial={{ opacity: 0, y: 20 }}
@@ -70,7 +73,7 @@ export const FeaturesSection: React.FC = () => {
                         transition={{ delay: 0.2 }}
                         className="text-lg text-slate-500 max-w-2xl mx-auto font-bold dark:text-slate-400"
                     >
-                        Remove backgrounds from any image in seconds with our advanced AI engine. No manual clipping required.
+                        {featuresT.howDesc || 'Remove backgrounds from any image in seconds with our advanced AI engine.'}
                     </motion.p>
                 </div>
 
@@ -82,9 +85,9 @@ export const FeaturesSection: React.FC = () => {
                     className="grid grid-cols-1 md:grid-cols-3 gap-10"
                 >
                     {[
-                        { step: '01', title: t.features.uploadTitle, desc: t.features.uploadDesc, icon: ImageIcon, color: 'blue' },
-                        { step: '02', title: t.features.aiTitle, desc: t.features.aiDesc, icon: Wand2, color: 'indigo' },
-                        { step: '03', title: t.features.downloadTitle, desc: t.features.downloadDesc, icon: Download, color: 'emerald' },
+                        { step: '01', title: featuresT.uploadTitle, desc: featuresT.uploadDesc, icon: ImageIcon, color: 'blue' },
+                        { step: '02', title: featuresT.aiTitle, desc: featuresT.aiDesc, icon: Wand2, color: 'indigo' },
+                        { step: '03', title: featuresT.downloadTitle, desc: featuresT.downloadDesc, icon: Download, color: 'emerald' },
                     ].map((item, idx) => (
                         <motion.div
                             key={idx}
@@ -123,22 +126,22 @@ export const FeaturesSection: React.FC = () => {
                                     className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full"
                                 >
                                     <Sparkles className="w-4 h-4 text-blue-400" />
-                                    <span className="text-xs font-black text-blue-400 uppercase tracking-widest">{t.features.whyTitle}</span>
+                                    <span className="text-xs font-black text-blue-400 uppercase tracking-widest">{featuresT.whyTitle}</span>
                                 </motion.div>
                                 <h3 className="text-4xl lg:text-6xl font-black text-white tracking-tight leading-[1.1]">
                                     Unmatched <span className="text-blue-500 text-glow">Precision</span> for every pixel.
                                 </h3>
                                 <p className="text-slate-400 text-lg font-bold leading-relaxed max-w-lg">
-                                    Our AI model is trained on millions of studio-grade images, ensuring perfect edge detection even for hair, fur, and complex backgrounds.
+                                    {featuresT.whyDesc || 'Our AI model is trained on millions of studio-grade images.'}
                                 </p>
                             </div>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                                 {[
-                                    { title: t.features.autoTitle, desc: t.features.autoDesc, icon: <Zap className="w-5 h-5" /> },
-                                    { title: t.features.hdTitle, desc: t.features.hdDesc, icon: <ImageIcon className="w-5 h-5" /> },
-                                    { title: t.features.smartTitle, desc: t.features.smartDesc, icon: <Cpu className="w-5 h-5" /> },
-                                    { title: t.features.privacyTitle, desc: t.features.privacyDesc, icon: <Shield className="w-5 h-5" /> },
+                                    { title: featuresT.autoTitle, desc: featuresT.autoDesc, icon: <Zap className="w-5 h-5" /> },
+                                    { title: featuresT.hdTitle, desc: featuresT.hdDesc, icon: <ImageIcon className="w-5 h-5" /> },
+                                    { title: featuresT.smartTitle, desc: featuresT.smartDesc, icon: <Cpu className="w-5 h-5" /> },
+                                    { title: featuresT.privacyTitle, desc: featuresT.privacyDesc, icon: <Shield className="w-5 h-5" /> },
                                 ].map((item, idx) => (
                                     <motion.div
                                         key={idx}
@@ -180,10 +183,10 @@ export const FeaturesSection: React.FC = () => {
                                                 <Zap className="w-6 h-6 text-white" />
                                             </div>
                                             <div>
-                                                <span className="block text-xs font-black text-white uppercase tracking-wider">{t.features.aiAnalysis}</span>
+                                                <span className="block text-xs font-black text-white uppercase tracking-wider">{featuresT.aiAnalysis}</span>
                                                 <div className="flex items-center gap-2 mt-1">
                                                     <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_12px_rgba(34,197,94,0.6)]" />
-                                                    <span className="text-[10px] text-green-400 font-black uppercase tracking-widest">{t.features.online}</span>
+                                                    <span className="text-[10px] text-green-400 font-black uppercase tracking-widest">{featuresT.online}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -198,7 +201,7 @@ export const FeaturesSection: React.FC = () => {
                                                     onClick={runLiveDemo}
                                                     className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white text-xs font-black uppercase tracking-[0.15em] rounded-2xl transition-all shadow-xl shadow-blue-600/30 active:scale-95"
                                                 >
-                                                    {t.features.liveDemo}
+                                                    {featuresT.liveDemo}
                                                 </motion.button>
                                             )}
                                             {demoStep === 'processing' && (
@@ -209,7 +212,7 @@ export const FeaturesSection: React.FC = () => {
                                                     className="px-6 py-3 bg-white/5 border border-white/10 text-slate-400 text-xs font-black uppercase tracking-widest rounded-2xl flex items-center gap-3"
                                                 >
                                                     <Loader2 className="w-4 h-4 animate-spin" />
-                                                    {t.common.processing}
+                                                    {commonT.processing}
                                                 </motion.div>
                                             )}
                                             {demoStep === 'complete' && (
@@ -220,7 +223,7 @@ export const FeaturesSection: React.FC = () => {
                                                     onClick={resetDemo}
                                                     className="px-6 py-3 bg-white text-slate-900 text-xs font-black uppercase tracking-[0.15em] rounded-2xl transition-all hover:bg-white/90 active:scale-95"
                                                 >
-                                                    {t.features.tryAgain}
+                                                    {featuresT.tryAgain}
                                                 </motion.button>
                                             )}
                                         </AnimatePresence>
@@ -284,9 +287,9 @@ export const FeaturesSection: React.FC = () => {
                                         {/* Info Badge */}
                                         <div className="absolute bottom-6 left-8 right-8 flex justify-between items-center pointer-events-none">
                                             <div className="space-y-1">
-                                                <span className="block text-[10px] font-black text-blue-400 uppercase tracking-widest">{t.features.demoEfficiency}</span>
+                                                <span className="block text-[10px] font-black text-blue-400 uppercase tracking-widest">{featuresT.demoEfficiency}</span>
                                                 <span className="block text-sm font-bold text-white tracking-tight">
-                                                    {demoStep === 'complete' ? 'Perfect Separation' : 'Precise Edge Analysis'}
+                                                    {demoStep === 'complete' ? featuresT.demoRemoved : featuresT.demoPrecision}
                                                 </span>
                                             </div>
                                             <motion.div
@@ -301,8 +304,8 @@ export const FeaturesSection: React.FC = () => {
                                     {/* Stats Grid */}
                                     <div className="grid grid-cols-2 gap-4">
                                         {[
-                                            { label: 'Latency', val: '0.42s', color: 'text-white' },
-                                            { label: 'Accuracy', val: demoStep === 'complete' ? '100%' : '99.9%', color: demoStep === 'complete' ? 'text-green-400' : 'text-white' }
+                                            { label: featuresT.demoSpeed, val: '0.42s', color: 'text-white' },
+                                            { label: featuresT.demoAccuracy, val: demoStep === 'complete' ? '100%' : '99.9%', color: demoStep === 'complete' ? 'text-green-400' : 'text-white' }
                                         ].map(stat => (
                                             <div key={stat.label} className="bg-white/5 border border-white/5 p-5 rounded-3xl flex flex-col items-center group/stat">
                                                 <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1 group-hover/stat:text-blue-400 transition-colors uppercase tracking-[0.2em]">{stat.label}</span>
