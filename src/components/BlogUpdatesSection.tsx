@@ -8,6 +8,9 @@ export const BlogUpdatesSection: React.FC = () => {
     const { language } = useLanguage();
     const t = translations[language] || translations.en;
 
+    const blogT = t.blog || translations.en.blog;
+    const newsletterT = t.newsletter || translations.en.newsletter;
+
     return (
         <section className="py-16 relative overflow-hidden bg-slate-50 dark:bg-slate-900/30 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -20,7 +23,7 @@ export const BlogUpdatesSection: React.FC = () => {
                             viewport={{ once: true }}
                             className="text-3xl font-black text-slate-800 dark:text-white tracking-tight"
                         >
-                            {t.blog?.title || 'Blog'}
+                            {blogT.title}
                         </motion.h2>
                     </div>
                     <motion.a
@@ -30,14 +33,14 @@ export const BlogUpdatesSection: React.FC = () => {
                         viewport={{ once: true }}
                         className="flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-blue-600 transition-colors group"
                     >
-                        {t.blog?.seeMore || 'See more articles'}
+                        {blogT.seeMore}
                         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </motion.a>
                 </div>
 
                 {/* Blog Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
-                    {(t.blog?.posts || []).slice(0, 3).map((post: any, idx: number) => (
+                    {(blogT.posts || []).slice(0, 3).map((post: any, idx: number) => (
                         <motion.div
                             key={idx}
                             initial={{ opacity: 0, y: 20 }}
@@ -61,26 +64,26 @@ export const BlogUpdatesSection: React.FC = () => {
                     <div className="space-y-6">
                         <div>
                             <h2 className="text-3xl font-black text-slate-800 dark:text-white mb-3">
-                                {t.newsletter?.title || 'Get Updates'}
+                                {newsletterT.title}
                             </h2>
                             <p className="text-slate-500 dark:text-slate-400 font-bold max-w-sm text-sm leading-relaxed">
-                                {t.newsletter?.desc || 'Sign up for our mailing list to receive news and updates.'}
+                                {newsletterT.desc}
                             </p>
                         </div>
 
                         <form className="relative max-w-md" onSubmit={(e) => e.preventDefault()}>
                             <input
                                 type="email"
-                                placeholder={t.newsletter?.placeholder || 'Enter your email'}
+                                placeholder={newsletterT.placeholder}
                                 className="w-full bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-xl py-3.5 pl-5 pr-28 font-bold text-slate-800 dark:text-white focus:border-blue-500 outline-none transition-all shadow-sm text-sm"
                             />
                             <button className="absolute right-2 top-2 bottom-2 bg-blue-600 hover:bg-blue-700 text-white px-6 rounded-xl font-black text-xs uppercase tracking-widest transition-all shadow-lg active:scale-95 flex items-center gap-2">
-                                {t.newsletter?.subscribe || 'Subscribe'}
+                                {newsletterT.subscribe}
                                 <Send className="w-3 h-3" />
                             </button>
                         </form>
                         <p className="text-[10px] text-slate-400 dark:text-slate-500 font-bold">
-                            {t.newsletter?.privacyNote || 'To learn more about how we handle your data, check our Privacy Policy.'}
+                            {newsletterT.privacyNote}
                         </p>
                     </div>
 

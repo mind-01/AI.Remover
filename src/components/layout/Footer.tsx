@@ -188,37 +188,33 @@ export const Footer: React.FC = () => {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="pt-16 border-t border-slate-100 dark:border-slate-800/80 flex flex-col items-center text-center gap-10">
-                    {/* Badges Row */}
-                    <div className="flex flex-wrap items-center justify-center gap-4">
-                        <div className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-900/30 group hover:scale-105 transition-transform">
-                            <Zap className="w-4 h-4 text-blue-600 dark:text-blue-400 group-hover:animate-pulse" />
-                            <span className="text-[11px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest">
-                                Processing 1.2M+ Images Monthly
-                            </span>
-                        </div>
-                        <div className="flex items-center gap-3 px-4 py-2 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl border border-emerald-100 dark:border-emerald-900/30 group hover:scale-105 transition-transform">
-                            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.4)]" />
-                            <span className="text-[11px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">
-                                {t.operational || "Systems Operational"}
-                            </span>
-                        </div>
+                <div className="pt-12 border-t border-slate-100 dark:border-slate-800/80 flex flex-col lg:flex-row justify-between items-center gap-8">
+                    {/* Copyright & Language */}
+                    <div className="flex flex-col md:flex-row items-center gap-6">
+                        <p className="text-sm text-slate-400 dark:text-slate-500 font-bold tracking-tight text-center md:text-left">
+                            © {new Date().getFullYear()} AI Remover PRO. All rights reserved.
+                        </p>
+                        <div className="hidden md:block h-4 w-px bg-slate-200 dark:bg-slate-800" />
+                        <LanguageSelector />
                     </div>
 
-                    {/* Branding & Language */}
-                    <div className="space-y-6">
-                        <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                            <p className="text-sm text-slate-400 dark:text-slate-500 font-bold tracking-tight">
-                                © {new Date().getFullYear()} AI Remover PRO. All rights reserved.
-                            </p>
-                            <div className="h-4 w-px bg-slate-200 dark:bg-slate-800 hidden md:block" />
-                            <LanguageSelector />
+                    {/* Stats & Made With */}
+                    <div className="flex flex-wrap items-center justify-center lg:justify-end gap-6 md:gap-8">
+                        <div className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/20 rounded-full border border-blue-100 dark:border-blue-900/30 group">
+                            <Zap className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 group-hover:animate-pulse" />
+                            <span className="text-[10px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-widest whitespace-nowrap">
+                                1.2M+ Monthly
+                            </span>
                         </div>
 
-                        <div className="flex items-center justify-center gap-2 text-sm font-black text-slate-400 dark:text-slate-500 select-none">
+                        <div className="flex items-center gap-2 group">
+                            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.4)]" />
+                            <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest">{t.operational || translations.en.common.operational}</span>
+                        </div>
+
+                        <div className="flex items-center gap-1.5 text-sm font-black text-slate-400 dark:text-slate-500">
                             <span>Made with</span>
                             <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
-                            <span>for the next generation</span>
                         </div>
                     </div>
                 </div>

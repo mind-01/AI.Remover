@@ -12,25 +12,27 @@ export const EcommerceSection: React.FC<EcommerceSectionProps> = ({ onCtaClick }
     const { language } = useLanguage();
     const t = translations[language] || translations.en;
 
+    const ecommerceT = t.ecommerce || translations.en.ecommerce;
+
     const benefits = [
         {
             icon: Zap,
-            title: t.ecommerce.bulkTitle,
-            desc: t.ecommerce.bulkDesc,
+            title: ecommerceT.bulkTitle,
+            desc: ecommerceT.bulkDesc,
             color: 'text-amber-500',
             bg: 'bg-amber-50 dark:bg-amber-900/20'
         },
         {
             icon: Layers,
-            title: t.ecommerce.marketplaceTitle,
-            desc: t.ecommerce.marketplaceDesc,
+            title: ecommerceT.marketplaceTitle,
+            desc: ecommerceT.marketplaceDesc,
             color: 'text-blue-500',
             bg: 'bg-blue-50 dark:bg-blue-900/20'
         },
         {
             icon: BarChart3,
-            title: t.ecommerce.studioTitle,
-            desc: t.ecommerce.studioDesc,
+            title: ecommerceT.studioTitle,
+            desc: ecommerceT.studioDesc,
             color: 'text-green-500',
             bg: 'bg-green-50 dark:bg-green-900/20'
         }
@@ -135,10 +137,10 @@ export const EcommerceSection: React.FC<EcommerceSectionProps> = ({ onCtaClick }
                                 className="inline-flex items-center gap-2 px-4 py-2 bg-amber-50 text-amber-600 rounded-full text-xs font-black uppercase tracking-widest border border-amber-100 dark:bg-amber-900/20 dark:text-amber-400 dark:border-amber-800/50"
                             >
                                 <ShoppingBag className="w-3.5 h-3.5" />
-                                {t.ecommerce.title}
+                                {ecommerceT.title}
                             </motion.div>
                             <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
-                                {t.ecommerce.subtitle}
+                                {ecommerceT.subtitle}
                             </h2>
                         </div>
 
@@ -169,7 +171,7 @@ export const EcommerceSection: React.FC<EcommerceSectionProps> = ({ onCtaClick }
                             onClick={onCtaClick}
                             className="px-10 py-5 bg-slate-900 text-white dark:bg-white dark:text-slate-900 rounded-2xl text-lg font-black flex items-center gap-3 shadow-xl shadow-slate-200 dark:shadow-none uppercase tracking-wide"
                         >
-                            {t.ecommerce.cta} <ArrowRight className="w-5 h-5" />
+                            {ecommerceT.cta} <ArrowRight className="w-5 h-5" />
                         </motion.button>
                     </div>
                 </div>
