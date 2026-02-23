@@ -12,6 +12,7 @@ import { Footer } from '../components/layout/Footer';
 import { ProcessingView } from '../components/ProcessingView';
 import { ResultViewer } from '../components/ResultViewer';
 import { ComparisonSection } from '../components/ComparisonSection';
+import { EcommerceSection } from '../components/EcommerceSection';
 import { APISection } from '../components/APISection';
 import { FAQSection } from '../components/FAQSection';
 import { BlogUpdatesSection } from '../components/BlogUpdatesSection';
@@ -235,6 +236,7 @@ export function HomePage() {
                                     </section>
 
                                     <ComparisonSection />
+                                    <EcommerceSection />
                                     <APISection />
                                     <FAQSection />
                                     <BlogUpdatesSection />
