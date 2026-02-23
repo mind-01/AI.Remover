@@ -7,8 +7,8 @@ import { translations } from '../lib/translations';
 export const FeaturesSection: React.FC = () => {
     const { language } = useLanguage();
     const t = translations[language] || translations.en;
-    const featuresT = t.features || translations.en.features;
-    const commonT = t.common || translations.en.common;
+    const featuresT = t.features || translations.en.features || {};
+    const commonT = t.common || translations.en.common || {};
 
     const [demoStep, setDemoStep] = useState<'idle' | 'processing' | 'complete'>('idle');
 

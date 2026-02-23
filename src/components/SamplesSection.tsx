@@ -8,6 +8,9 @@ import { translations } from '../lib/translations';
 export const SamplesSection: React.FC = () => {
     const { language } = useLanguage();
     const t = translations[language] || translations.en;
+    const samplesT = t.samples || translations.en.samples || { categories: {}, labels: {} };
+    const blogT = t.blog || translations.en.blog || { posts: [] };
+    const newsletterT = t.newsletter || translations.en.newsletter || {};
 
     const [activeTab1, setActiveTab1] = useState('Products');
     const [activeTab2, setActiveTab2] = useState('People');
@@ -46,7 +49,7 @@ export const SamplesSection: React.FC = () => {
             {/* 1. Stunning Quality Section */}
             <section className="text-center space-y-12">
                 <div className="space-y-4">
-                    <h2 className="text-4xl font-black text-slate-800 tracking-tight">{t.samples.stunningTitle}</h2>
+                    <h2 className="text-4xl font-black text-slate-800 tracking-tight">{samplesT.stunningTitle}</h2>
                     <div className="flex flex-wrap justify-center gap-2">
                         {categoryKeys.map((key) => (
                             <button
@@ -59,7 +62,7 @@ export const SamplesSection: React.FC = () => {
                                         : "bg-slate-100 text-slate-500 hover:bg-slate-200"
                                 )}
                             >
-                                {t.samples.categories[key]}
+                                {samplesT.categories[key]}
                             </button>
                         ))}
                     </div>
@@ -74,7 +77,7 @@ export const SamplesSection: React.FC = () => {
                         className="max-h-[500px]"
                     />
                     <button className="mt-8 text-blue-600 font-bold text-sm flex items-center gap-2 mx-auto hover:gap-3 transition-all">
-                        {t.samples.seeMore} <ArrowRight className="w-4 h-4" />
+                        {samplesT.seeMore} <ArrowRight className="w-4 h-4" />
                     </button>
                 </div>
             </section>
@@ -102,25 +105,25 @@ export const SamplesSection: React.FC = () => {
                 </div>
                 <div className="w-full lg:w-1/2 space-y-6">
                     <h2 className="text-4xl font-black text-slate-800 leading-tight">
-                        {t.samples.efficiencyTitle}
+                        {samplesT.efficiencyTitle}
                     </h2>
                     <p className="text-slate-500 text-lg leading-relaxed">
-                        {t.samples.efficiencyDesc1}
+                        {samplesT.efficiencyDesc1}
                     </p>
                     <div className="space-y-4">
                         <p className="text-slate-600 text-sm font-medium">
-                            {t.samples.efficiencyDesc2}
+                            {samplesT.efficiencyDesc2}
                         </p>
                         <p className="text-slate-600 text-sm">
-                            {t.samples.efficiencyDesc3}
+                            {samplesT.efficiencyDesc3}
                         </p>
                     </div>
                     <div className="pt-4 flex flex-col gap-3">
                         <button className="text-blue-600 font-bold text-sm flex items-center gap-2 hover:gap-3 transition-all">
-                            {t.samples.integrations} <ArrowRight className="w-4 h-4" />
+                            {samplesT.integrations} <ArrowRight className="w-4 h-4" />
                         </button>
                         <button className="text-blue-600 font-bold text-sm flex items-center gap-2 hover:gap-3 transition-all">
-                            {t.samples.apiDocs} <ArrowRight className="w-4 h-4" />
+                            {samplesT.apiDocs} <ArrowRight className="w-4 h-4" />
                         </button>
                     </div>
                 </div>
@@ -129,7 +132,7 @@ export const SamplesSection: React.FC = () => {
             {/* 3. Just Picture It Section */}
             <section className="text-center space-y-12">
                 <div className="space-y-4">
-                    <h2 className="text-4xl font-black text-slate-800 tracking-tight">{t.samples.pictureTitle}</h2>
+                    <h2 className="text-4xl font-black text-slate-800 tracking-tight">{samplesT.pictureTitle}</h2>
                     <div className="flex flex-wrap justify-center gap-2">
                         {categoryKeys.map((key) => (
                             <button
@@ -142,7 +145,7 @@ export const SamplesSection: React.FC = () => {
                                         : "bg-slate-100 text-slate-500 hover:bg-slate-200"
                                 )}
                             >
-                                {t.samples.categories[key]}
+                                {samplesT.categories[key]}
                             </button>
                         ))}
                     </div>
@@ -150,10 +153,10 @@ export const SamplesSection: React.FC = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {[
-                        { label: t.samples.labels.original, src: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800' },
-                        { label: t.samples.labels.transparent, src: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&bg=transparent', transparent: true },
-                        { label: t.samples.labels.newBg, src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800' },
-                        { label: t.samples.labels.endless, grid: true }
+                        { label: samplesT.labels.original, src: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800' },
+                        { label: samplesT.labels.transparent, src: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&bg=transparent', transparent: true },
+                        { label: samplesT.labels.newBg, src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800' },
+                        { label: samplesT.labels.endless, grid: true }
                     ].map((item, i) => (
                         <div key={i} className="space-y-3">
                             <div className={cn(
@@ -180,14 +183,14 @@ export const SamplesSection: React.FC = () => {
             {/* 4. Blog & Updates Section */}
             <section className="space-y-16">
                 <div className="flex justify-between items-end">
-                    <h2 className="text-4xl font-black text-slate-800 tracking-tight">{t.blog.title}</h2>
+                    <h2 className="text-4xl font-black text-slate-800 tracking-tight">{blogT.title}</h2>
                     <button className="text-blue-600 font-bold text-sm flex items-center gap-2 hover:gap-3 transition-all">
-                        {t.blog.seeMore} <ArrowRight className="w-4 h-4" />
+                        {blogT.seeMore} <ArrowRight className="w-4 h-4" />
                     </button>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {(t.blog.posts || translations.en.blog.posts).map((blog: any, i: number) => (
+                    {(blogT.posts || []).map((blog: any, i: number) => (
                         <div key={i} className="p-8 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[2.5rem] shadow-sm hover:shadow-xl transition-all group cursor-pointer">
                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">{blog.date}</p>
                             <h3 className="text-lg font-bold text-slate-800 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-tight">{blog.title}</h3>
@@ -199,24 +202,24 @@ export const SamplesSection: React.FC = () => {
                     <div className="bg-slate-900 rounded-[4rem] p-12 lg:p-20 relative overflow-hidden">
                         <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
                             <div className="space-y-4 max-w-xl">
-                                <h2 className="text-4xl font-black text-white leading-tight">{t.newsletter.title}</h2>
+                                <h2 className="text-4xl font-black text-white leading-tight">{newsletterT.title}</h2>
                                 <p className="text-slate-400 text-lg leading-relaxed">
-                                    {t.newsletter.desc}
+                                    {newsletterT.desc}
                                 </p>
                             </div>
                             <div className="w-full lg:w-auto relative max-w-md">
                                 <div className="flex p-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
                                     <input
                                         type="email"
-                                        placeholder={t.newsletter.placeholder}
+                                        placeholder={newsletterT.placeholder}
                                         className="bg-transparent border-none text-white px-6 py-3 focus:ring-0 flex-grow placeholder:text-slate-500 font-medium"
                                     />
                                     <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-black text-sm uppercase tracking-widest transition-all">
-                                        {t.newsletter.subscribe}
+                                        {newsletterT.subscribe}
                                     </button>
                                 </div>
                                 <p className="text-[10px] text-slate-500 mt-4 px-6 text-center lg:text-left">
-                                    {t.newsletter.privacyNote}
+                                    {newsletterT.privacyNote}
                                 </p>
                             </div>
                         </div>

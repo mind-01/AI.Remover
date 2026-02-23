@@ -8,7 +8,7 @@ import { LanguageSelector } from '../LanguageSelector';
 
 export const Footer: React.FC = () => {
     const { language } = useLanguage();
-    const t = translations[language]?.common || translations.en.common;
+    const t = translations[language]?.common || translations.en.common || {};
     const [email, setEmail] = useState('');
     const [subscribed, setSubscribed] = useState(false);
 

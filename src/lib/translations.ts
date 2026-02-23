@@ -246,6 +246,17 @@ export const translations: Record<string, any> = {
             studioTitle: 'Studio Quality',
             studioDesc: 'Save thousands on professional photography. Our AI delivers studio-grade cutouts instantly.',
             cta: 'Boost Your Sales'
+        },
+        hero: {
+            leadingAi: 'Leading AI Background Remover',
+            title: 'Remove image background automatically',
+            subtitle: 'Upload your photos to make the background transparent with 100% precision using our professional AI models.',
+            uploadButton: 'Upload Image',
+            dropImage: 'Drop image here',
+            noRegistration: 'No registration required. 100% Free.',
+            formats: 'JPG, PNG, WEBP (Max 15MB)',
+            qualityTitle: 'Stunning quality',
+            seeSamples: 'See more samples'
         }
     },
     hi: {
@@ -455,6 +466,17 @@ export const translations: Record<string, any> = {
             studioTitle: 'स्टूडियो गुणवत्ता',
             studioDesc: 'प्रोफेशनल फोटोग्राफी पर हजारों बचाएं। हमारा एआई तुरंत स्टूडियो-ग्रेड कटआउट प्रदान करता है।',
             cta: 'अपनी बिक्री बढ़ाएं'
+        },
+        hero: {
+            leadingAi: 'अग्रणी एआई बैकग्राउंड रिमूवर',
+            title: 'इमेज बैकग्राउंड को ऑटोमैटिकली हटाएं',
+            subtitle: 'हमारे प्रोफेशनल एआई मॉडल का उपयोग करके 100% सटीकता के साथ बैकग्राउंड को पारदर्शी बनाने के लिए अपनी तस्वीरें अपलोड करें।',
+            uploadButton: 'इमेज अपलोड करें',
+            dropImage: 'इमेज को यहाँ छोड़ें',
+            noRegistration: 'कोई रजिस्ट्रेशन आवश्यक नहीं। 100% मुफ्त।',
+            formats: 'JPG, PNG, WEBP (अधिकतम 15MB)',
+            qualityTitle: 'शानदार गुणवत्ता',
+            seeSamples: 'अधिक नमूने देखें'
         }
     },
     es: {

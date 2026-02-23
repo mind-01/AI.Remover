@@ -55,6 +55,8 @@ export const ResultViewer: React.FC<ResultViewerProps> = ({
 }) => {
     const { language } = useLanguage();
     const t = translations[language] || translations.en;
+    const commonT = t.common || translations.en.common || {};
+    const editorT = t.editor || translations.en.editor || {};
 
     const [activeTab, setActiveTab] = useState<EditorTab>('zoom');
     const [bgSubTab, setBgSubTab] = useState<'photo' | 'color'>('photo');

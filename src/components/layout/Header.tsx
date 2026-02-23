@@ -16,7 +16,7 @@ export const Header: React.FC<{ setShowDashboard: (show: boolean, view?: 'histor
     const [isAuthModalOpen, setIsAuthModalOpen] = React.useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
     const [isUserDropdownOpen, setIsUserDropdownOpen] = React.useState(false);
-    const t = translations[language]?.common || translations.en.common;
+    const t = translations[language]?.common || translations.en.common || {};
 
     console.log('Header: Rendered. User:', user ? user.email : 'NULL');
 
