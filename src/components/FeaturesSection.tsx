@@ -109,8 +109,8 @@ export const FeaturesSection: React.FC = () => {
                 <div className="absolute inset-0 bg-slate-900 dark:bg-black transition-colors duration-500" />
 
                 {/* Dynamic Mesh Gradients */}
-                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/20 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2 animate-pulse" />
-                <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-600/10 blur-[120px] rounded-full translate-y-1/2 -translate-x-1/2" />
+                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/20 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2 animate-pulse pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-indigo-600/10 blur-[120px] rounded-full translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
                 <div className="max-w-7xl mx-auto px-8 py-32 relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
@@ -169,7 +169,7 @@ export const FeaturesSection: React.FC = () => {
                                 className="bg-slate-800/80 backdrop-blur-3xl border border-white/10 p-8 rounded-[3.5rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)] relative overflow-hidden group/demo"
                             >
                                 {/* Decorative elements */}
-                                <div className="absolute top-0 right-0 p-10 opacity-5 group-hover/demo:opacity-10 transition-opacity">
+                                <div className="absolute top-0 right-0 p-10 opacity-5 group-hover/demo:opacity-10 transition-opacity pointer-events-none">
                                     <Globe className="w-32 h-32 text-white" />
                                 </div>
 
