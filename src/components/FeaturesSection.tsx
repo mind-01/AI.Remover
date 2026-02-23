@@ -91,7 +91,7 @@ export const FeaturesSection: React.FC = () => {
                             variants={itemVariants}
                             className="relative p-12 bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none hover:shadow-2xl transition-all duration-500 group"
                         >
-                            <div className="absolute top-10 right-10 text-7xl font-black text-slate-50 dark:text-slate-800 opacity-[0.4] group-hover:opacity-[0.1] transition-opacity italic select-none">
+                            <div className="absolute top-10 right-10 text-7xl font-black text-slate-200 dark:text-slate-800/80 group-hover:opacity-10 transition-opacity italic select-none">
                                 {item.step}
                             </div>
                             <div className="w-16 h-16 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white rounded-2xl flex items-center justify-center mb-8 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 shadow-sm border border-slate-100 dark:border-slate-800 relative z-10">
